@@ -3,7 +3,52 @@ url: https://raw.githubusercontent.com/api-search/onfido/refs/heads/main/apis.ym
 apis:
   - aid: onfido:onfido
     name: Onfido
-    tags: []
+    tags:
+      - Applicants
+      - Restore
+      - Workflows
+      - Runs
+      - Run
+      - Signed
+      - Evidence
+      - Files
+      - Documents
+      - Download
+      - Video
+      - Downloads
+      - Live
+      - Photos
+      - Photo
+      - Videos
+      - Frame
+      - Tasks
+      - Task
+      - Complete
+      - Motion
+      - Captures
+      - Capture
+      - Watchlist
+      - Monitors
+      - Matches
+      - Report
+      - Electronic
+      - Signatures
+      - Timeline
+      - Pings
+      - Webhooks
+      - Resend
+      - Addresses
+      - Pick
+      - Token
+      - Repeat
+      - Attempts
+      - Reports
+      - Extractions
+      - Results
+      - Feedback
+      - Checks
+      - Resume
+      - Cancel
     humanURL: https://documentation.onfido.com/
     properties:
       - url: https://documentation.onfido.com/
