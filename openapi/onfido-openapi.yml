@@ -3,10 +3,15 @@ info:
   contact:
     name: Onfido
     url: https://public.support.onfido.com
-  description: The Onfido API (v3.6)
+  description: |-
+
+    Create trust at onboarding and beyond with a complete, AI-powered digital
+    identity solution built to help you know your customers online. 
+    Automation allows you to acquire new customers and reduce costs while
+    meeting global KYC and AML compliance.
   license:
     name: MIT
-  title: Onfido API v3.6
+  title: Onfido
   version: v3.6
 externalDocs:
   url: https://documentation.onfido.com
@@ -61,6 +66,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List Applicants
+      tags:
+        - Applicants
     post:
       description: |
         Creates a single applicant. Returns an applicant object.
@@ -85,6 +92,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Create Applicant
+      tags:
+        - Applicants
   /applicants/{applicant_id}:
     delete:
       description: |
@@ -107,6 +116,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Delete Applicant
+      tags:
+        - Applicants
     get:
       description: |
         Retrieves a single applicant. Returns an applicant object.
@@ -132,6 +143,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve Applicant
+      tags:
+        - Applicants
     put:
       description: >
         Allows updating applicant's information before any checks is created.
@@ -166,6 +179,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Update Applicant
+      tags:
+        - Applicants
   /applicants/{applicant_id}/restore:
     post:
       description: |
@@ -188,6 +203,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Restore Applicant
+      tags:
+        - Applicants
+        - Restore
   /workflow_runs:
     get:
       description: >
@@ -256,6 +274,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List Workflow Runs
+      tags:
+        - Workflows
+        - Runs
     post:
       description: |
         Creates and starts a Workflow Run. Returns a Workflow Run object.
@@ -280,6 +301,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Create a Workflow Run
+      tags:
+        - Workflows
+        - Runs
   /workflow_runs/{workflow_run_id}:
     get:
       description: >
@@ -308,6 +332,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve Workflow Run
+      tags:
+        - Workflows
+        - Runs
+        - Run
   /workflow_runs/{workflow_run_id}/signed_evidence_file:
     get:
       description: |
@@ -344,6 +372,13 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve Workflow Run Evidence Summary File
+      tags:
+        - Workflows
+        - Runs
+        - Run
+        - Signed
+        - Evidence
+        - Files
   /documents:
     get:
       description: All documents belonging to an applicant can be listed from this endpoint
@@ -369,6 +404,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List documents
+      tags:
+        - Documents
     post:
       description: >
         Documents are uploaded using this endpoint. Along with the file upload
@@ -396,6 +433,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Upload a document
+      tags:
+        - Documents
   /documents/{document_id}:
     get:
       description: >
@@ -423,6 +462,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve document
+      tags:
+        - Documents
   /documents/{document_id}/download:
     get:
       description: >
@@ -451,6 +492,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Download document
+      tags:
+        - Documents
+        - Download
   /documents/{document_id}/video/download:
     get:
       description: >
@@ -478,6 +522,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Download document video
+      tags:
+        - Documents
+        - Video
+        - Downloads
   /live_photos:
     get:
       description: |
@@ -505,6 +553,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List live photos
+      tags:
+        - Live
+        - Photos
     post:
       description: >
         You can upload live photos to this endpoint. Like document upload, files
@@ -534,6 +585,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Upload live photo
+      tags:
+        - Live
+        - Photos
   /live_photos/{live_photo_id}:
     get:
       description: |
@@ -561,6 +615,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve live photo
+      tags:
+        - Live
+        - Photos
+        - Photo
   /live_photos/{live_photo_id}/download:
     get:
       description: Live photos are downloaded using this endpoint.
@@ -588,6 +646,11 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Download live photo
+      tags:
+        - Live
+        - Photos
+        - Photo
+        - Download
   /live_videos:
     get:
       description: |
@@ -615,6 +678,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List live videos
+      tags:
+        - Live
+        - Videos
   /live_videos/{live_video_id}:
     get:
       description: >
@@ -643,6 +709,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve live video
+      tags:
+        - Live
+        - Videos
   /live_videos/{live_video_id}/download:
     get:
       description: Live videos are downloaded using this endpoint.
@@ -670,6 +739,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Download live video
+      tags:
+        - Live
+        - Videos
+        - Download
   /live_videos/{live_video_id}/frame:
     get:
       description: Returns the binary data representing a single frame from a live video.
@@ -697,6 +770,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Download live video frame
+      tags:
+        - Live
+        - Videos
+        - Frame
   /workflow_runs/{workflow_run_id}/tasks:
     get:
       description: >
@@ -730,6 +807,11 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List Tasks
+      tags:
+        - Workflows
+        - Runs
+        - Run
+        - Tasks
   /workflow_runs/{workflow_run_id}/tasks/{task_id}:
     get:
       description: >
@@ -764,6 +846,12 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve Task
+      tags:
+        - Workflows
+        - Runs
+        - Run
+        - Tasks
+        - Task
   /workflow_runs/{workflow_run_id}/tasks/{task_id}/complete:
     post:
       description: |
@@ -799,6 +887,13 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Complete Task
+      tags:
+        - Workflows
+        - Runs
+        - Run
+        - Tasks
+        - Task
+        - Complete
   /motion_captures:
     get:
       description: |
@@ -826,6 +921,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List motion captures
+      tags:
+        - Motion
+        - Captures
   /motion_captures/{motion_capture_id}:
     get:
       description: >
@@ -854,6 +952,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve motion capture
+      tags:
+        - Motion
+        - Captures
+        - Capture
   /motion_captures/{motion_capture_id}/download:
     get:
       description: Motion captures are downloaded using this endpoint.
@@ -881,6 +983,11 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Download motion capture
+      tags:
+        - Motion
+        - Captures
+        - Capture
+        - Download
   /motion_captures/{motion_capture_id}/frame:
     get:
       description: >-
@@ -910,6 +1017,11 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Download motion capture frame
+      tags:
+        - Motion
+        - Captures
+        - Capture
+        - Frame
   /watchlist_monitors:
     get:
       description: |
@@ -945,6 +1057,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List monitors
+      tags:
+        - Watchlist
+        - Monitors
     post:
       description: |
         Creates a new monitor for the applicant
@@ -969,6 +1084,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Create monitor
+      tags:
+        - Watchlist
+        - Monitors
   /watchlist_monitors/{monitor_id}:
     delete:
       description: |
@@ -991,6 +1109,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Delete monitor
+      tags:
+        - Watchlist
+        - Monitors
     get:
       description: |
         Retrieves a single monitor
@@ -1017,6 +1138,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve monitor
+      tags:
+        - Watchlist
+        - Monitors
   /watchlist_monitors/{monitor_id}/matches:
     get:
       description: |
@@ -1037,6 +1161,10 @@ paths:
                 $ref: '#/components/schemas/watchlist_monitor_matches_list'
           description: An array of watchlist monitors
       summary: List matches (BETA)
+      tags:
+        - Watchlist
+        - Monitors
+        - Matches
     patch:
       description: |
         Update the status of the given matches
@@ -1068,6 +1196,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Set match status (BETA)
+      tags:
+        - Watchlist
+        - Monitors
+        - Matches
   /watchlist_monitors/{monitor_id}/new_report:
     post:
       description: >
@@ -1096,6 +1228,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Force new report creation (BETA)
+      tags:
+        - Watchlist
+        - Monitors
+        - Report
   /id_photos:
     get:
       description: |
@@ -1123,6 +1259,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List ID photos
+      tags:
+        - Photos
     post:
       description: >
         You can upload ID photos to this endpoint. Like document upload, files
@@ -1149,6 +1287,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Upload ID photo
+      tags:
+        - Photos
   /id_photos/{id_photo_id}:
     get:
       description: |
@@ -1176,6 +1316,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve ID photo
+      tags:
+        - Photos
+        - Photo
   /id_photos/{id_photo_id}/download:
     get:
       description: ID photos are downloaded using this endpoint.
@@ -1203,6 +1346,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Download ID photo
+      tags:
+        - Photos
+        - Photo
+        - Download
   /qualified_electronic_signature/documents:
     get:
       description: >
@@ -1249,6 +1396,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieves the signed document or application form
+      tags:
+        - Electronic
+        - Signatures
+        - Documents
   /workflow_runs/{workflow_run_id}/timeline_file:
     post:
       description: >
@@ -1277,6 +1428,12 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Create Timeline File for Workflow Run
+      tags:
+        - Workflows
+        - Runs
+        - Run
+        - Timeline
+        - Files
   /workflow_runs/{workflow_run_id}/timeline_file/{timeline_file_id}:
     get:
       description: |
@@ -1320,6 +1477,12 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve Timeline File for Workflow Run
+      tags:
+        - Workflows
+        - Runs
+        - Run
+        - Timeline
+        - Files
   /ping:
     get:
       description: |
@@ -1339,6 +1502,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Ping
+      tags:
+        - Pings
   /webhooks:
     get:
       description: |
@@ -1358,6 +1523,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List webhooks
+      tags:
+        - Webhooks
     post:
       callbacks:
         webhookEvent:
@@ -1399,6 +1566,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Register webhook
+      tags:
+        - Webhooks
   /webhooks/{webhook_id}:
     delete:
       description: |
@@ -1421,6 +1590,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Delete a webhook
+      tags:
+        - Webhooks
     get:
       description: |
         Retrieves a single webhook. Returns a webhook object.
@@ -1446,6 +1617,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve a Webhook
+      tags:
+        - Webhooks
     put:
       description: |
         Edits a webhook. Returns the updated webhook object.
@@ -1477,6 +1650,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Edit a webhook
+      tags:
+        - Webhooks
   /webhooks/resend:
     post:
       description: >
@@ -1501,6 +1676,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Resends webhooks
+      tags:
+        - Webhooks
+        - Resend
   /addresses/pick:
     get:
       description: |
@@ -1526,6 +1704,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Address Picker
+      tags:
+        - Addresses
+        - Pick
   /sdk_token:
     post:
       description: |
@@ -1551,6 +1732,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Generate a SDK token
+      tags:
+        - Token
   /repeat_attempts/{report_id}:
     get:
       description: |
@@ -1577,6 +1760,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve repeat attempts
+      tags:
+        - Repeat
+        - Attempts
+        - Reports
   /extractions:
     post:
       description: |
@@ -1602,6 +1789,8 @@ paths:
                 $ref: '#/components/schemas/Error_1'
           description: Unprocessable Entity
       summary: Autofill
+      tags:
+        - Extractions
   /results_feedback:
     post:
       description: |
@@ -1627,6 +1816,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Fraud reporting (ALPHA)
+      tags:
+        - Results
+        - Feedback
   /checks:
     get:
       description: |
@@ -1653,6 +1845,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve Checks
+      tags:
+        - Checks
     post:
       description: >
         Initiates a check for an applicant, which can contain one or more
@@ -1678,6 +1872,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Create a check
+      tags:
+        - Checks
   /checks/{check_id}:
     get:
       description: |
@@ -1704,6 +1900,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve a Check
+      tags:
+        - Checks
   /checks/{check_id}/resume:
     post:
       description: |
@@ -1726,6 +1924,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Resume a Check
+      tags:
+        - Checks
+        - Resume
   /checks/{check_id}/download:
     get:
       description: >
@@ -1754,6 +1955,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Download check
+      tags:
+        - Checks
+        - Download
   /reports:
     get:
       description: >
@@ -1781,6 +1985,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: List reports
+      tags:
+        - Reports
   /reports/{report_id}:
     get:
       description: >
@@ -1808,6 +2014,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Retrieve report
+      tags:
+        - Reports
   /reports/{report_id}/resume:
     post:
       description: |
@@ -1830,6 +2038,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Resume report
+      tags:
+        - Reports
+        - Resume
   /reports/{report_id}/cancel:
     post:
       description: |
@@ -1852,6 +2063,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
       summary: Cancel report
+      tags:
+        - Reports
+        - Cancel
 components:
   responses:
     default_error:
