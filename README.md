@@ -32,11 +32,30 @@ meeting global KYC and AML compliance.
 
 #### Tags:
 
- - API
+ - Applicants, Restore, Workflows, Runs, Run, Signed, Evidence, Files, Documents, Download, Video, Downloads, Live, Photos, Photo, Videos, Frame, Tasks, Task, Complete, Motion, Captures, Capture, Watchlist, Monitors, Matches, Report, Electronic, Signatures, Timeline, Pings, Webhooks, Resend, Addresses, Pick, Token, Repeat, Attempts, Reports, Extractions, Results, Feedback, Checks, Resume, Cancel
 
 #### Properties
 
 - [Documentation](https://documentation.onfido.com/)
+- [OpenAPI](properties/onfido-openapi.yml)
+
+## Common Properties
+
+- [GettingStarted](https://documentation.onfido.com/getting-started/)
+- [ChangeLog](https://documentation.onfido.com/api/release-notes/)
+- [Versioning](https://documentation.onfido.com/api/api-versioning-policy/)
+- [Migrations](https://documentation.onfido.com/api/api-v2-to-v3-migration-guide/)
+- [Authentication](https://documentation.onfido.com/api/api-v2-to-v3-migration-guide/#authentication)
+- [SDKs](https://documentation.onfido.com/sdk/)
+- [Support](https://public.support.onfido.com/s/)
+- [Security](https://onfido.com/security/?_gl=1*1uco4yf*_gcl_au*NDQ1MDk5NjAuMTczNTg1NDc1OA..)
+- [Certifications](https://onfido.com/company/certifications/)
+- [Blog](https://onfido.com/resources-2/?category[]=6)
+- [Login](https://dashboard.onfido.com/users/sign_in?_gl=1*ozb8jg*_gcl_au*NDQ1MDk5NjAuMTczNTg1NDc1OA..*_ga*NzM1NTAyODEzLjE3MzU4NTQ3NTg.*_ga_KPSB470MLM*MTczNTg1NTEzMi4xLjEuMTczNTg1NTE2NS4wLjAuMTUwNjc1NzE2Nw..)
+- [SignUp](https://dashboard.onfido.com/users/sign_up?email=)
+- [TermsOfService](https://onfido.com/termsofuse/)
+- [PrivacyPolicy](https://onfido.com/privacy/)
+- [Partners](https://onfido.com/company/partners/)
 
 ## Maintainers
 
