@@ -1,34 +1,42 @@
 aid: onfido
-name: Onfido
-description: >-
-  Create trust at onboarding and beyond with a complete, AI-powered digital
-  identity solution built to help you know your customers online.  Automation
-  allows you to acquire new customers and reduce costs while meeting global KYC
-  and AML compliance.
-type: Index
-position: Consuming
-access: 3rd-Party
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-tags:
-  - API
-created: 2024-11-07T00:00:00.000Z
-modified: 2024-11-07T00:00:00.000Z
 url: https://raw.githubusercontent.com/api-search/onfido/refs/heads/main/apis.yml
-specificationVersion: '0.19'
 apis:
   - aid: onfido:onfido
     name: Onfido
-    description: >-
+    tags:
+      - API
+    humanURL: https://documentation.onfido.com/
+    properties:
+      - url: https://documentation.onfido.com/
+        type: Documentation
+    description: |-
+
       Create trust at onboarding and beyond with a complete, AI-powered digital
       identity solution built to help you know your customers online. 
       Automation allows you to acquire new customers and reduce costs while
       meeting global KYC and AML compliance.
-    humanURL: https://documentation.onfido.com/
-    tags:
-      - API
-    properties:
-      - type: Documentation
-        url: https://documentation.onfido.com/
+name: Onfido
+tags:
+  - Identity
+  - Verification
+  - Authentication
+type: Contract
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+created: '2024-11-07T00:00:00.000Z'
+modified: '2025-01-02'
+position: Consuming
+description: >-
+  Onfido is a global identity verification and authentication company that helps
+  businesses verify the identities of their customers. Using advanced technology
+  such as facial recognition, document verification, and artificial
+  intelligence, Onfido enables businesses to securely onboard customers, detect
+  and prevent fraudulent activities, and ensure compliance with regulatory
+  requirements. By streamlining the identity verification process, Onfido helps
+  businesses reduce fraud, improve customer trust, and enhance overall user
+  experience. With a focus on innovation and data privacy, Onfido is at the
+  forefront of reshaping the way businesses verify identities online.
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
+specificationVersion: '0.19'
