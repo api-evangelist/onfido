@@ -8,8 +8,8 @@ apis:
     properties:
       - url: https://documentation.onfido.com/
         type: Documentation
-      - type: OpenAPI
-        url: properties/onfido-openapi.yml
+      - url: properties/onfido-openapi.yml
+        type: OpenAPI
     description: |-
 
       Create trust at onboarding and beyond with a complete, AI-powered digital
