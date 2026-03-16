@@ -1,5 +1,5 @@
 aid: onfido
-url: https://raw.githubusercontent.com/api-search/onfido/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/onfido/refs/heads/main/apis.yml
 apis:
   - aid: onfido:onfido
     name: Onfido
@@ -70,7 +70,7 @@ type: Contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2024-11-07T00:00:00.000Z'
-modified: '2025-01-02'
+modified: '2026-03-16'
 position: Consuming
 description: >-
   Onfido is a global identity verification and authentication company that helps
@@ -84,7 +84,7 @@ description: >-
   forefront of reshaping the way businesses verify identities online.
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
 common:
   - name: Onfido Developer Portal | Onfido
