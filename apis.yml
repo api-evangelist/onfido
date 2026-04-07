@@ -1,55 +1,54 @@
 aid: onfido
-url: 
-  https://raw.githubusercontent.com/api-evangelist/onfido/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/onfido/refs/heads/main/apis.yml
 apis:
   - aid: onfido:onfido
     name: Onfido
     tags:
+      - Addresses
       - Applicants
-      - Restore
-      - Workflows
-      - Runs
-      - Run
-      - Signed
-      - Evidence
-      - Files
+      - Attempts
+      - Cancel
+      - Capture
+      - Captures
+      - Checks
+      - Complete
       - Documents
       - Download
-      - Video
       - Downloads
-      - Live
-      - Photos
-      - Photo
-      - Videos
-      - Frame
-      - Tasks
-      - Task
-      - Complete
-      - Motion
-      - Captures
-      - Capture
-      - Watchlist
-      - Monitors
-      - Matches
-      - Report
       - Electronic
-      - Signatures
-      - Timeline
-      - Pings
-      - Webhooks
-      - Resend
-      - Addresses
-      - Pick
-      - Token
-      - Repeat
-      - Attempts
-      - Reports
+      - Evidence
       - Extractions
-      - Results
       - Feedback
-      - Checks
+      - Files
+      - Frame
+      - Live
+      - Matches
+      - Monitors
+      - Motion
+      - Photo
+      - Photos
+      - Pick
+      - Pings
+      - Repeat
+      - Report
+      - Reports
+      - Resend
+      - Restore
+      - Results
       - Resume
-      - Cancel
+      - Run
+      - Runs
+      - Signatures
+      - Signed
+      - Task
+      - Tasks
+      - Timeline
+      - Token
+      - Video
+      - Videos
+      - Watchlist
+      - Webhooks
+      - Workflows
     humanURL: https://documentation.onfido.com/
     properties:
       - url: https://documentation.onfido.com/
@@ -62,9 +61,9 @@ apis:
       to acquire new customers and reduce costs while meeting global KYC and AML compliance.
 name: Onfido
 tags:
+  - Authentication
   - Identity
   - Verification
-  - Authentication
 type: Contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
