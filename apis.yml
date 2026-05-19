@@ -81,6 +81,8 @@ maintainers:
     email: kin@apievangelist.com
 specificationVersion: '0.19'
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/onfido
   - name: Onfido Developer Portal | Onfido
     description: 'null'
     url: https://documentation.onfido.com/getting-started/
