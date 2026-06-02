@@ -55,6 +55,8 @@ apis:
         type: Documentation
       - url: openapi/onfido-openapi.yml
         type: OpenAPI
+      - url: openapi/onfido-asyncapi.yml
+        type: AsyncAPI
     description: >-
       Create trust at onboarding and beyond with a complete, AI-powered digital identity
       solution built to help you know your customers online. Automation allows you
@@ -68,7 +70,7 @@ kind: contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2024-11-07T00:00:00.000Z'
-modified: '2026-04-28'
+modified: '2026-05-30'
 position: Consuming
 description: >-
   Onfido is a global identity verification and authentication company that helps businesses

@@ -1,0 +1,700 @@
+asyncapi: '2.6.0'
+info:
+  title: Onfido Webhooks
+  version: '3.6'
+  description: |
+    AsyncAPI description of the Onfido webhook surface.
+
+    Onfido posts webhook events to a customer-registered HTTPS endpoint when a
+    monitored resource (check, report, workflow run, workflow task, watchlist
+    monitor, etc.) changes state. Each request is signed with HMAC-SHA256 using
+    the per-webhook secret token returned at registration time; the signature
+    is delivered in the `X-SHA2-Signature` header and computed over the raw
+    request body.
+
+    This document was generated from the public Onfido / Entrust Identity
+    Verification API reference and the `onfido-openapi.yml` definition that
+    lives alongside it in this repository. Event names, resource types,
+    object statuses, and the payload envelope are taken verbatim from the
+    `webhook_event_type`, `webhook_event_resource_type`,
+    `webhook_event_object_status`, `webhook_event_payload`,
+    `webhook_event_payload_object`, and `webhook_event_payload_resource`
+    schemas in the OpenAPI document.
+  contact:
+    name: Onfido Documentation
+    url: https://documentation.onfido.com/api/latest/#webhooks
+  license:
+    name: Proprietary
+    url: https://onfido.com/termsofuse/
+
+defaultContentType: application/json
+
+servers:
+  consumer:
+    url: '{webhook_url}'
+    protocol: https
+    description: >-
+      Customer-hosted HTTPS endpoint registered with Onfido via
+      `POST /v3.6/webhooks/`. Onfido delivers events as HTTP POST requests to
+      this URL. The endpoint must respond with a 2xx status code; non-2xx
+      responses trigger retries.
+    variables:
+      webhook_url:
+        default: https://example.com/onfido-webhook
+        description: The HTTPS URL registered as the webhook destination.
+
+channels:
+  onfido/webhook:
+    description: >-
+      Single channel that receives every Onfido webhook event posted to the
+      registered consumer URL. The specific event type is carried in
+      `payload.action`, with the affected resource family in
+      `payload.resource_type`.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: receiveOnfidoWebhookEvent
+      summary: Receive an Onfido webhook event.
+      description: >-
+        Onfido POSTs a JSON envelope describing a single resource state change.
+        Verify the `X-SHA2-Signature` header against an HMAC-SHA256 of the raw
+        request body, keyed with the webhook's secret token, before trusting
+        the payload.
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      message:
+        oneOf:
+          - $ref: '#/components/messages/AuditLogCreated'
+          - $ref: '#/components/messages/WatchlistMonitorMatchesUpdated'
+          - $ref: '#/components/messages/WorkflowRunStarted'
+          - $ref: '#/components/messages/WorkflowRunCompleted'
+          - $ref: '#/components/messages/WorkflowTaskStarted'
+          - $ref: '#/components/messages/WorkflowTaskCompleted'
+          - $ref: '#/components/messages/CheckStarted'
+          - $ref: '#/components/messages/CheckReopened'
+          - $ref: '#/components/messages/CheckWithdrawn'
+          - $ref: '#/components/messages/CheckCompleted'
+          - $ref: '#/components/messages/CheckFormCompleted'
+          - $ref: '#/components/messages/ReportWithdrawn'
+          - $ref: '#/components/messages/ReportResumed'
+          - $ref: '#/components/messages/ReportCancelled'
+          - $ref: '#/components/messages/ReportAwaitingApproval'
+          - $ref: '#/components/messages/ReportCompleted'
+          - $ref: '#/components/messages/WorkflowTimelineFileCreated'
+          - $ref: '#/components/messages/WorkflowSignedEvidenceFileCreated'
+          - $ref: '#/components/messages/WorkflowRunEvidenceFolderCreated'
+
+components:
+  securitySchemes:
+    WebhookSignature:
+      type: httpApiKey
+      in: header
+      name: X-SHA2-Signature
+      description: |
+        HMAC-SHA256 hexadecimal digest of the raw HTTP request body, keyed
+        with the per-webhook secret `token` returned when the webhook was
+        registered (also visible on the Dashboard "Webhook Management"
+        page). Compare in constant time; reject the request if the digest
+        does not match.
+
+  messageTraits:
+    OnfidoWebhookHeaders:
+      headers:
+        type: object
+        properties:
+          X-SHA2-Signature:
+            type: string
+            description: >-
+              HMAC-SHA256 (hex) of the raw request body, keyed with the
+              webhook's secret token.
+            example: 8d5f6e8a8a1ddc8f9c0b1f9e3d4d4a2e0c7e8b1a2c3d4e5f60718293a4b5c6d7
+        required:
+          - X-SHA2-Signature
+
+  messages:
+    AuditLogCreated:
+      name: AuditLogCreated
+      title: audit_log.created
+      summary: An audit log entry was created.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AuditLogCreatedEnvelope'
+
+    WatchlistMonitorMatchesUpdated:
+      name: WatchlistMonitorMatchesUpdated
+      title: watchlist_monitor.matches_updated
+      summary: A monitored watchlist subject's matches changed.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WatchlistMonitorMatchesUpdatedEnvelope'
+
+    WorkflowRunStarted:
+      name: WorkflowRunStarted
+      title: workflow_run.started
+      summary: A workflow run has started.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WorkflowRunStartedEnvelope'
+
+    WorkflowRunCompleted:
+      name: WorkflowRunCompleted
+      title: workflow_run.completed
+      summary: A workflow run has completed.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WorkflowRunCompletedEnvelope'
+
+    WorkflowTaskStarted:
+      name: WorkflowTaskStarted
+      title: workflow_task.started
+      summary: A workflow task has started.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WorkflowTaskStartedEnvelope'
+
+    WorkflowTaskCompleted:
+      name: WorkflowTaskCompleted
+      title: workflow_task.completed
+      summary: A workflow task has completed.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WorkflowTaskCompletedEnvelope'
+
+    CheckStarted:
+      name: CheckStarted
+      title: check.started
+      summary: A check has started.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CheckStartedEnvelope'
+
+    CheckReopened:
+      name: CheckReopened
+      title: check.reopened
+      summary: A check has been reopened.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CheckReopenedEnvelope'
+
+    CheckWithdrawn:
+      name: CheckWithdrawn
+      title: check.withdrawn
+      summary: A check has been withdrawn.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CheckWithdrawnEnvelope'
+
+    CheckCompleted:
+      name: CheckCompleted
+      title: check.completed
+      summary: A check has completed.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CheckCompletedEnvelope'
+
+    CheckFormCompleted:
+      name: CheckFormCompleted
+      title: check.form_completed
+      summary: The applicant form portion of a check has been completed.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CheckFormCompletedEnvelope'
+
+    ReportWithdrawn:
+      name: ReportWithdrawn
+      title: report.withdrawn
+      summary: A report has been withdrawn.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportWithdrawnEnvelope'
+
+    ReportResumed:
+      name: ReportResumed
+      title: report.resumed
+      summary: A previously paused report has been resumed.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportResumedEnvelope'
+
+    ReportCancelled:
+      name: ReportCancelled
+      title: report.cancelled
+      summary: A report has been cancelled.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportCancelledEnvelope'
+
+    ReportAwaitingApproval:
+      name: ReportAwaitingApproval
+      title: report.awaiting_approval
+      summary: A report is awaiting reviewer approval.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportAwaitingApprovalEnvelope'
+
+    ReportCompleted:
+      name: ReportCompleted
+      title: report.completed
+      summary: A report has completed.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ReportCompletedEnvelope'
+
+    WorkflowTimelineFileCreated:
+      name: WorkflowTimelineFileCreated
+      title: workflow_timeline_file.created
+      summary: A workflow timeline file has been generated.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WorkflowTimelineFileCreatedEnvelope'
+
+    WorkflowSignedEvidenceFileCreated:
+      name: WorkflowSignedEvidenceFileCreated
+      title: workflow_signed_evidence_file.created
+      summary: A signed workflow evidence file has been generated.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WorkflowSignedEvidenceFileCreatedEnvelope'
+
+    WorkflowRunEvidenceFolderCreated:
+      name: WorkflowRunEvidenceFolderCreated
+      title: workflow_run_evidence_folder.created
+      summary: An evidence folder for a workflow run has been created.
+      traits:
+        - $ref: '#/components/messageTraits/OnfidoWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WorkflowRunEvidenceFolderCreatedEnvelope'
+
+  schemas:
+    WebhookEventResourceType:
+      type: string
+      description: Indicates the resource family affected by the event.
+      enum:
+        - check
+        - report
+        - audit_log
+        - workflow_run
+        - workflow_task
+        - watchlist_monitor
+        - workflow_timeline_file
+        - workflow_run_evidence_folder
+
+    WebhookEventType:
+      type: string
+      description: The specific event that triggered the webhook delivery.
+      enum:
+        - audit_log.created
+        - watchlist_monitor.matches_updated
+        - workflow_run.completed
+        - workflow_task.started
+        - workflow_task.completed
+        - check.started
+        - check.reopened
+        - check.withdrawn
+        - check.completed
+        - check.form_completed
+        - report.withdrawn
+        - report.resumed
+        - report.cancelled
+        - report.awaiting_approval
+        - report.completed
+        - workflow_timeline_file.created
+        - workflow_signed_evidence_file.created
+        - workflow_run_evidence_folder.created
+
+    WebhookEventObjectStatus:
+      type: string
+      description: The current state of the affected object, if available.
+      example: complete
+      enum:
+        - processing
+        - awaiting_input
+        - awaiting_client_input
+        - approved
+        - declined
+        - review
+        - abandoned
+        - error
+        - started
+        - cancelled
+        - completed
+        - awaiting_data
+        - awaiting_approval
+        - complete
+        - withdrawn
+        - in_progress
+        - awaiting_applicant
+        - paused
+        - reopened
+
+    WebhookEventPayloadObject:
+      type: object
+      description: The object affected by this event.
+      required:
+        - id
+        - href
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the resource.
+        status:
+          $ref: '#/components/schemas/WebhookEventObjectStatus'
+        started_at_iso8601:
+          type: string
+          format: date-time
+          description: The date and time when the operation was started, if available.
+          example: '2019-10-28T14:55:09.000Z'
+        completed_at_iso8601:
+          type: string
+          format: date-time
+          description: The date and time when the operation was completed, if available.
+          example: '2019-10-28T15:00:39.000Z'
+        href:
+          type: string
+          description: The uri of the resource.
+
+    WebhookEventPayloadResource:
+      type: object
+      description: The resource affected by this event.
+      properties:
+        id:
+          type: string
+          description: The identifier of the resource.
+          example: profile_4f4b2
+        applicant_id:
+          type: string
+          format: uuid
+          description: The unique identifier for the Applicant.
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-12-05T16:41:43.000Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2022-12-19T16:41:44.000Z'
+        dashboard_url:
+          type: string
+          description: The URL for viewing the resource on Onfido Dashboard.
+          example: https://dashboard.onfido.com/results/36a56899-d617-4988-85bf-b76640861bf5
+        workflow_id:
+          type: string
+          format: uuid
+        workflow_run_id:
+          type: string
+          format: uuid
+          example: 2f152409-d6c4-4711-8750-48517f99a8d6
+        workflow_version_id:
+          type: integer
+          description: The identifier for the Workflow version.
+          example: 0
+        task_def_id:
+          type: string
+          description: The identifier for the Task Definition.
+          example: task_123
+          pattern: '^[0-9a-z_-]+$'
+        task_def_version:
+          type: string
+          nullable: true
+        input:
+          type: object
+          description: Input object with the fields used by the Task execution.
+        output:
+          type: object
+          nullable: true
+          description: Output object produced by the Task execution.
+        reasons:
+          type: array
+          items:
+            type: string
+          description: >-
+            The reasons the Workflow Run outcome was reached. Configurable when
+            creating the Workflow Version.
+
+    WebhookEventPayload:
+      type: object
+      description: Inner payload envelope describing the event.
+      required:
+        - resource_type
+        - action
+        - object
+      properties:
+        resource_type:
+          $ref: '#/components/schemas/WebhookEventResourceType'
+        action:
+          $ref: '#/components/schemas/WebhookEventType'
+        object:
+          $ref: '#/components/schemas/WebhookEventPayloadObject'
+        resource:
+          $ref: '#/components/schemas/WebhookEventPayloadResource'
+
+    WebhookEventEnvelope:
+      type: object
+      description: Top-level webhook delivery envelope. The JSON body posted to the consumer URL.
+      required:
+        - payload
+      properties:
+        payload:
+          $ref: '#/components/schemas/WebhookEventPayload'
+
+    AuditLogCreatedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: audit_log
+          action: audit_log.created
+          object:
+            id: 7f2b3c01-9999-4d20-9c19-12c3a4b5d6e7
+            status: completed
+            completed_at_iso8601: '2023-01-15T09:00:00Z'
+            href: https://api.eu.onfido.com/v3.6/audit_logs/7f2b3c01-9999-4d20-9c19-12c3a4b5d6e7
+
+    WatchlistMonitorMatchesUpdatedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: watchlist_monitor
+          action: watchlist_monitor.matches_updated
+          object:
+            id: 11111111-2222-3333-4444-555555555555
+            status: completed
+            completed_at_iso8601: '2023-08-24T11:49:20Z'
+            href: https://api.eu.onfido.com/v3.6/watchlist_monitors/11111111-2222-3333-4444-555555555555
+
+    WorkflowRunStartedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: workflow_run
+          action: workflow_run.started
+          object:
+            id: 2f152409-d6c4-4711-8750-48517f99a8d6
+            status: processing
+            started_at_iso8601: '2022-12-19T16:54:00Z'
+            href: https://api.eu.onfido.com/v3.6/workflow_runs/2f152409-d6c4-4711-8750-48517f99a8d6
+
+    WorkflowRunCompletedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: workflow_run
+          action: workflow_run.completed
+          object:
+            id: 2f152409-d6c4-4711-8750-48517f99a8d6
+            status: approved
+            completed_at_iso8601: '2022-12-19T16:54:44Z'
+            href: https://api.eu.onfido.com/v3.6/workflow_runs/2f152409-d6c4-4711-8750-48517f99a8d6
+
+    WorkflowTaskStartedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: workflow_task
+          action: workflow_task.started
+          object:
+            id: 7a6b8c9d-1111-2222-3333-444455556666
+            status: started
+            started_at_iso8601: '2022-12-19T16:50:00Z'
+            href: https://api.eu.onfido.com/v3.6/workflow_runs/2f152409-d6c4-4711-8750-48517f99a8d6/tasks/7a6b8c9d-1111-2222-3333-444455556666
+
+    WorkflowTaskCompletedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: workflow_task
+          action: workflow_task.completed
+          object:
+            id: 7a6b8c9d-1111-2222-3333-444455556666
+            status: completed
+            completed_at_iso8601: '2022-12-19T16:53:00Z'
+            href: https://api.eu.onfido.com/v3.6/workflow_runs/2f152409-d6c4-4711-8750-48517f99a8d6/tasks/7a6b8c9d-1111-2222-3333-444455556666
+
+    CheckStartedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: check
+          action: check.started
+          object:
+            id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+            status: in_progress
+            started_at_iso8601: '2022-01-06T15:30:00Z'
+            href: https://api.eu.onfido.com/v3.6/checks/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+
+    CheckReopenedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: check
+          action: check.reopened
+          object:
+            id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+            status: reopened
+            href: https://api.eu.onfido.com/v3.6/checks/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+
+    CheckWithdrawnEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: check
+          action: check.withdrawn
+          object:
+            id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+            status: withdrawn
+            href: https://api.eu.onfido.com/v3.6/checks/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+
+    CheckCompletedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: check
+          action: check.completed
+          object:
+            id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+            status: complete
+            completed_at_iso8601: '2022-01-06T15:46:43Z'
+            href: https://api.eu.onfido.com/v3.6/checks/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+
+    CheckFormCompletedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: check
+          action: check.form_completed
+          object:
+            id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+            status: in_progress
+            href: https://api.eu.onfido.com/v3.6/checks/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+
+    ReportWithdrawnEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: report
+          action: report.withdrawn
+          object:
+            id: bbbbbbbb-cccc-dddd-eeee-ffffffffffff
+            status: withdrawn
+            href: https://api.eu.onfido.com/v3.6/reports/bbbbbbbb-cccc-dddd-eeee-ffffffffffff
+
+    ReportResumedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: report
+          action: report.resumed
+          object:
+            id: bbbbbbbb-cccc-dddd-eeee-ffffffffffff
+            status: in_progress
+            href: https://api.eu.onfido.com/v3.6/reports/bbbbbbbb-cccc-dddd-eeee-ffffffffffff
+
+    ReportCancelledEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: report
+          action: report.cancelled
+          object:
+            id: bbbbbbbb-cccc-dddd-eeee-ffffffffffff
+            status: cancelled
+            href: https://api.eu.onfido.com/v3.6/reports/bbbbbbbb-cccc-dddd-eeee-ffffffffffff
+
+    ReportAwaitingApprovalEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: report
+          action: report.awaiting_approval
+          object:
+            id: bbbbbbbb-cccc-dddd-eeee-ffffffffffff
+            status: awaiting_approval
+            href: https://api.eu.onfido.com/v3.6/reports/bbbbbbbb-cccc-dddd-eeee-ffffffffffff
+
+    ReportCompletedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: report
+          action: report.completed
+          object:
+            id: bbbbbbbb-cccc-dddd-eeee-ffffffffffff
+            status: complete
+            completed_at_iso8601: '2022-02-18T03:10:34Z'
+            href: https://api.eu.onfido.com/v3.6/reports/bbbbbbbb-cccc-dddd-eeee-ffffffffffff
+
+    WorkflowTimelineFileCreatedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: workflow_timeline_file
+          action: workflow_timeline_file.created
+          object:
+            id: 33333333-4444-5555-6666-777777777777
+            status: completed
+            completed_at_iso8601: '2023-01-15T09:00:00Z'
+            href: https://api.eu.onfido.com/v3.6/workflow_runs/2f152409-d6c4-4711-8750-48517f99a8d6/timeline_file
+
+    WorkflowSignedEvidenceFileCreatedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: workflow_run
+          action: workflow_signed_evidence_file.created
+          object:
+            id: 44444444-5555-6666-7777-888888888888
+            status: completed
+            completed_at_iso8601: '2023-01-15T09:00:00Z'
+            href: https://api.eu.onfido.com/v3.6/workflow_runs/2f152409-d6c4-4711-8750-48517f99a8d6/signed_evidence_file
+
+    WorkflowRunEvidenceFolderCreatedEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+      example:
+        payload:
+          resource_type: workflow_run_evidence_folder
+          action: workflow_run_evidence_folder.created
+          object:
+            id: 55555555-6666-7777-8888-999999999999
+            status: completed
+            completed_at_iso8601: '2023-01-15T09:00:00Z'
+            href: https://api.eu.onfido.com/v3.6/workflow_runs/2f152409-d6c4-4711-8750-48517f99a8d6/evidence_folder
