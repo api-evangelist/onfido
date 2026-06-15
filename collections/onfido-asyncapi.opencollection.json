@@ -1,0 +1,9 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Webhooks",
+    "version": "3.6"
+  },
+  "items": [],
+  "bundled": true
+}
