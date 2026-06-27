@@ -137,7 +137,7 @@ common:
   - name: Onfido
     description: 'null'
     url: https://dashboard.onfido.com/users/sign_up?email=
-    type: SignUp
+    type: Signup
   - name: Terms of Use | Onfido
     description: 'null'
     url: https://onfido.com/termsofuse/
