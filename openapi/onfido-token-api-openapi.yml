@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Token API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Token
+paths:
+  /sdk_token:
+    post:
+      description: 'Generates an SDK token. Returns a token object containing the SDK token.
+
+        '
+      operationId: generate_sdk_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sdk_token_builder'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sdk_token'
+          description: Generated
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Generate a SDK token
+      tags:
+      - Token
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    sdk_token_response:
+      properties:
+        token:
+          description: The generated SDK token
+          type: string
+      required:
+      - token
+      type: object
+    sdk_token_request:
+      properties:
+        applicant_id:
+          description: The unique identifier of the applicant
+          format: uuid
+          type: string
+        referrer:
+          description: The referrer URL pattern
+          type: string
+        application_id:
+          description: The application ID (iOS or Android)
+          type: string
+        cross_device_url:
+          description: The URL to be used by the Web SDK for the cross device flow.
+          type: string
+      required:
+      - applicant_id
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    sdk_token:
+      allOf:
+      - $ref: '#/components/schemas/sdk_token_response'
+      example:
+        token: token
+    sdk_token_builder:
+      allOf:
+      - $ref: '#/components/schemas/sdk_token_request'
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

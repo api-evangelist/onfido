@@ -1,0 +1,257 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Photo API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Photo
+paths:
+  /live_photos/{live_photo_id}:
+    get:
+      description: 'Retrieves a single live photo. Returns a live photo object.
+
+        '
+      operationId: find_live_photo
+      parameters:
+      - description: The live photo's unique identifier.
+        in: path
+        name: live_photo_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/live_photo'
+          description: A live photo
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve live photo
+      tags:
+      - Photo
+  /live_photos/{live_photo_id}/download:
+    get:
+      description: Live photos are downloaded using this endpoint.
+      operationId: download_live_photo
+      parameters:
+      - description: The live photo's unique identifier.
+        in: path
+        name: live_photo_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The live photo's binary data.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download live photo
+      tags:
+      - Photo
+  /id_photos/{id_photo_id}:
+    get:
+      description: 'Retrieves a single ID photo. Returns a ID photo object.
+
+        '
+      operationId: find_id_photo
+      parameters:
+      - description: The ID photo's unique identifier.
+        in: path
+        name: id_photo_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/id_photo'
+          description: A ID photo
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve ID photo
+      tags:
+      - Photo
+  /id_photos/{id_photo_id}/download:
+    get:
+      description: ID photos are downloaded using this endpoint.
+      operationId: download_id_photo
+      parameters:
+      - description: The ID photo's unique identifier.
+        in: path
+        name: id_photo_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The ID photo's binary data.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download ID photo
+      tags:
+      - Photo
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    id_photo:
+      allOf:
+      - $ref: '#/components/schemas/id_photo_response'
+      example:
+        download_href: download_href
+        file_name: file_name
+        file_type: file_type
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        file_size: 0
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    live_photo_response:
+      properties:
+        id:
+          description: The unique identifier for the photo.
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time at which the photo was uploaded.
+          format: date-time
+          type: string
+        href:
+          description: The uri of this resource.
+          type: string
+        download_href:
+          description: The uri that can be used to download the photo.
+          type: string
+        file_name:
+          description: The name of the uploaded file.
+          type: string
+        file_type:
+          description: The file type of the uploaded file.
+          type: string
+        file_size:
+          description: The size of the file in bytes.
+          type: integer
+      required:
+      - id
+      type: object
+    live_photo:
+      allOf:
+      - $ref: '#/components/schemas/live_photo_response'
+      example:
+        download_href: download_href
+        file_name: file_name
+        file_type: file_type
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        file_size: 0
+    id_photo_response:
+      properties:
+        id:
+          description: The unique identifier for the photo.
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time at which the photo was uploaded.
+          format: date-time
+          type: string
+        href:
+          description: The uri of this resource.
+          type: string
+        download_href:
+          description: The uri that can be used to download the photo.
+          type: string
+        file_name:
+          description: The name of the uploaded file.
+          type: string
+        file_type:
+          description: The file type of the uploaded file.
+          type: string
+        file_size:
+          description: The size of the file in bytes.
+          type: integer
+      required:
+      - id
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

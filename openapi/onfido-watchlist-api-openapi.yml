@@ -1,0 +1,399 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Watchlist API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Watchlist
+paths:
+  /watchlist_monitors:
+    get:
+      description: 'List all available monitors for an applicant
+
+        '
+      operationId: list_watchlist_monitors
+      parameters:
+      - description: The id of the applicant the watchlist monitors belong to. If omitted, all monitors for the account will be listed.
+        in: query
+        name: applicant_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      - description: Whether to also include deleted (inactive) monitors.
+        in: query
+        name: include_deleted
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Watchlist_monitors_list'
+          description: An array of watchlist monitors
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: List monitors
+      tags:
+      - Watchlist
+    post:
+      description: 'Creates a new monitor for the applicant
+
+        '
+      operationId: create_watchlist_monitor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/watchlist_monitor_builder'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/watchlist_monitor'
+          description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Create monitor
+      tags:
+      - Watchlist
+  /watchlist_monitors/{monitor_id}:
+    delete:
+      description: 'Deactivates the given monitor
+
+        '
+      operationId: delete_watchlist_monitor
+      parameters:
+      - in: path
+        name: monitor_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '204':
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Delete monitor
+      tags:
+      - Watchlist
+    get:
+      description: 'Retrieves a single monitor
+
+        '
+      operationId: find_watchlist_monitor
+      parameters:
+      - description: The watchlist monitor's unique identifier.
+        in: path
+        name: monitor_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/watchlist_monitor'
+          description: A watchlist monitor
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve monitor
+      tags:
+      - Watchlist
+  /watchlist_monitors/{monitor_id}/matches:
+    get:
+      description: 'List match IDs on this monitor, as well as their enabled/disabled status
+
+        '
+      operationId: list_watchlist_monitor_matches
+      parameters:
+      - in: path
+        name: monitor_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/watchlist_monitor_matches_list'
+          description: An array of watchlist monitors
+      summary: List matches (BETA)
+      tags:
+      - Watchlist
+    patch:
+      description: 'Update the status of the given matches
+
+        '
+      operationId: update_watchlist_monitor_match
+      parameters:
+      - in: path
+        name: monitor_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/watchlist_monitor_matches_updater'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/watchlist_monitor_matches_list'
+          description: An array of watchlist monitors
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Set match status (BETA)
+      tags:
+      - Watchlist
+  /watchlist_monitors/{monitor_id}/new_report:
+    post:
+      description: 'Triggers a new check with an updated report to be generated by the monitor, as if the monitor had received an update.
+
+        '
+      operationId: force_report_creation_from_watchlist_monitor
+      parameters:
+      - in: path
+        name: monitor_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              description: Link to the newly generated report.
+              schema:
+                type: string
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Force new report creation (BETA)
+      tags:
+      - Watchlist
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    watchlist_monitor_matches_updater:
+      properties:
+        enable:
+          items:
+            description: Match ID to enable.
+            format: uuid
+            type: string
+          type: array
+        disable:
+          items:
+            description: Match ID to disable.
+            format: uuid
+            type: string
+          type: array
+      type: object
+    watchlist_monitor_matches_list:
+      example:
+        matches:
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          enabled: true
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          enabled: true
+      properties:
+        matches:
+          items:
+            $ref: '#/components/schemas/Watchlist_monitor_match'
+          type: array
+      required:
+      - matches
+      title: Watchlist monitor matches list
+      type: object
+    Watchlist_monitor_match:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        enabled: true
+      properties:
+        id:
+          description: Monitor ID
+          format: uuid
+          type: string
+        enabled:
+          description: Monitor status
+          type: boolean
+      title: Watchlist monitor match
+      type: object
+    watchlist_monitor:
+      allOf:
+      - $ref: '#/components/schemas/watchlist_monitor_shared'
+      - $ref: '#/components/schemas/watchlist_monitor_response'
+      example:
+        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        report_name: watchlist_standard
+        deleted_at: '2000-01-23T04:56:07.000Z'
+        is_sandbox: false
+        tags:
+        - tags
+        - tags
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    watchlist_monitor_builder:
+      allOf:
+      - $ref: '#/components/schemas/watchlist_monitor_shared'
+    watchlist_monitor_response:
+      properties:
+        id:
+          description: The unique identifier for the monitor.
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time at which the monitor was created.
+          format: date-time
+          type: string
+        deleted_at:
+          description: The date and time at which the monitor was deleted. If the monitor is still active, this field will be null.
+          format: date-time
+          type: string
+        is_sandbox:
+          default: false
+          description: Indicates whether the object was created in the sandbox or not.
+          type: boolean
+      required:
+      - id
+      type: object
+    watchlist_monitor_shared:
+      properties:
+        applicant_id:
+          description: The ID for the applicant associated with the monitor.
+          format: uuid
+          type: string
+        report_name:
+          description: The name of the report type the monitor creates.
+          enum:
+          - watchlist_standard
+          - watchlist_aml
+          type: string
+        tags:
+          description: A list of tags associated with this monitor. These tags will be applied to each check this monitor creates.
+          items:
+            type: string
+          type: array
+      required:
+      - applicant_id
+      - report_name
+      type: object
+    Watchlist_monitors_list:
+      example:
+        monitors:
+        - applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          created_at: '2000-01-23T04:56:07.000Z'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          report_name: watchlist_standard
+          deleted_at: '2000-01-23T04:56:07.000Z'
+          is_sandbox: false
+          tags:
+          - tags
+          - tags
+        - applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          created_at: '2000-01-23T04:56:07.000Z'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          report_name: watchlist_standard
+          deleted_at: '2000-01-23T04:56:07.000Z'
+          is_sandbox: false
+          tags:
+          - tags
+          - tags
+      properties:
+        monitors:
+          items:
+            $ref: '#/components/schemas/watchlist_monitor'
+          type: array
+      required:
+      - monitors
+      title: Watchlist monitors list
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

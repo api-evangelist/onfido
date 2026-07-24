@@ -1,0 +1,526 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Checks API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Checks
+paths:
+  /checks:
+    get:
+      description: 'Retrieves a single check. Returns a check object.
+
+        '
+      operationId: list_checks
+      parameters:
+      - in: query
+        name: applicant_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checks_list'
+          description: An array of checks
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve Checks
+      tags:
+      - Checks
+    post:
+      description: 'Initiates a check for an applicant, which can contain one or more reports. Returns a check object.
+
+        '
+      operationId: create_check
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/check_builder'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/check'
+          description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Create a check
+      tags:
+      - Checks
+  /checks/{check_id}:
+    get:
+      description: 'Retrieves a single check. Returns a check object.
+
+        '
+      operationId: find_check
+      parameters:
+      - in: path
+        name: check_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/check'
+          description: Check object
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve a Check
+      tags:
+      - Checks
+  /checks/{check_id}/resume:
+    post:
+      description: 'Resumes a paused check.
+
+        '
+      operationId: resume_check
+      parameters:
+      - in: path
+        name: check_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '204':
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Resume a Check
+      tags:
+      - Checks
+  /checks/{check_id}/download:
+    get:
+      description: 'Downloads a PDF of a check with a given check ID. Returns the binary data representing the PDF.
+
+        '
+      operationId: download_check
+      parameters:
+      - in: path
+        name: check_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                format: binary
+                type: string
+          description: The check PDF binary data
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download check
+      tags:
+      - Checks
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    check_response:
+      properties:
+        id:
+          description: The unique identifier for the check.
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time when this check was created.
+          format: date-time
+          type: string
+        href:
+          description: The uri of this resource.
+          type: string
+        status:
+          $ref: '#/components/schemas/check_status'
+        result:
+          description: The overall result of the check, based on the results of the constituent reports.
+          enum:
+          - clear
+          - consider
+          type: string
+        form_uri:
+          description: A link to the applicant form, if `applicant_provides_data` is `true`.
+          type: string
+        results_uri:
+          description: A link to the corresponding results page on the Onfido dashboard.
+          type: string
+        report_ids:
+          description: An array of report ids.
+          items:
+            format: uuid
+            type: string
+          type: array
+        sandbox:
+          description: Indicates whether the object was created in the sandbox or not.
+          type: boolean
+        paused:
+          type: boolean
+        version:
+          example: '3.6'
+          type: string
+      required:
+      - id
+      type: object
+    report_name:
+      enum:
+      - document
+      - document_video
+      - document_video_with_address_information
+      - document_with_address_information
+      - document_with_driving_licence_information
+      - document_with_driver_verification
+      - facial_similarity_photo
+      - facial_similarity_photo_fully_auto
+      - facial_similarity_video
+      - facial_similarity_motion
+      - known_faces
+      - identity_enhanced
+      - watchlist_aml
+      - watchlist_enhanced
+      - watchlist_standard
+      - watchlist_peps_only
+      - watchlist_sanctions_only
+      - proof_of_address
+      - us_driving_licence
+      - device_intelligence
+      - india_pan
+      type: string
+    check_status:
+      description: The current state of the check in the checking process.
+      enum:
+      - in_progress
+      - awaiting_applicant
+      - complete
+      - withdrawn
+      - paused
+      - reopened
+      type: string
+    check_shared:
+      properties:
+        webhook_ids:
+          description: An array of webhook ids describing which webhooks to trigger for this check.
+          items:
+            type: string
+          type: array
+        applicant_id:
+          description: The ID of the applicant to do the check on.
+          format: uuid
+          type: string
+        applicant_provides_data:
+          description: 'Send an applicant form to applicant to complete to proceed with check. Defaults to false.
+
+            '
+          type: boolean
+        tags:
+          description: Array of tags being assigned to this check.
+          items:
+            type: string
+          type: array
+        redirect_uri:
+          description: For checks where `applicant_provides_data` is `true`, redirect to this URI when the applicant has submitted their data.
+          type: string
+        privacy_notices_read_consent_given:
+          type: boolean
+      required:
+      - applicant_id
+      type: object
+    us_driving_licence_shared:
+      description: An object that contains all accepted fields for the Driver's License Data Verification report.
+      properties:
+        id_number:
+          description: Driving licence ID number
+          type: string
+        issue_state:
+          description: Two letter code of issuing state (state-issued driving licenses only)
+          pattern: ^[A-Z]{2}$
+          type: string
+        address_line_1:
+          description: Line 1 of the address
+          type: string
+        address_line_2:
+          description: Line 2 of the address
+          type: string
+        city:
+          description: The city of the owner's address
+          type: string
+        date_of_birth:
+          description: Date of birth in yyyy-mm-dd format
+          format: date
+          type: string
+        document_category:
+          description: Document category.
+          enum:
+          - driver license
+          - driver permit
+          - id card
+          type: string
+        expiration_date:
+          description: Expiration date of the driving licence in yyyy-mm-dd format
+          format: date
+          type: string
+        eye_color_code:
+          description: Eye color code.
+          enum:
+          - BLK
+          - BLU
+          - BRO
+          - DIC
+          - GRY
+          - GRN
+          - HAZ
+          - MAR
+          - PNK
+          type: string
+        first_name:
+          description: The owner's first name
+          type: string
+        gender:
+          enum:
+          - Male
+          - Female
+          readOnly: true
+          type: string
+        issue_date:
+          description: Issue date in yyyy-mm-dd format
+          format: date
+          type: string
+        last_name:
+          description: The owner's surname
+          type: string
+        middle_name:
+          description: The owner's middle name
+          type: string
+        name_suffix:
+          description: The owner's name suffix
+          type: string
+        postal_code:
+          description: The postcode or ZIP of the owner's address
+          type: string
+        state:
+          description: 2-characters state code
+          example: CA
+          pattern: ^[A-Z]{2}$
+          type: string
+        weight_measure:
+          description: Weight in pounds
+          type: integer
+      required:
+      - id_number
+      - issue_state
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    check_builder:
+      allOf:
+      - $ref: '#/components/schemas/check_shared'
+      - $ref: '#/components/schemas/check_request'
+    us_driving_licence_builder:
+      allOf:
+      - $ref: '#/components/schemas/us_driving_licence_shared'
+    check_request:
+      properties:
+        report_names:
+          description: An array of report names (strings).
+          items:
+            $ref: '#/components/schemas/report_name'
+          type: array
+        document_ids:
+          description: Optional. An array of document ids, for use with Document reports only. If omitted, the Document report will use the most recently uploaded document by default.
+          items:
+            format: uuid
+            type: string
+          type: array
+        applicant_provides_data:
+          default: false
+          description: Send an applicant form to applicant to complete to proceed with check. Defaults to false.
+          type: boolean
+        asynchronous:
+          default: true
+          description: 'Defaults to `true`. If set to `false`, you will only receive a response when all reports in your check have completed.
+
+            '
+          type: boolean
+        suppress_form_emails:
+          description: 'For checks where `applicant_provides_data` is `true`, applicant form will not be automatically sent if `suppress_form_emails` is set to `true`. You can manually send the form at any time after the check has been created, using the link found in the form_uri attribute of the check object. Write-only. Defaults to false.
+
+            '
+          type: boolean
+        sub_result:
+          description: Triggers responses for particular sub-results for sandbox Document reports.
+          type: string
+        consider:
+          description: Array of names of particular reports to return consider as their results. This is a feature available in sandbox testing
+          items:
+            $ref: '#/components/schemas/report_name'
+          type: array
+        us_driving_licence:
+          $ref: '#/components/schemas/us_driving_licence_builder'
+      required:
+      - report_names
+      type: object
+    Checks_list:
+      example:
+        checks:
+        - paused: true
+          sandbox: true
+          created_at: '2000-01-23T04:56:07.000Z'
+          version: '3.6'
+          results_uri: results_uri
+          report_ids:
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tags:
+          - tags
+          - tags
+          privacy_notices_read_consent_given: true
+          result: clear
+          form_uri: form_uri
+          webhook_ids:
+          - webhook_ids
+          - webhook_ids
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          redirect_uri: redirect_uri
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          applicant_provides_data: true
+          status: status
+        - paused: true
+          sandbox: true
+          created_at: '2000-01-23T04:56:07.000Z'
+          version: '3.6'
+          results_uri: results_uri
+          report_ids:
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tags:
+          - tags
+          - tags
+          privacy_notices_read_consent_given: true
+          result: clear
+          form_uri: form_uri
+          webhook_ids:
+          - webhook_ids
+          - webhook_ids
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          redirect_uri: redirect_uri
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          applicant_provides_data: true
+          status: status
+      properties:
+        checks:
+          items:
+            $ref: '#/components/schemas/check'
+          type: array
+      required:
+      - checks
+      title: Checks list
+      type: object
+    check:
+      allOf:
+      - $ref: '#/components/schemas/check_shared'
+      - $ref: '#/components/schemas/check_response'
+      example:
+        paused: true
+        sandbox: true
+        created_at: '2000-01-23T04:56:07.000Z'
+        version: '3.6'
+        results_uri: results_uri
+        report_ids:
+        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        tags:
+        - tags
+        - tags
+        privacy_notices_read_consent_given: true
+        result: clear
+        form_uri: form_uri
+        webhook_ids:
+        - webhook_ids
+        - webhook_ids
+        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        redirect_uri: redirect_uri
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        applicant_provides_data: true
+        status: status
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

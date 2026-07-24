@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Timeline API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Timeline
+paths:
+  /workflow_runs/{workflow_run_id}/timeline_file:
+    post:
+      description: 'Triggers the generation of the Timeline File for the designated Workflow Run.
+
+        '
+      operationId: create_timeline_file
+      parameters:
+      - description: The unique identifier of the Workflow Run.
+        in: path
+        name: workflow_run_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/timeline_file_reference'
+          description: A Timeline File reference.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Create Timeline File for Workflow Run
+      tags:
+      - Timeline
+  /workflow_runs/{workflow_run_id}/timeline_file/{timeline_file_id}:
+    get:
+      description: 'Retrieves the Timeline File for the designated Workflow Run.
+
+        '
+      operationId: find_timeline_file
+      parameters:
+      - description: The unique identifier of the Workflow Run.
+        in: path
+        name: workflow_run_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      - description: The unique identifier for the Timefile File.
+        in: path
+        name: timeline_file_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                format: binary
+                type: string
+          description: The Timeline File PDF binary data.
+        '302':
+          description: Found
+          headers:
+            Location:
+              description: Link to the Timeline File.
+              schema:
+                format: uri
+                type: string
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve Timeline File for Workflow Run
+      tags:
+      - Timeline
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    timeline_file_reference:
+      example:
+        href: href
+        workflow_timeline_file_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        workflow_timeline_file_id:
+          description: The unique identifier for the Timefile File that will be created.
+          format: uuid
+          type: string
+        href:
+          description: Link to access the Timefile File that will be created.
+          type: string
+      required:
+      - href
+      - workflow_timeline_file_id
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

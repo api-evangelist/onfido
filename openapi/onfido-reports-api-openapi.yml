@@ -1,0 +1,4556 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Reports API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Reports
+paths:
+  /repeat_attempts/{report_id}:
+    get:
+      description: 'Returns all repeat attempts for a given Document report
+
+        '
+      operationId: list_repeat_attempts
+      parameters:
+      - in: path
+        name: report_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/repeat_attempts_list'
+          description: Repeat attempts object
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve repeat attempts
+      tags:
+      - Reports
+  /reports:
+    get:
+      description: 'All the reports belonging to a particular check can be listed from this endpoint.
+
+        '
+      operationId: list_reports
+      parameters:
+      - in: query
+        name: check_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reports_list'
+          description: List of Reports
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: List reports
+      tags:
+      - Reports
+  /reports/{report_id}:
+    get:
+      description: 'A single report can be retrieved using this endpoint with the corresponding unique identifier.
+
+        '
+      operationId: find_report
+      parameters:
+      - in: path
+        name: report_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/report'
+          description: Report object
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve report
+      tags:
+      - Reports
+  /reports/{report_id}/resume:
+    post:
+      description: 'Resumes a single paused report.
+
+        '
+      operationId: resume_report
+      parameters:
+      - in: path
+        name: report_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '204':
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Resume report
+      tags:
+      - Reports
+  /reports/{report_id}/cancel:
+    post:
+      description: 'Cancels single paused reports.
+
+        '
+      operationId: cancel_report
+      parameters:
+      - in: path
+        name: report_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '204':
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Cancel report
+      tags:
+      - Reports
+components:
+  schemas:
+    known_faces_properties_matches_inner:
+      properties:
+        applicant_id:
+          description: The applicant ID of the matched applicant.
+          format: uuid
+          type: string
+        score:
+          description: A floating point number between 0 and 1 that expresses how similar the two faces are, where 1 is a perfect match.
+          format: float
+          type: number
+        media_id:
+          description: The corresponding UUID for the media type.
+          format: uuid
+          type: string
+        media_type:
+          description: The media type (for example live_photos or live_videos).
+          type: string
+        suspected:
+          description: Indicates if match is suspected based on fuzzy name matching feature. Dependent on feature being active for account, otherwise defaults to true.
+          type: boolean
+      type: object
+    device_intelligence_breakdown_breakdown:
+      properties:
+        device:
+          $ref: '#/components/schemas/device_intelligence_breakdown_breakdown_device'
+      type: object
+    india_pan_report_allOf_properties_device:
+      properties:
+        pan:
+          description: The applicant's PAN (10 digit alphanumeric number).
+          type: string
+        full_name:
+          description: The applicant's full name.
+          type: string
+      type: object
+    facial_similarity_photo_breakdown_face_comparison_breakdown:
+      properties:
+        face_match:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_face_comparison_breakdown_face_match'
+      type: object
+    document_with_address_information_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/document_breakdown'
+          properties:
+            $ref: '#/components/schemas/document_properties'
+        type: object
+    document_breakdown_visual_authenticity_breakdown_picture_face_integrity:
+      description: The pictures of the person identified on the document show signs of tampering or alteration.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    facial_similarity_photo_fully_auto_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - $ref: '#/components/schemas/facial_similarity_report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/facial_similarity_photo_fully_auto_breakdown'
+          properties:
+            $ref: '#/components/schemas/facial_similarity_photo_fully_auto_properties'
+        type: object
+    document_breakdown_visual_authenticity_breakdown_face_detection:
+      description: No face was detected on the document.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    document_with_driver_verification_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/document_breakdown'
+          properties:
+            $ref: '#/components/schemas/document_with_driver_verification_report_allOf_properties'
+        type: object
+    identity_enhanced_breakdown_date_of_birth_breakdown_voting_register:
+      description: Date of birth match against voting register.
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    document_breakdown_visual_authenticity:
+      description: Asserts whether visual, non-textual, elements are correct given the type of document.
+      example:
+        result: result
+        breakdown:
+          template:
+            result: result
+            properties: '{}'
+          other:
+            result: result
+            properties: '{}'
+          fonts:
+            result: result
+            properties: '{}'
+          digital_tampering:
+            result: result
+            properties: '{}'
+          picture_face_integrity:
+            result: result
+            properties: '{}'
+          face_detection:
+            result: result
+            properties: '{}'
+          original_document_present:
+            result: result
+            properties:
+              scan: scan
+              document_on_printed_paper: document_on_printed_paper
+              screenshot: screenshot
+              photo_of_screen: photo_of_screen
+          security_features:
+            result: result
+            properties: '{}'
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/document_breakdown_visual_authenticity_breakdown'
+      type: object
+    facial_similarity_video_breakdown:
+      properties:
+        face_comparison:
+          $ref: '#/components/schemas/facial_similarity_video_breakdown_face_comparison'
+        image_integrity:
+          $ref: '#/components/schemas/facial_similarity_video_breakdown_image_integrity'
+        visual_authenticity:
+          $ref: '#/components/schemas/facial_similarity_video_breakdown_visual_authenticity'
+      type: object
+    us_driving_licence_breakdown_address_breakdown:
+      properties:
+        city:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        line_1:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        line_2:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        state_code:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        zip4:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        zip5:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    facial_similarity_video_breakdown_image_integrity_breakdown:
+      properties:
+        face_detected:
+          $ref: '#/components/schemas/facial_similarity_video_breakdown_image_integrity_breakdown_face_detected'
+        source_integrity:
+          $ref: '#/components/schemas/facial_similarity_video_breakdown_image_integrity_breakdown_source_integrity'
+      type: object
+    document_breakdown_visual_authenticity_breakdown:
+      example:
+        template:
+          result: result
+          properties: '{}'
+        other:
+          result: result
+          properties: '{}'
+        fonts:
+          result: result
+          properties: '{}'
+        digital_tampering:
+          result: result
+          properties: '{}'
+        picture_face_integrity:
+          result: result
+          properties: '{}'
+        face_detection:
+          result: result
+          properties: '{}'
+        original_document_present:
+          result: result
+          properties:
+            scan: scan
+            document_on_printed_paper: document_on_printed_paper
+            screenshot: screenshot
+            photo_of_screen: photo_of_screen
+        security_features:
+          result: result
+          properties: '{}'
+      properties:
+        fonts:
+          $ref: '#/components/schemas/document_breakdown_visual_authenticity_breakdown_fonts'
+        picture_face_integrity:
+          $ref: '#/components/schemas/document_breakdown_visual_authenticity_breakdown_picture_face_integrity'
+        template:
+          $ref: '#/components/schemas/document_breakdown_visual_authenticity_breakdown_template'
+        security_features:
+          $ref: '#/components/schemas/document_breakdown_visual_authenticity_breakdown_security_features'
+        original_document_present:
+          $ref: '#/components/schemas/document_breakdown_visual_authenticity_breakdown_original_document_present'
+        digital_tampering:
+          $ref: '#/components/schemas/document_breakdown_visual_authenticity_breakdown_digital_tampering'
+        other:
+          $ref: '#/components/schemas/document_breakdown_visual_authenticity_breakdown_other'
+        face_detection:
+          $ref: '#/components/schemas/document_breakdown_visual_authenticity_breakdown_face_detection'
+      type: object
+    facial_similarity_photo_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - $ref: '#/components/schemas/facial_similarity_report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/facial_similarity_photo_breakdown'
+          properties:
+            $ref: '#/components/schemas/facial_similarity_photo_properties'
+        type: object
+    watchlist_standard_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/watchlist_standard_breakdown'
+          properties:
+            $ref: '#/components/schemas/watchlist_standard_properties'
+        type: object
+    watchlist_aml_breakdown_politically_exposed_person:
+      description: Asserts if there are any records found in the proprietary database of Politically Exposed Persons sourced from government lists, websites and other media sources.
+      properties:
+        result:
+          type: string
+      type: object
+    document_breakdown_visual_authenticity_breakdown_fonts:
+      description: Fonts in the document don't match the expected ones.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    identity_enhanced_breakdown_address_breakdown_credit_agencies_properties:
+      properties:
+        number_of_matches:
+          type: integer
+      type: object
+    document_IQ_reasons:
+      example:
+        incorrect_side: incorrect_side
+        glare_on_photo: glare_on_photo
+        other_photo_issue: other_photo_issue
+        cut_off_document: cut_off_document
+        covered_photo: covered_photo
+        two_documents_uploaded: two_documents_uploaded
+        blurred_photo: blurred_photo
+        no_document_in_image: no_document_in_image
+        damaged_document: damaged_document
+        dark_photo: dark_photo
+      properties:
+        dark_photo:
+          description: When an image of the document is too dark to be able to see data points.
+          type: string
+        glare_on_photo:
+          description: When there is light reflecting on the document causing glare to obstruct data points.
+          type: string
+        blurred_photo:
+          description: When data points are blurred and no reference can be made elsewhere in the document or if the data points are too blurry and 'they could be something else'.
+          type: string
+        covered_photo:
+          description: When data points have been covered either by the applicant or by another object such as a sticker.
+          type: string
+        other_photo_issue:
+          description: Any other reason not listed, such as when holograms are obscuring data points.
+          type: string
+        damaged_document:
+          description: When a document is damaged and we are unable to make out data points.
+          type: string
+        incorrect_side:
+          description: When the incorrect side of a document has been uploaded, and we have not received the front.
+          type: string
+        cut_off_document:
+          description: When data points are not included in the image due to the document being cut off.
+          type: string
+        no_document_in_image:
+          description: If no document has been uploaded or there is a blank image.
+          type: string
+        two_documents_uploaded:
+          description: When 2 different documents are submitted in the same check.
+          type: string
+      type: object
+    device_intelligence_breakdown_breakdown_device_breakdown:
+      properties:
+        application_authenticity:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        device_integrity:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        device_reputation:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    report_name:
+      enum:
+      - document
+      - document_video
+      - document_video_with_address_information
+      - document_with_address_information
+      - document_with_driving_licence_information
+      - document_with_driver_verification
+      - facial_similarity_photo
+      - facial_similarity_photo_fully_auto
+      - facial_similarity_video
+      - facial_similarity_motion
+      - known_faces
+      - identity_enhanced
+      - watchlist_aml
+      - watchlist_enhanced
+      - watchlist_standard
+      - watchlist_peps_only
+      - watchlist_sanctions_only
+      - proof_of_address
+      - us_driving_licence
+      - device_intelligence
+      - india_pan
+      type: string
+    identity_enhanced_breakdown_address_breakdown:
+      properties:
+        credit_agencies:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_address_breakdown_credit_agencies'
+        telephone_database:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_address_breakdown_telephone_database'
+        voting_register:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_address_breakdown_voting_register'
+      type: object
+    document_breakdown_data_comparison:
+      description: Asserts whether data on the document is consistent with data provided when creating an applicant through the API.
+      example:
+        result: result
+        breakdown:
+          document_numbers:
+            result: result
+            properties: '{}'
+          gender:
+            result: result
+            properties: '{}'
+          issuing_country:
+            result: result
+            properties: '{}'
+          date_of_expiry:
+            result: result
+            properties: '{}'
+          date_of_birth:
+            result: result
+            properties: '{}'
+          last_name:
+            result: result
+            properties: '{}'
+          first_name:
+            result: result
+            properties: '{}'
+          document_type:
+            result: result
+            properties: '{}'
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown'
+      type: object
+    document_breakdown_compromised_document:
+      description: Asserts whether the image of the document has been found in our internal database or if it was used in a suspicious way.
+      example:
+        result: result
+        breakdown:
+          document_database:
+            result: result
+            properties: '{}'
+          repeat_attempts:
+            result: result
+            properties: '{}'
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/document_breakdown_compromised_document_breakdown'
+      type: object
+    document_breakdown_data_comparison_breakdown_issuing_country:
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    known_faces_properties:
+      properties:
+        matches:
+          description: Returns any matching applicant IDs as entries inside a matches array under a properties bag.
+          items:
+            $ref: '#/components/schemas/known_faces_properties_matches_inner'
+          type: array
+      type: object
+    facial_similarity_photo_fully_auto_breakdown:
+      properties:
+        face_comparison:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_face_comparison'
+        image_integrity:
+          $ref: '#/components/schemas/facial_similarity_photo_fully_auto_breakdown_image_integrity'
+        visual_authenticity:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_visual_authenticity'
+      type: object
+    document_properties_document_numbers_inner:
+      example:
+        type: type
+        value: value
+      properties:
+        value:
+          type: string
+        type:
+          type: string
+      type: object
+    document_breakdown_issuing_authority_breakdown:
+      example:
+        nfc_active_authentication:
+          result: result
+          properties: '{}'
+        nfc_passive_authentication:
+          result: result
+          properties: '{}'
+      properties:
+        nfc_active_authentication:
+          $ref: '#/components/schemas/document_breakdown_issuing_authority_breakdown_nfc_active_authentication'
+        nfc_passive_authentication:
+          $ref: '#/components/schemas/document_breakdown_issuing_authority_breakdown_nfc_passive_authentication'
+      type: object
+    document_breakdown_image_integrity_breakdown_colour_picture:
+      description: Asserts whether the image was a colour one.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    proof_of_address_breakdown_image_integrity_breakdown:
+      properties:
+        image_quality:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    facial_similarity_report_shared:
+      properties:
+        live_photos:
+          description: Array of objects with live photo ids that were used in the Onfido engine.
+          items:
+            $ref: '#/components/schemas/facial_similarity_report_media'
+          type: array
+        live_videos:
+          description: Array of objects with live video ids that were used in the Onfido engine.
+          items:
+            $ref: '#/components/schemas/facial_similarity_report_media'
+          type: array
+        motion_captures:
+          description: Array of objects with motion capture ids that were used in the Onfido engine.
+          items:
+            $ref: '#/components/schemas/facial_similarity_report_media'
+          type: array
+        id_photos:
+          description: Array of objects with id photo ids that were used in the Onfido engine.
+          items:
+            $ref: '#/components/schemas/facial_similarity_report_media'
+          type: array
+    facial_similarity_video_breakdown_image_integrity:
+      description: Asserts whether the quality and integrity of the uploaded files were sufficient to perform a face comparison.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/facial_similarity_video_breakdown_image_integrity_breakdown'
+      readOnly: true
+      type: object
+    facial_similarity_motion_properties:
+      properties:
+        score:
+          description: 'A floating point number between 0 and 1. The closer the score is to 0, the more likely
+
+            it is to be a spoof (i.e. videos of digital screens, masks or print-outs).
+
+            Conversely, the closer it is to 1, the less likely it is to be a spoof.
+
+            '
+          format: float
+          type: number
+      type: object
+    us_driving_licence_breakdown_address:
+      description: Asserts whether the address data provided matches a real driving license in the DMV driver's license database.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/us_driving_licence_breakdown_address_breakdown'
+      type: object
+    document_properties_driving_licence_information:
+      example:
+        codes: codes
+        obtainment_date: '2000-01-23T00:00:00.000Z'
+        expiry_date: '2000-01-23T00:00:00.000Z'
+        category: category
+      properties:
+        category:
+          type: string
+        obtainment_date:
+          format: date
+          type: string
+        expiry_date:
+          format: date
+          type: string
+        codes:
+          type: string
+      type: object
+    identity_enhanced_breakdown:
+      properties:
+        sources:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_sources'
+        address:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_address'
+        date_of_birth:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_date_of_birth'
+        mortality:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_mortality'
+      type: object
+    identity_enhanced_properties:
+      properties:
+        matched_address:
+          description: Returns address number which has been matched.
+          type: number
+        matched_addresses:
+          description: Returns array of sources which contain matched addresses for the corresponding address number.
+          items:
+            $ref: '#/components/schemas/identity_enhanced_properties_matched_addresses_inner'
+          type: array
+      type: object
+    document_breakdown_data_consistency_breakdown:
+      example:
+        document_numbers:
+          result: result
+          properties: '{}'
+        gender:
+          result: result
+          properties: '{}'
+        nationality:
+          result: result
+          properties: '{}'
+        date_of_expiry:
+          result: result
+          properties: '{}'
+        issuing_country:
+          result: result
+          properties: '{}'
+        date_of_birth:
+          result: result
+          properties: '{}'
+        last_name:
+          result: result
+          properties: '{}'
+        multiple_data_sources_present:
+          result: result
+          properties: '{}'
+        first_name:
+          result: result
+          properties: '{}'
+        document_type:
+          result: result
+          properties: '{}'
+      properties:
+        date_of_expiry:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        document_numbers:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        issuing_country:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        document_type:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        date_of_birth:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        gender:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        first_name:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        nationality:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        last_name:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        multiple_data_sources_present:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    device_intelligence_breakdown_properties_geolocation:
+      properties:
+        city:
+          description: City location of the IP address.
+          type: string
+        region:
+          description: Region location of the IP address.
+          type: string
+        country:
+          allOf:
+          - $ref: '#/components/schemas/country_codes'
+          description: Country location of the IP address in a three letter format.
+          type: string
+      type: object
+    watchlist_enhanced_properties_records_inner_attribute_inner:
+      properties:
+        attribute_type:
+          type: string
+        attribute_value:
+          type: string
+      type: object
+    identity_enhanced_breakdown_address_breakdown_voting_register:
+      description: Address match against voting register.
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    watchlist_enhanced_properties_records_inner_alias_inner:
+      properties:
+        alias_name:
+          type: string
+        alias_type:
+          type: string
+      type: object
+    us_driving_licence_breakdown_document:
+      description: Asserts whether the document data provided matches a real driving license in the DMV driver's license database.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/us_driving_licence_breakdown_document_breakdown'
+      type: object
+    document_properties_address_lines:
+      example:
+        street_address: street_address
+        country: country
+        country_code: country_code
+        city: city
+        state: state
+        postal_code: postal_code
+      properties:
+        street_address:
+          type: string
+        state:
+          type: string
+        postal_code:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        country_code:
+          type: string
+      type: object
+    facial_similarity_video_breakdown_face_comparison:
+      description: Asserts whether the face in the document matches the face in the live video.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_face_comparison_breakdown'
+      readOnly: true
+      type: object
+    report_status:
+      description: The current state of the report in the checking process. Read-only.
+      enum:
+      - awaiting_data
+      - awaiting_approval
+      - cancelled
+      - complete
+      - withdrawn
+      type: string
+    facial_similarity_photo_breakdown_image_integrity:
+      description: Asserts whether the quality and integrity of the uploaded files were sufficient to perform a face comparison.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_image_integrity_breakdown'
+      type: object
+    document_breakdown_data_validation:
+      description: Asserts whether algorithmically validatable elements are correct.
+      example:
+        result: result
+        breakdown:
+          document_numbers:
+            result: result
+            properties: '{}'
+          gender:
+            result: result
+            properties: '{}'
+          mrz:
+            result: result
+            properties: '{}'
+          document_expiration:
+            result: result
+            properties: '{}'
+          date_of_birth:
+            result: result
+            properties: '{}'
+          expiry_date:
+            result: result
+            properties: '{}'
+          barcode:
+            result: result
+            properties: '{}'
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/document_breakdown_data_validation_breakdown'
+      type: object
+    identity_enhanced_breakdown_date_of_birth_breakdown_credit_agencies:
+      description: Date of birth match against credit agencies.
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    document_video_with_address_information_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/document_breakdown'
+          properties:
+            $ref: '#/components/schemas/document_properties'
+        type: object
+    us_driving_licence_breakdown:
+      properties:
+        document:
+          $ref: '#/components/schemas/us_driving_licence_breakdown_document'
+        address:
+          $ref: '#/components/schemas/us_driving_licence_breakdown_address'
+        personal:
+          $ref: '#/components/schemas/us_driving_licence_breakdown_personal'
+      type: object
+    document_breakdown_age_validation_breakdown:
+      example:
+        minimum_accepted_age:
+          result: result
+          properties: '{}'
+      properties:
+        minimum_accepted_age:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    known_faces_breakdown_image_integrity:
+      description: Asserts whether the uploaded live photo or live video and the content contained within it were of sufficient quality to perform a face comparison.
+      properties:
+        result:
+          type: string
+      type: object
+    document_breakdown_data_consistency:
+      description: Asserts whether data represented in multiple places on the document is consistent.
+      example:
+        result: result
+        breakdown:
+          document_numbers:
+            result: result
+            properties: '{}'
+          gender:
+            result: result
+            properties: '{}'
+          nationality:
+            result: result
+            properties: '{}'
+          date_of_expiry:
+            result: result
+            properties: '{}'
+          issuing_country:
+            result: result
+            properties: '{}'
+          date_of_birth:
+            result: result
+            properties: '{}'
+          last_name:
+            result: result
+            properties: '{}'
+          multiple_data_sources_present:
+            result: result
+            properties: '{}'
+          first_name:
+            result: result
+            properties: '{}'
+          document_type:
+            result: result
+            properties: '{}'
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/document_breakdown_data_consistency_breakdown'
+      type: object
+    identity_enhanced_breakdown_date_of_birth:
+      description: Asserts if the applicant's date of birth matches any sources.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_date_of_birth_breakdown'
+      type: object
+    document_breakdown_visual_authenticity_breakdown_security_features:
+      description: Security features expected on the document are missing or wrong.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    identity_enhanced_breakdown_address:
+      description: Asserts if the applicant's address matches any sources.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_address_breakdown'
+      type: object
+    report_sub_result:
+      description: The sub_result of the report. It gives a more detailed result for document reports only, and will be null otherwise. Read-only.
+      enum:
+      - clear
+      - rejected
+      - suspected
+      - caution
+      type: string
+    facial_similarity_video_breakdown_visual_authenticity_breakdown:
+      properties:
+        liveness_detected:
+          $ref: '#/components/schemas/facial_similarity_video_breakdown_visual_authenticity_breakdown_liveness_detected'
+        spoofing_detection:
+          $ref: '#/components/schemas/facial_similarity_video_breakdown_visual_authenticity_breakdown_spoofing_detection'
+      type: object
+    identity_enhanced_breakdown_address_breakdown_credit_agencies:
+      description: The number of address matches against credit agencies.
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_address_breakdown_credit_agencies_properties'
+      type: object
+    known_faces_breakdown_previously_seen_faces:
+      description: Asserts whether the applicant's most recent facial media (live photo or live video) matches any other live photos or live videos already in your Onfido account database.
+      properties:
+        result:
+          type: string
+      type: object
+    identity_enhanced_breakdown_date_of_birth_breakdown:
+      properties:
+        credit_agencies:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_date_of_birth_breakdown_credit_agencies'
+        voting_register:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_date_of_birth_breakdown_voting_register'
+      type: object
+    watchlist_enhanced_properties_records_inner_address_inner:
+      properties:
+        address_line1:
+          type: string
+        country:
+          allOf:
+          - $ref: '#/components/schemas/country_codes'
+          type: string
+        postal_code:
+          type: string
+        state_province:
+          type: string
+        town:
+          type: string
+        locator_type:
+          type: string
+      type: object
+    watchlist_aml_breakdown_sanction:
+      description: Asserts if there are any records found in Government and International Organisations Sanctions Lists.
+      properties:
+        result:
+          type: string
+      type: object
+    india_pan_report_allOf_breakdown:
+      properties:
+        device:
+          $ref: '#/components/schemas/india_pan_report_allOf_breakdown_device'
+      type: object
+    proof_of_address_breakdown_document_classification_breakdown:
+      properties:
+        supported_document:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    country_codes:
+      enum:
+      - ABW
+      - AFG
+      - AGO
+      - AIA
+      - ALA
+      - ALB
+      - AND
+      - ARE
+      - ARG
+      - ARM
+      - ASM
+      - ATA
+      - ATF
+      - ATG
+      - AUS
+      - AUT
+      - AZE
+      - BDI
+      - BEL
+      - BEN
+      - BES
+      - BFA
+      - BGD
+      - BGR
+      - BHR
+      - BHS
+      - BIH
+      - BLM
+      - BLR
+      - BLZ
+      - BMU
+      - BOL
+      - BRA
+      - BRB
+      - BRN
+      - BTN
+      - BVT
+      - BWA
+      - CAF
+      - CAN
+      - CCK
+      - CHE
+      - CHL
+      - CHN
+      - CIV
+      - CMR
+      - COD
+      - COG
+      - COK
+      - COL
+      - COM
+      - CPV
+      - CRI
+      - CUB
+      - CUW
+      - CXR
+      - CYM
+      - CYP
+      - CZE
+      - DEU
+      - DJI
+      - DMA
+      - DNK
+      - DOM
+      - DZA
+      - ECU
+      - EGY
+      - ERI
+      - ESH
+      - ESP
+      - EST
+      - ETH
+      - FIN
+      - FJI
+      - FLK
+      - FRA
+      - FRO
+      - FSM
+      - GAB
+      - GBR
+      - GEO
+      - GGY
+      - GHA
+      - GIB
+      - GIN
+      - GLP
+      - GMB
+      - GNB
+      - GNQ
+      - GRC
+      - GRD
+      - GRL
+      - GTM
+      - GUF
+      - GUM
+      - GUY
+      - HKG
+      - HMD
+      - HND
+      - HRV
+      - HTI
+      - HUN
+      - IDN
+      - IMN
+      - IND
+      - IOT
+      - IRL
+      - IRN
+      - IRQ
+      - ISL
+      - ISR
+      - ITA
+      - JAM
+      - JEY
+      - JOR
+      - JPN
+      - KAZ
+      - KEN
+      - KGZ
+      - KHM
+      - KIR
+      - KNA
+      - KOR
+      - KWT
+      - LAO
+      - LBN
+      - LBR
+      - LBY
+      - LCA
+      - LIE
+      - LKA
+      - LSO
+      - LTU
+      - LUX
+      - LVA
+      - MAC
+      - MAF
+      - MAR
+      - MCO
+      - MDA
+      - MDG
+      - MDV
+      - MEX
+      - MHL
+      - MKD
+      - MLI
+      - MLT
+      - MMR
+      - MNE
+      - MNG
+      - MNP
+      - MOZ
+      - MRT
+      - MSR
+      - MTQ
+      - MUS
+      - MWI
+      - MYS
+      - MYT
+      - NAM
+      - NCL
+      - NER
+      - NFK
+      - NGA
+      - NIC
+      - NIU
+      - NLD
+      - NOR
+      - NPL
+      - NRU
+      - NZL
+      - OMN
+      - PAK
+      - PAN
+      - PCN
+      - PER
+      - PHL
+      - PLW
+      - PNG
+      - POL
+      - PRI
+      - PRK
+      - PRT
+      - PRY
+      - PSE
+      - PYF
+      - QAT
+      - REU
+      - RKS
+      - ROU
+      - RUS
+      - RWA
+      - SAU
+      - SDN
+      - SEN
+      - SGP
+      - SGS
+      - SHN
+      - SJM
+      - SLB
+      - SLE
+      - SLV
+      - SMR
+      - SOM
+      - SPM
+      - SRB
+      - SSD
+      - STP
+      - SUR
+      - SVK
+      - SVN
+      - SWE
+      - SWZ
+      - SXM
+      - SYC
+      - SYR
+      - TCA
+      - TCD
+      - TGO
+      - THA
+      - TJK
+      - TKL
+      - TKM
+      - TLS
+      - TON
+      - TTO
+      - TUN
+      - TUR
+      - TUV
+      - TWN
+      - TZA
+      - UGA
+      - UKR
+      - UMI
+      - URY
+      - USA
+      - UZB
+      - VAT
+      - VCT
+      - VEN
+      - VGB
+      - VIR
+      - VNM
+      - VUT
+      - WLF
+      - WSM
+      - YEM
+      - ZAF
+      - ZMB
+      - ZWE
+      type: string
+    facial_similarity_video_breakdown_visual_authenticity_breakdown_spoofing_detection:
+      description: Asserts whether the live video is not a spoof (such as videos of digital screens).
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_visual_authenticity_breakdown_spoofing_detection_properties'
+      type: object
+    document_properties:
+      example:
+        gender: gender
+        security_document_number: security_document_number
+        date_of_birth: '2000-01-23T00:00:00.000Z'
+        security_tier: tier_1
+        mother_name: mother_name
+        version_number: version_number
+        categorisation: categorisation
+        widow_name: widow_name
+        extracted_data:
+          document_number: document_number
+          gender: gender
+          date_of_birth: '2000-01-23T00:00:00.000Z'
+          last_name: last_name
+          middle_name: middle_name
+          alias_name: alias_name
+          widow_name: widow_name
+          spouse_name: spouse_name
+          mrz_line1: mrz_line1
+          full_name: full_name
+          mrz_line3: mrz_line3
+          nationality: nationality
+          date_of_expiry: '2000-01-23T00:00:00.000Z'
+          mrz_line2: mrz_line2
+          issuing_authority: issuing_authority
+          address_line_1: address_line_1
+          address_line_3: address_line_3
+          address_line_2: address_line_2
+          address_line_5: address_line_5
+          first_name: first_name
+          address_line_4: address_line_4
+        mrz_line1: mrz_line1
+        spouse_name: spouse_name
+        has_issuance_confirmation: 'true'
+        real_id_compliance: true
+        address_lines:
+          street_address: street_address
+          country: country
+          country_code: country_code
+          city: city
+          state: state
+          postal_code: postal_code
+        driving_licence_information:
+          codes: codes
+          obtainment_date: '2000-01-23T00:00:00.000Z'
+          expiry_date: '2000-01-23T00:00:00.000Z'
+          category: category
+        mrz_line3: mrz_line3
+        issuing_country: issuing_country
+        mrz_line2: mrz_line2
+        tax_number: tax_number
+        issuing_state: issuing_state
+        first_name: first_name
+        barcode:
+        - document_number: document_number
+          issuing_date: '2000-01-23T00:00:00.000Z'
+          gender: gender
+          date_of_birth: '2000-01-23T00:00:00.000Z'
+          last_name: last_name
+          middle_name: middle_name
+          real_id_classification: real_id_classification
+          date_of_expiry: '2000-01-23T00:00:00.000Z'
+          issuing_country: issuing_country
+          address_line_1: address_line_1
+          address_line_3: address_line_3
+          address_line_2: address_line_2
+          issuing_state: issuing_state
+          address_line_5: address_line_5
+          first_name: first_name
+          address_line_4: address_line_4
+          class: class
+          document_type: document_type
+        - document_number: document_number
+          issuing_date: '2000-01-23T00:00:00.000Z'
+          gender: gender
+          date_of_birth: '2000-01-23T00:00:00.000Z'
+          last_name: last_name
+          middle_name: middle_name
+          real_id_classification: real_id_classification
+          date_of_expiry: '2000-01-23T00:00:00.000Z'
+          issuing_country: issuing_country
+          address_line_1: address_line_1
+          address_line_3: address_line_3
+          address_line_2: address_line_2
+          issuing_state: issuing_state
+          address_line_5: address_line_5
+          first_name: first_name
+          address_line_4: address_line_4
+          class: class
+          document_type: document_type
+        document_type: document_type
+        profession: profession
+        nist_identity_evidence_strength: superior
+        document_numbers:
+        - type: type
+          value: value
+        - type: type
+          value: value
+        address: address
+        issuing_date: '2000-01-23T00:00:00.000Z'
+        document_subtype: document_subtype
+        type_of_permit: type_of_permit
+        last_name: last_name
+        nfc:
+          document_number: document_number
+          address: address
+          gender: gender
+          issuing_date: '2000-01-23T00:00:00.000Z'
+          date_of_birth: '2000-01-23T00:00:00.000Z'
+          place_of_birth: place_of_birth
+          full_name: full_name
+          nationality: nationality
+          issuing_country: issuing_country
+          date_of_expiry: '2000-01-23T00:00:00.000Z'
+          issuing_authority: issuing_authority
+          personal_number: personal_number
+          document_type: document_type
+        document_classification:
+          issuing_country: issuing_country
+          issuing_state: issuing_state
+          document_type: document_type
+        middle_name: middle_name
+        alias_name: alias_name
+        expatriation: expatriation
+        religion: religion
+        place_of_birth: place_of_birth
+        nationality: nationality
+        date_of_expiry: '2000-01-23T00:00:00.000Z'
+        father_name: father_name
+        issuing_authority: issuing_authority
+        civil_state: civil_state
+        personal_number: personal_number
+        remarks: remarks
+      properties:
+        date_of_birth:
+          format: date
+          type: string
+        date_of_expiry:
+          format: date
+          type: string
+        personal_number:
+          type: string
+        document_numbers:
+          items:
+            $ref: '#/components/schemas/document_properties_document_numbers_inner'
+          type: array
+        document_type:
+          type: string
+        first_name:
+          type: string
+        middle_name:
+          type: string
+        last_name:
+          type: string
+        gender:
+          type: string
+        issuing_country:
+          type: string
+        nationality:
+          type: string
+        issuing_state:
+          type: string
+        issuing_date:
+          format: date
+          type: string
+        categorisation:
+          type: string
+        mrz_line1:
+          type: string
+        mrz_line2:
+          type: string
+        mrz_line3:
+          type: string
+        address:
+          type: string
+        place_of_birth:
+          type: string
+        spouse_name:
+          type: string
+        widow_name:
+          type: string
+        alias_name:
+          type: string
+        issuing_authority:
+          type: string
+        remarks:
+          type: string
+        civil_state:
+          type: string
+        expatriation:
+          type: string
+        father_name:
+          type: string
+        mother_name:
+          type: string
+        religion:
+          type: string
+        type_of_permit:
+          type: string
+        version_number:
+          type: string
+        document_subtype:
+          type: string
+        profession:
+          type: string
+        security_document_number:
+          type: string
+        tax_number:
+          type: string
+        nist_identity_evidence_strength:
+          enum:
+          - superior
+          - strong
+          - fair
+          - weak
+          - unacceptable
+          - unspecified_identity_evidence_strength
+          type: string
+        has_issuance_confirmation:
+          enum:
+          - 'true'
+          - 'false'
+          - unspecified
+          type: string
+        real_id_compliance:
+          type: boolean
+        security_tier:
+          enum:
+          - tier_1
+          - tier_2
+          - tier_3
+          - tier_4
+          - tier_5
+          - unspecified_security_tier
+          type: string
+        address_lines:
+          $ref: '#/components/schemas/document_properties_address_lines'
+        barcode:
+          items:
+            $ref: '#/components/schemas/document_properties_barcode_inner'
+          type: array
+        nfc:
+          $ref: '#/components/schemas/document_properties_nfc'
+        driving_licence_information:
+          $ref: '#/components/schemas/document_properties_driving_licence_information'
+        document_classification:
+          $ref: '#/components/schemas/document_properties_document_classification'
+        extracted_data:
+          $ref: '#/components/schemas/document_properties_extracted_data'
+      type: object
+    facial_similarity_photo_breakdown_image_integrity_breakdown_source_integrity:
+      description: Asserts whether the live photo is trustworthy - i.e. not digitally tampered, from a fake webcam, or from other dubious sources.
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/photo_reasons'
+      type: object
+    facial_similarity_photo_properties:
+      properties:
+        score:
+          description: 'A floating point number between 0 and 1. The closer the score is to 0, the more likely
+
+            it is to be a spoof (i.e. photos of printed photos, or photos of digital screens).
+
+            Conversely, the closer it is to 1, the less likely it is to be a spoof.
+
+            '
+          format: float
+          type: number
+      type: object
+    report_result:
+      description: The result of the report. Read-only.
+      enum:
+      - clear
+      - consider
+      - unidentified
+      type: string
+    document_ODP_reasons:
+      example:
+        scan: scan
+        document_on_printed_paper: document_on_printed_paper
+        screenshot: screenshot
+        photo_of_screen: photo_of_screen
+      properties:
+        photo_of_screen:
+          description: When the applicant's document is on a physical screen or device.
+          type: string
+        screenshot:
+          description: When the applicant has used their mobile phone, tablet, or computer to take a photo within the device.
+          type: string
+        document_on_printed_paper:
+          description: When the applicant has previously captured an image of the document, printed it out, and has now taken a photo of this print out to upload.
+          type: string
+        scan:
+          description: When the document has clearly been captured using a scanner and there are visible indicators of this
+          type: string
+      type: object
+    identity_enhanced_breakdown_mortality:
+      description: Asserts if the applicant's details match any death records.
+      properties:
+        result:
+          type: string
+      type: object
+    facial_similarity_video_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - $ref: '#/components/schemas/facial_similarity_report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/facial_similarity_video_breakdown'
+          properties:
+            $ref: '#/components/schemas/facial_similarity_video_properties'
+        type: object
+    facial_similarity_motion_breakdown_face_comparison:
+      description: Asserts whether the face in the document matches the face in the motion capture.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_face_comparison_breakdown'
+      readOnly: true
+      type: object
+    document_breakdown_visual_authenticity_breakdown_digital_tampering:
+      description: Indication of digital tampering in the image.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    facial_similarity_report_media:
+      properties:
+        id:
+          description: ID of uploaded biometric media to use.
+          format: uuid
+          type: string
+      required:
+      - id
+      type: object
+    facial_similarity_photo_breakdown:
+      properties:
+        face_comparison:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_face_comparison'
+        image_integrity:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_image_integrity'
+        visual_authenticity:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_visual_authenticity'
+      type: object
+    facial_similarity_photo_fully_auto_breakdown_image_integrity:
+      description: Asserts whether the quality and integrity of the uploaded files were sufficient to perform a face comparison.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/facial_similarity_photo_fully_auto_breakdown_image_integrity_breakdown'
+      type: object
+    document_breakdown_data_comparison_breakdown:
+      example:
+        document_numbers:
+          result: result
+          properties: '{}'
+        gender:
+          result: result
+          properties: '{}'
+        issuing_country:
+          result: result
+          properties: '{}'
+        date_of_expiry:
+          result: result
+          properties: '{}'
+        date_of_birth:
+          result: result
+          properties: '{}'
+        last_name:
+          result: result
+          properties: '{}'
+        first_name:
+          result: result
+          properties: '{}'
+        document_type:
+          result: result
+          properties: '{}'
+      properties:
+        issuing_country:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        gender:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        date_of_expiry:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        last_name:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        document_type:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        document_numbers:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        first_name:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        date_of_birth:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    facial_similarity_video_breakdown_visual_authenticity:
+      description: Asserts whether the person in the live video is real (not a spoof) and live.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/facial_similarity_video_breakdown_visual_authenticity_breakdown'
+      readOnly: true
+      type: object
+    facial_similarity_video_properties:
+      properties:
+        score:
+          description: 'A floating point number between 0 and 1. The closer the score is to 0, the more likely
+
+            it is to be a spoof (i.e. videos of digital screens, masks or print-outs).
+
+            Conversely, the closer it is to 1, the less likely it is to be a spoof.
+
+            '
+          format: float
+          type: number
+      type: object
+    watchlist_enhanced_properties_records_inner_source_inner:
+      properties:
+        source_headline:
+          type: string
+        source_name:
+          type: string
+        source_url:
+          type: string
+        source_format:
+          type: string
+      type: object
+    us_driving_licence_breakdown_personal_breakdown:
+      properties:
+        first_name:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        name_suffix:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        height:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        weight:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        sex_code:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        eye_color:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        date_of_birth:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        last_name:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        middle_name:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        first_name_fuzzy:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        middle_name_fuzzy:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        last_name_fuzzy:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        middle_initial:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    us_driving_licence_breakdown_personal:
+      description: Asserts whether the personal data provided matches a real driving license in the DMV driver's license database.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/us_driving_licence_breakdown_personal_breakdown'
+      type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    document_breakdown_visual_authenticity_breakdown_other:
+      description: This sub-breakdown is returned for backward compatibility reasons. Its value will be consider when at least one of the other breakdowns is consider, and clear when all the other breakdowns are clear.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    document_breakdown_issuing_authority:
+      description: Asserts whether data on the document matches the issuing authority data.
+      example:
+        result: result
+        breakdown:
+          nfc_active_authentication:
+            result: result
+            properties: '{}'
+          nfc_passive_authentication:
+            result: result
+            properties: '{}'
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/document_breakdown_issuing_authority_breakdown'
+      type: object
+    document_breakdown_issuing_authority_breakdown_nfc_passive_authentication:
+      description: Asserts whether the document NFC chip data was tampered.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    identity_enhanced_properties_matched_addresses_inner:
+      properties:
+        id:
+          description: The address number.
+          type: number
+        match_types:
+          description: Sources which contain matched addresses.
+          items:
+            type: string
+          type: array
+      type: object
+    identity_enhanced_breakdown_sources_breakdown_total_sources_properties:
+      properties:
+        total_number_of_sources:
+          type: integer
+      type: object
+    facial_similarity_motion_breakdown_image_integrity_breakdown:
+      properties:
+        face_detected:
+          $ref: '#/components/schemas/facial_similarity_motion_breakdown_image_integrity_breakdown_face_detected'
+        source_integrity:
+          $ref: '#/components/schemas/facial_similarity_motion_breakdown_image_integrity_breakdown_source_integrity'
+      type: object
+    watchlist_aml_breakdown_adverse_media:
+      description: Asserts if there are any records found of negative events reported by publicly and generally available media sources.
+      properties:
+        result:
+          type: string
+      type: object
+    Reports_list:
+      example:
+        reports:
+        - result: clear
+          documents:
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          breakdown:
+            visual_authenticity:
+              result: result
+              breakdown:
+                template:
+                  result: result
+                  properties: '{}'
+                other:
+                  result: result
+                  properties: '{}'
+                fonts:
+                  result: result
+                  properties: '{}'
+                digital_tampering:
+                  result: result
+                  properties: '{}'
+                picture_face_integrity:
+                  result: result
+                  properties: '{}'
+                face_detection:
+                  result: result
+                  properties: '{}'
+                original_document_present:
+                  result: result
+                  properties:
+                    scan: scan
+                    document_on_printed_paper: document_on_printed_paper
+                    screenshot: screenshot
+                    photo_of_screen: photo_of_screen
+                security_features:
+                  result: result
+                  properties: '{}'
+            compromised_document:
+              result: result
+              breakdown:
+                document_database:
+                  result: result
+                  properties: '{}'
+                repeat_attempts:
+                  result: result
+                  properties: '{}'
+            age_validation:
+              result: result
+              breakdown:
+                minimum_accepted_age:
+                  result: result
+                  properties: '{}'
+            issuing_authority:
+              result: result
+              breakdown:
+                nfc_active_authentication:
+                  result: result
+                  properties: '{}'
+                nfc_passive_authentication:
+                  result: result
+                  properties: '{}'
+            data_consistency:
+              result: result
+              breakdown:
+                document_numbers:
+                  result: result
+                  properties: '{}'
+                gender:
+                  result: result
+                  properties: '{}'
+                nationality:
+                  result: result
+                  properties: '{}'
+                date_of_expiry:
+                  result: result
+                  properties: '{}'
+                issuing_country:
+                  result: result
+                  properties: '{}'
+                date_of_birth:
+                  result: result
+                  properties: '{}'
+                last_name:
+                  result: result
+                  properties: '{}'
+                multiple_data_sources_present:
+                  result: result
+                  properties: '{}'
+                first_name:
+                  result: result
+                  properties: '{}'
+                document_type:
+                  result: result
+                  properties: '{}'
+            data_comparison:
+              result: result
+              breakdown:
+                document_numbers:
+                  result: result
+                  properties: '{}'
+                gender:
+                  result: result
+                  properties: '{}'
+                issuing_country:
+                  result: result
+                  properties: '{}'
+                date_of_expiry:
+                  result: result
+                  properties: '{}'
+                date_of_birth:
+                  result: result
+                  properties: '{}'
+                last_name:
+                  result: result
+                  properties: '{}'
+                first_name:
+                  result: result
+                  properties: '{}'
+                document_type:
+                  result: result
+                  properties: '{}'
+            police_record:
+              result: result
+            data_validation:
+              result: result
+              breakdown:
+                document_numbers:
+                  result: result
+                  properties: '{}'
+                gender:
+                  result: result
+                  properties: '{}'
+                mrz:
+                  result: result
+                  properties: '{}'
+                document_expiration:
+                  result: result
+                  properties: '{}'
+                date_of_birth:
+                  result: result
+                  properties: '{}'
+                expiry_date:
+                  result: result
+                  properties: '{}'
+                barcode:
+                  result: result
+                  properties: '{}'
+            image_integrity:
+              result: result
+              breakdown:
+                colour_picture:
+                  result: result
+                  properties: '{}'
+                supported_document:
+                  result: result
+                  properties: '{}'
+                conclusive_document_quality:
+                  result: result
+                  properties:
+                    missing_back: missing_back
+                    punctured_document: punctured_document
+                    watermarks_digital_text_overlay: watermarks_digital_text_overlay
+                    digital_document: digital_document
+                    corner_removed: corner_removed
+                    obscured_data_points: obscured_data_points
+                    abnormal_document_features: abnormal_document_features
+                    obscured_security_features: obscured_security_features
+                image_quality:
+                  result: result
+                  properties:
+                    incorrect_side: incorrect_side
+                    glare_on_photo: glare_on_photo
+                    other_photo_issue: other_photo_issue
+                    cut_off_document: cut_off_document
+                    covered_photo: covered_photo
+                    two_documents_uploaded: two_documents_uploaded
+                    blurred_photo: blurred_photo
+                    no_document_in_image: no_document_in_image
+                    damaged_document: damaged_document
+                    dark_photo: dark_photo
+          name: document
+          created_at: '2000-01-23T04:56:07.000Z'
+          sub_result: clear
+          check_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          properties:
+            gender: gender
+            security_document_number: security_document_number
+            date_of_birth: '2000-01-23T00:00:00.000Z'
+            security_tier: tier_1
+            mother_name: mother_name
+            version_number: version_number
+            categorisation: categorisation
+            widow_name: widow_name
+            extracted_data:
+              document_number: document_number
+              gender: gender
+              date_of_birth: '2000-01-23T00:00:00.000Z'
+              last_name: last_name
+              middle_name: middle_name
+              alias_name: alias_name
+              widow_name: widow_name
+              spouse_name: spouse_name
+              mrz_line1: mrz_line1
+              full_name: full_name
+              mrz_line3: mrz_line3
+              nationality: nationality
+              date_of_expiry: '2000-01-23T00:00:00.000Z'
+              mrz_line2: mrz_line2
+              issuing_authority: issuing_authority
+              address_line_1: address_line_1
+              address_line_3: address_line_3
+              address_line_2: address_line_2
+              address_line_5: address_line_5
+              first_name: first_name
+              address_line_4: address_line_4
+            mrz_line1: mrz_line1
+            spouse_name: spouse_name
+            has_issuance_confirmation: 'true'
+            real_id_compliance: true
+            address_lines:
+              street_address: street_address
+              country: country
+              country_code: country_code
+              city: city
+              state: state
+              postal_code: postal_code
+            driving_licence_information:
+              codes: codes
+              obtainment_date: '2000-01-23T00:00:00.000Z'
+              expiry_date: '2000-01-23T00:00:00.000Z'
+              category: category
+            mrz_line3: mrz_line3
+            issuing_country: issuing_country
+            mrz_line2: mrz_line2
+            tax_number: tax_number
+            issuing_state: issuing_state
+            first_name: first_name
+            barcode:
+            - document_number: document_number
+              issuing_date: '2000-01-23T00:00:00.000Z'
+              gender: gender
+              date_of_birth: '2000-01-23T00:00:00.000Z'
+              last_name: last_name
+              middle_name: middle_name
+              real_id_classification: real_id_classification
+              date_of_expiry: '2000-01-23T00:00:00.000Z'
+              issuing_country: issuing_country
+              address_line_1: address_line_1
+              address_line_3: address_line_3
+              address_line_2: address_line_2
+              issuing_state: issuing_state
+              address_line_5: address_line_5
+              first_name: first_name
+              address_line_4: address_line_4
+              class: class
+              document_type: document_type
+            - document_number: document_number
+              issuing_date: '2000-01-23T00:00:00.000Z'
+              gender: gender
+              date_of_birth: '2000-01-23T00:00:00.000Z'
+              last_name: last_name
+              middle_name: middle_name
+              real_id_classification: real_id_classification
+              date_of_expiry: '2000-01-23T00:00:00.000Z'
+              issuing_country: issuing_country
+              address_line_1: address_line_1
+              address_line_3: address_line_3
+              address_line_2: address_line_2
+              issuing_state: issuing_state
+              address_line_5: address_line_5
+              first_name: first_name
+              address_line_4: address_line_4
+              class: class
+              document_type: document_type
+            document_type: document_type
+            profession: profession
+            nist_identity_evidence_strength: superior
+            document_numbers:
+            - type: type
+              value: value
+            - type: type
+              value: value
+            address: address
+            issuing_date: '2000-01-23T00:00:00.000Z'
+            document_subtype: document_subtype
+            type_of_permit: type_of_permit
+            last_name: last_name
+            nfc:
+              document_number: document_number
+              address: address
+              gender: gender
+              issuing_date: '2000-01-23T00:00:00.000Z'
+              date_of_birth: '2000-01-23T00:00:00.000Z'
+              place_of_birth: place_of_birth
+              full_name: full_name
+              nationality: nationality
+              issuing_country: issuing_country
+              date_of_expiry: '2000-01-23T00:00:00.000Z'
+              issuing_authority: issuing_authority
+              personal_number: personal_number
+              document_type: document_type
+            document_classification:
+              issuing_country: issuing_country
+              issuing_state: issuing_state
+              document_type: document_type
+            middle_name: middle_name
+            alias_name: alias_name
+            expatriation: expatriation
+            religion: religion
+            place_of_birth: place_of_birth
+            nationality: nationality
+            date_of_expiry: '2000-01-23T00:00:00.000Z'
+            father_name: father_name
+            issuing_authority: issuing_authority
+            civil_state: civil_state
+            personal_number: personal_number
+            remarks: remarks
+          status: awaiting_data
+        - result: clear
+          documents:
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          breakdown:
+            visual_authenticity:
+              result: result
+              breakdown:
+                template:
+                  result: result
+                  properties: '{}'
+                other:
+                  result: result
+                  properties: '{}'
+                fonts:
+                  result: result
+                  properties: '{}'
+                digital_tampering:
+                  result: result
+                  properties: '{}'
+                picture_face_integrity:
+                  result: result
+                  properties: '{}'
+                face_detection:
+                  result: result
+                  properties: '{}'
+                original_document_present:
+                  result: result
+                  properties:
+                    scan: scan
+                    document_on_printed_paper: document_on_printed_paper
+                    screenshot: screenshot
+                    photo_of_screen: photo_of_screen
+                security_features:
+                  result: result
+                  properties: '{}'
+            compromised_document:
+              result: result
+              breakdown:
+                document_database:
+                  result: result
+                  properties: '{}'
+                repeat_attempts:
+                  result: result
+                  properties: '{}'
+            age_validation:
+              result: result
+              breakdown:
+                minimum_accepted_age:
+                  result: result
+                  properties: '{}'
+            issuing_authority:
+              result: result
+              breakdown:
+                nfc_active_authentication:
+                  result: result
+                  properties: '{}'
+                nfc_passive_authentication:
+                  result: result
+                  properties: '{}'
+            data_consistency:
+              result: result
+              breakdown:
+                document_numbers:
+                  result: result
+                  properties: '{}'
+                gender:
+                  result: result
+                  properties: '{}'
+                nationality:
+                  result: result
+                  properties: '{}'
+                date_of_expiry:
+                  result: result
+                  properties: '{}'
+                issuing_country:
+                  result: result
+                  properties: '{}'
+                date_of_birth:
+                  result: result
+                  properties: '{}'
+                last_name:
+                  result: result
+                  properties: '{}'
+                multiple_data_sources_present:
+                  result: result
+                  properties: '{}'
+                first_name:
+                  result: result
+                  properties: '{}'
+                document_type:
+                  result: result
+                  properties: '{}'
+            data_comparison:
+              result: result
+              breakdown:
+                document_numbers:
+                  result: result
+                  properties: '{}'
+                gender:
+                  result: result
+                  properties: '{}'
+                issuing_country:
+                  result: result
+                  properties: '{}'
+                date_of_expiry:
+                  result: result
+                  properties: '{}'
+                date_of_birth:
+                  result: result
+                  properties: '{}'
+                last_name:
+                  result: result
+                  properties: '{}'
+                first_name:
+                  result: result
+                  properties: '{}'
+                document_type:
+                  result: result
+                  properties: '{}'
+            police_record:
+              result: result
+            data_validation:
+              result: result
+              breakdown:
+                document_numbers:
+                  result: result
+                  properties: '{}'
+                gender:
+                  result: result
+                  properties: '{}'
+                mrz:
+                  result: result
+                  properties: '{}'
+                document_expiration:
+                  result: result
+                  properties: '{}'
+                date_of_birth:
+                  result: result
+                  properties: '{}'
+                expiry_date:
+                  result: result
+                  properties: '{}'
+                barcode:
+                  result: result
+                  properties: '{}'
+            image_integrity:
+              result: result
+              breakdown:
+                colour_picture:
+                  result: result
+                  properties: '{}'
+                supported_document:
+                  result: result
+                  properties: '{}'
+                conclusive_document_quality:
+                  result: result
+                  properties:
+                    missing_back: missing_back
+                    punctured_document: punctured_document
+                    watermarks_digital_text_overlay: watermarks_digital_text_overlay
+                    digital_document: digital_document
+                    corner_removed: corner_removed
+                    obscured_data_points: obscured_data_points
+                    abnormal_document_features: abnormal_document_features
+                    obscured_security_features: obscured_security_features
+                image_quality:
+                  result: result
+                  properties:
+                    incorrect_side: incorrect_side
+                    glare_on_photo: glare_on_photo
+                    other_photo_issue: other_photo_issue
+                    cut_off_document: cut_off_document
+                    covered_photo: covered_photo
+                    two_documents_uploaded: two_documents_uploaded
+                    blurred_photo: blurred_photo
+                    no_document_in_image: no_document_in_image
+                    damaged_document: damaged_document
+                    dark_photo: dark_photo
+          name: document
+          created_at: '2000-01-23T04:56:07.000Z'
+          sub_result: clear
+          check_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          properties:
+            gender: gender
+            security_document_number: security_document_number
+            date_of_birth: '2000-01-23T00:00:00.000Z'
+            security_tier: tier_1
+            mother_name: mother_name
+            version_number: version_number
+            categorisation: categorisation
+            widow_name: widow_name
+            extracted_data:
+              document_number: document_number
+              gender: gender
+              date_of_birth: '2000-01-23T00:00:00.000Z'
+              last_name: last_name
+              middle_name: middle_name
+              alias_name: alias_name
+              widow_name: widow_name
+              spouse_name: spouse_name
+              mrz_line1: mrz_line1
+              full_name: full_name
+              mrz_line3: mrz_line3
+              nationality: nationality
+              date_of_expiry: '2000-01-23T00:00:00.000Z'
+              mrz_line2: mrz_line2
+              issuing_authority: issuing_authority
+              address_line_1: address_line_1
+              address_line_3: address_line_3
+              address_line_2: address_line_2
+              address_line_5: address_line_5
+              first_name: first_name
+              address_line_4: address_line_4
+            mrz_line1: mrz_line1
+            spouse_name: spouse_name
+            has_issuance_confirmation: 'true'
+            real_id_compliance: true
+            address_lines:
+              street_address: street_address
+              country: country
+              country_code: country_code
+              city: city
+              state: state
+              postal_code: postal_code
+            driving_licence_information:
+              codes: codes
+              obtainment_date: '2000-01-23T00:00:00.000Z'
+              expiry_date: '2000-01-23T00:00:00.000Z'
+              category: category
+            mrz_line3: mrz_line3
+            issuing_country: issuing_country
+            mrz_line2: mrz_line2
+            tax_number: tax_number
+            issuing_state: issuing_state
+            first_name: first_name
+            barcode:
+            - document_number: document_number
+              issuing_date: '2000-01-23T00:00:00.000Z'
+              gender: gender
+              date_of_birth: '2000-01-23T00:00:00.000Z'
+              last_name: last_name
+              middle_name: middle_name
+              real_id_classification: real_id_classification
+              date_of_expiry: '2000-01-23T00:00:00.000Z'
+              issuing_country: issuing_country
+              address_line_1: address_line_1
+              address_line_3: address_line_3
+              address_line_2: address_line_2
+              issuing_state: issuing_state
+              address_line_5: address_line_5
+              first_name: first_name
+              address_line_4: address_line_4
+              class: class
+              document_type: document_type
+            - document_number: document_number
+              issuing_date: '2000-01-23T00:00:00.000Z'
+              gender: gender
+              date_of_birth: '2000-01-23T00:00:00.000Z'
+              last_name: last_name
+              middle_name: middle_name
+              real_id_classification: real_id_classification
+              date_of_expiry: '2000-01-23T00:00:00.000Z'
+              issuing_country: issuing_country
+              address_line_1: address_line_1
+              address_line_3: address_line_3
+              address_line_2: address_line_2
+              issuing_state: issuing_state
+              address_line_5: address_line_5
+              first_name: first_name
+              address_line_4: address_line_4
+              class: class
+              document_type: document_type
+            document_type: document_type
+            profession: profession
+            nist_identity_evidence_strength: superior
+            document_numbers:
+            - type: type
+              value: value
+            - type: type
+              value: value
+            address: address
+            issuing_date: '2000-01-23T00:00:00.000Z'
+            document_subtype: document_subtype
+            type_of_permit: type_of_permit
+            last_name: last_name
+            nfc:
+              document_number: document_number
+              address: address
+              gender: gender
+              issuing_date: '2000-01-23T00:00:00.000Z'
+              date_of_birth: '2000-01-23T00:00:00.000Z'
+              place_of_birth: place_of_birth
+              full_name: full_name
+              nationality: nationality
+              issuing_country: issuing_country
+              date_of_expiry: '2000-01-23T00:00:00.000Z'
+              issuing_authority: issuing_authority
+              personal_number: personal_number
+              document_type: document_type
+            document_classification:
+              issuing_country: issuing_country
+              issuing_state: issuing_state
+              document_type: document_type
+            middle_name: middle_name
+            alias_name: alias_name
+            expatriation: expatriation
+            religion: religion
+            place_of_birth: place_of_birth
+            nationality: nationality
+            date_of_expiry: '2000-01-23T00:00:00.000Z'
+            father_name: father_name
+            issuing_authority: issuing_authority
+            civil_state: civil_state
+            personal_number: personal_number
+            remarks: remarks
+          status: awaiting_data
+      properties:
+        reports:
+          items:
+            $ref: '#/components/schemas/report'
+          type: array
+      required:
+      - reports
+      title: Reports list
+      type: object
+    photo_auto_reasons:
+      properties:
+        digital_tampering:
+          description: Flags when evidence is found that the image was manipulated by Photoshop, or other software.
+          type: string
+        fake_webcam:
+          description: Flags when evidence is found that a fake webcam was used.
+          type: string
+        time_of_capture:
+          description: Flags when evidence is found that the live photo was taken more than 24 hours before live photo upload.
+          type: string
+        emulator:
+          description: Flags when evidence is found that an Android emulator was used.
+          type: string
+        reasons:
+          description: Additional comma separated details such as the exact digital tampering software used, or the name of the fake webcam.
+          type: string
+      type: object
+    report_document:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: ID of uploaded document to use.
+          format: uuid
+          type: string
+      required:
+      - id
+      type: object
+    watchlist_aml_breakdown:
+      properties:
+        sanction:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_sanction'
+        politically_exposed_person:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_politically_exposed_person'
+        legal_and_regulatory_warnings:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_legal_and_regulatory_warnings'
+        adverse_media:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_adverse_media'
+      type: object
+    device_intelligence_breakdown:
+      properties:
+        breakdown:
+          $ref: '#/components/schemas/device_intelligence_breakdown_breakdown'
+        properties:
+          $ref: '#/components/schemas/device_intelligence_breakdown_properties'
+      type: object
+    document_breakdown_police_record:
+      description: Asserts whether the document had been identified as lost, stolen or otherwise compromised.
+      example:
+        result: result
+      properties:
+        result:
+          type: string
+      type: object
+    facial_similarity_motion_breakdown_image_integrity_breakdown_face_detected:
+      description: Asserts a single face of good enough quality has been found in both the document image and in the motion capture.
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    document_properties_extracted_data:
+      example:
+        document_number: document_number
+        gender: gender
+        date_of_birth: '2000-01-23T00:00:00.000Z'
+        last_name: last_name
+        middle_name: middle_name
+        alias_name: alias_name
+        widow_name: widow_name
+        spouse_name: spouse_name
+        mrz_line1: mrz_line1
+        full_name: full_name
+        mrz_line3: mrz_line3
+        nationality: nationality
+        date_of_expiry: '2000-01-23T00:00:00.000Z'
+        mrz_line2: mrz_line2
+        issuing_authority: issuing_authority
+        address_line_1: address_line_1
+        address_line_3: address_line_3
+        address_line_2: address_line_2
+        address_line_5: address_line_5
+        first_name: first_name
+        address_line_4: address_line_4
+      properties:
+        document_number:
+          type: string
+        date_of_birth:
+          format: date
+          type: string
+        date_of_expiry:
+          format: date
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        middle_name:
+          type: string
+        full_name:
+          type: string
+        spouse_name:
+          type: string
+        widow_name:
+          type: string
+        alias_name:
+          type: string
+        gender:
+          type: string
+        mrz_line1:
+          type: string
+        mrz_line2:
+          type: string
+        mrz_line3:
+          type: string
+        nationality:
+          type: string
+        address_line_1:
+          type: string
+        address_line_2:
+          type: string
+        address_line_3:
+          type: string
+        address_line_4:
+          type: string
+        address_line_5:
+          type: string
+        issuing_authority:
+          type: string
+      type: object
+    document_with_driver_verification_report_allOf_properties:
+      allOf:
+      - $ref: '#/components/schemas/document_properties'
+      - properties:
+          drivers_licence:
+            description: True for **non-restricted** driving licences
+            type: boolean
+          restricted_licence:
+            description: True for **limited/restricted** driving license, including learner's permits
+            type: boolean
+          raw_licence_category:
+            description: Underlying, non-normalised, licence category (e.g. "Junior operators license")
+            type: string
+          raw_vehicle_classes:
+            description: Comma-separated vehicle classes that the user is qualified for
+            type: string
+          vehicle_class_details:
+            description: Detailed classes/categories information
+            items:
+              $ref: '#/components/schemas/document_with_driver_verification_report_allOf_properties_allOf_vehicle_class_details_inner'
+            type: array
+          passenger_vehicle:
+            $ref: '#/components/schemas/document_with_driver_verification_report_allOf_properties_allOf_passenger_vehicle'
+        type: object
+    facial_similarity_photo_fully_auto_breakdown_image_integrity_breakdown:
+      properties:
+        face_detected:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_image_integrity_breakdown_face_detected'
+        source_integrity:
+          $ref: '#/components/schemas/facial_similarity_photo_fully_auto_breakdown_image_integrity_breakdown_source_integrity'
+      type: object
+    known_faces_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/known_faces_breakdown'
+          properties:
+            $ref: '#/components/schemas/known_faces_properties'
+        type: object
+    watchlist_peps_only_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/watchlist_standard_breakdown'
+          properties:
+            $ref: '#/components/schemas/watchlist_standard_properties'
+        type: object
+    proof_of_address_breakdown_data_comparison_breakdown:
+      properties:
+        address:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        first_name:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        last_name:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    watchlist_enhanced_properties_records_inner_event_inner:
+      properties:
+        category:
+          type: string
+        event_date:
+          format: date
+          type: string
+        event_description:
+          type: string
+        source:
+          $ref: '#/components/schemas/watchlist_enhanced_properties_records_inner_event_inner_source'
+        sub_category:
+          type: string
+      type: object
+    facial_similarity_photo_breakdown_visual_authenticity:
+      description: Asserts whether the person in the live photo is real and not a spoof.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_visual_authenticity_breakdown'
+      type: object
+    facial_similarity_motion_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - $ref: '#/components/schemas/facial_similarity_report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/facial_similarity_motion_breakdown'
+          properties:
+            $ref: '#/components/schemas/facial_similarity_motion_properties'
+        type: object
+    facial_similarity_photo_breakdown_visual_authenticity_breakdown_spoofing_detection:
+      description: Contains a score value under the properties bag.
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_visual_authenticity_breakdown_spoofing_detection_properties'
+      type: object
+    facial_similarity_video_breakdown_image_integrity_breakdown_source_integrity:
+      description: Asserts whether the live video is trustworthy - e.g. not from a fake webcam.
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/video_reasons'
+      type: object
+    repeat_attempts_list_repeat_attempts_inner:
+      example:
+        result: clear
+        completed_at: '2000-01-23T04:56:07.000Z'
+        names: match
+        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        date_of_birth: match
+        created_at: '2000-01-23T04:56:07.000Z'
+      properties:
+        report_id:
+          description: The unique identifier of the matching Document report.
+          format: uuid
+          type: string
+        applicant_id:
+          description: The unique identifier of the applicant for the matching Document report.
+          format: uuid
+          type: string
+        date_of_birth:
+          description: Whether the dates of birth are exactly the same or are different.
+          enum:
+          - match
+          - mismatch
+          type: string
+        names:
+          description: Whether the names are exactly the same or are different.
+          enum:
+          - match
+          - mismatch
+          type: string
+        result:
+          description: The report result of this attempt.
+          enum:
+          - clear
+          - consider
+          type: string
+        created_at:
+          description: When the matching report was created.
+          format: date-time
+          type: string
+        completed_at:
+          description: When the matching report was completed.
+          format: date-time
+          type: string
+      type: object
+    facial_similarity_photo_breakdown_face_comparison:
+      description: Asserts whether the face in the document matches the face in the live photo.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_face_comparison_breakdown'
+      type: object
+    photo_reasons:
+      properties:
+        digital_tampering:
+          description: Flags when evidence is found that the image was manipulated by Photoshop, or other software.
+          type: string
+        fake_webcam:
+          description: Flags when evidence is found that a fake webcam was used.
+          type: string
+        time_of_capture:
+          description: Flags when evidence is found that the live photo was taken more than 24 hours before live photo upload.
+          type: string
+        emulator:
+          description: Flags when evidence is found that an Android emulator was used.
+          type: string
+        reasons:
+          description: Additional comma separated details such as the exact digital tampering software used, or the name of the fake webcam.
+          type: string
+      type: object
+    video_reasons:
+      properties:
+        fake_webcam:
+          description: Flags when evidence is found that a fake webcam was used.
+          type: string
+        challenge_reuse:
+          description: Flags when evidence is found that the video was uploaded in an attempt to circumvent the randomness of the speaking and head turn challenges
+          type: string
+        emulator:
+          description: Flags when evidence is found that an Android emulator was used.
+          type: string
+        reasons:
+          description: Additional comma separated details such as the name of the fake webcam.
+          type: string
+      type: object
+    document_breakdown_image_integrity_breakdown:
+      example:
+        colour_picture:
+          result: result
+          properties: '{}'
+        supported_document:
+          result: result
+          properties: '{}'
+        conclusive_document_quality:
+          result: result
+          properties:
+            missing_back: missing_back
+            punctured_document: punctured_document
+            watermarks_digital_text_overlay: watermarks_digital_text_overlay
+            digital_document: digital_document
+            corner_removed: corner_removed
+            obscured_data_points: obscured_data_points
+            abnormal_document_features: abnormal_document_features
+            obscured_security_features: obscured_security_features
+        image_quality:
+          result: result
+          properties:
+            incorrect_side: incorrect_side
+            glare_on_photo: glare_on_photo
+            other_photo_issue: other_photo_issue
+            cut_off_document: cut_off_document
+            covered_photo: covered_photo
+            two_documents_uploaded: two_documents_uploaded
+            blurred_photo: blurred_photo
+            no_document_in_image: no_document_in_image
+            damaged_document: damaged_document
+            dark_photo: dark_photo
+      properties:
+        image_quality:
+          $ref: '#/components/schemas/document_breakdown_image_integrity_breakdown_image_quality'
+        supported_document:
+          $ref: '#/components/schemas/document_breakdown_image_integrity_breakdown_supported_document'
+        colour_picture:
+          $ref: '#/components/schemas/document_breakdown_image_integrity_breakdown_colour_picture'
+        conclusive_document_quality:
+          $ref: '#/components/schemas/document_breakdown_image_integrity_breakdown_conclusive_document_quality'
+      type: object
+    facial_similarity_photo_fully_auto_properties:
+      properties:
+        score:
+          description: 'A floating point number between 0 and 1. The closer the score is to 0, the more likely
+
+            it is to be a spoof (i.e. photos of printed photos, or photos of digital screens).
+
+            Conversely, the closer it is to 1, the less likely it is to be a spoof.
+
+            '
+          format: float
+          type: number
+      type: object
+    identity_enhanced_breakdown_sources_breakdown_total_sources:
+      description: The number of sources which produced a match to applicant details.
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_sources_breakdown_total_sources_properties'
+      type: object
+    document_with_driving_licence_information_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/document_breakdown'
+          properties:
+            $ref: '#/components/schemas/document_properties'
+        type: object
+    document_breakdown:
+      example:
+        visual_authenticity:
+          result: result
+          breakdown:
+            template:
+              result: result
+              properties: '{}'
+            other:
+              result: result
+              properties: '{}'
+            fonts:
+              result: result
+              properties: '{}'
+            digital_tampering:
+              result: result
+              properties: '{}'
+            picture_face_integrity:
+              result: result
+              properties: '{}'
+            face_detection:
+              result: result
+              properties: '{}'
+            original_document_present:
+              result: result
+              properties:
+                scan: scan
+                document_on_printed_paper: document_on_printed_paper
+                screenshot: screenshot
+                photo_of_screen: photo_of_screen
+            security_features:
+              result: result
+              properties: '{}'
+        compromised_document:
+          result: result
+          breakdown:
+            document_database:
+              result: result
+              properties: '{}'
+            repeat_attempts:
+              result: result
+              properties: '{}'
+        age_validation:
+          result: result
+          breakdown:
+            minimum_accepted_age:
+              result: result
+              properties: '{}'
+        issuing_authority:
+          result: result
+          breakdown:
+            nfc_active_authentication:
+              result: result
+              properties: '{}'
+            nfc_passive_authentication:
+              result: result
+              properties: '{}'
+        data_consistency:
+          result: result
+          breakdown:
+            document_numbers:
+              result: result
+              properties: '{}'
+            gender:
+              result: result
+              properties: '{}'
+            nationality:
+              result: result
+              properties: '{}'
+            date_of_expiry:
+              result: result
+              properties: '{}'
+            issuing_country:
+              result: result
+              properties: '{}'
+            date_of_birth:
+              result: result
+              properties: '{}'
+            last_name:
+              result: result
+              properties: '{}'
+            multiple_data_sources_present:
+              result: result
+              properties: '{}'
+            first_name:
+              result: result
+              properties: '{}'
+            document_type:
+              result: result
+              properties: '{}'
+        data_comparison:
+          result: result
+          breakdown:
+            document_numbers:
+              result: result
+              properties: '{}'
+            gender:
+              result: result
+              properties: '{}'
+            issuing_country:
+              result: result
+              properties: '{}'
+            date_of_expiry:
+              result: result
+              properties: '{}'
+            date_of_birth:
+              result: result
+              properties: '{}'
+            last_name:
+              result: result
+              properties: '{}'
+            first_name:
+              result: result
+              properties: '{}'
+            document_type:
+              result: result
+              properties: '{}'
+        police_record:
+          result: result
+        data_validation:
+          result: result
+          breakdown:
+            document_numbers:
+              result: result
+              properties: '{}'
+            gender:
+              result: result
+              properties: '{}'
+            mrz:
+              result: result
+              properties: '{}'
+            document_expiration:
+              result: result
+              properties: '{}'
+            date_of_birth:
+              result: result
+              properties: '{}'
+            expiry_date:
+              result: result
+              properties: '{}'
+            barcode:
+              result: result
+              properties: '{}'
+        image_integrity:
+          result: result
+          breakdown:
+            colour_picture:
+              result: result
+              properties: '{}'
+            supported_document:
+              result: result
+              properties: '{}'
+            conclusive_document_quality:
+              result: result
+              properties:
+                missing_back: missing_back
+                punctured_document: punctured_document
+                watermarks_digital_text_overlay: watermarks_digital_text_overlay
+                digital_document: digital_document
+                corner_removed: corner_removed
+                obscured_data_points: obscured_data_points
+                abnormal_document_features: abnormal_document_features
+                obscured_security_features: obscured_security_features
+            image_quality:
+              result: result
+              properties:
+                incorrect_side: incorrect_side
+                glare_on_photo: glare_on_photo
+                other_photo_issue: other_photo_issue
+                cut_off_document: cut_off_document
+                covered_photo: covered_photo
+                two_documents_uploaded: two_documents_uploaded
+                blurred_photo: blurred_photo
+                no_document_in_image: no_document_in_image
+                damaged_document: damaged_document
+                dark_photo: dark_photo
+      properties:
+        data_comparison:
+          $ref: '#/components/schemas/document_breakdown_data_comparison'
+        data_validation:
+          $ref: '#/components/schemas/document_breakdown_data_validation'
+        image_integrity:
+          $ref: '#/components/schemas/document_breakdown_image_integrity'
+        visual_authenticity:
+          $ref: '#/components/schemas/document_breakdown_visual_authenticity'
+        data_consistency:
+          $ref: '#/components/schemas/document_breakdown_data_consistency'
+        police_record:
+          $ref: '#/components/schemas/document_breakdown_police_record'
+        compromised_document:
+          $ref: '#/components/schemas/document_breakdown_compromised_document'
+        age_validation:
+          $ref: '#/components/schemas/document_breakdown_age_validation'
+        issuing_authority:
+          $ref: '#/components/schemas/document_breakdown_issuing_authority'
+      type: object
+    proof_of_address_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/proof_of_address_breakdown'
+          properties:
+            $ref: '#/components/schemas/proof_of_address_properties'
+        type: object
+    watchlist_standard_breakdown:
+      properties:
+        sanction:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_sanction'
+        politically_exposed_person:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_politically_exposed_person'
+        legal_and_regulatory_warnings:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_legal_and_regulatory_warnings'
+      type: object
+    document_with_driver_verification_report_allOf_properties_allOf_vehicle_class_details_inner:
+      properties:
+        category:
+          description: Vehicle class/category
+          type: string
+        codes:
+          description: Special conditions driver must meet
+          type: string
+        obtainment_date:
+          description: Category obtainment date
+          format: date
+          type: string
+        expiry_date:
+          description: Category expiry date
+          format: date
+          type: string
+      type: object
+    facial_similarity_photo_breakdown_face_comparison_breakdown_face_match_properties:
+      properties:
+        score:
+          description: A floating point number between 0 and 1 that expresses how similar the two faces are, where 1 is a perfect match.
+          format: float
+          type: number
+        document_id:
+          description: The UUID for the document containing the extracted face that was used for face matching.
+          format: uuid
+          type: string
+      type: object
+    document_breakdown_data_validation_breakdown_document_expiration:
+      description: If this is flagged, the document has expired.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    identity_enhanced_breakdown_sources:
+      description: Asserts if any sources that an applicant's details have been verified against have produced a match.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_sources_breakdown'
+      type: object
+    document_breakdown_compromised_document_breakdown:
+      example:
+        document_database:
+          result: result
+          properties: '{}'
+        repeat_attempts:
+          result: result
+          properties: '{}'
+      properties:
+        document_database:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        repeat_attempts:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    device_intelligence_breakdown_properties:
+      properties:
+        device:
+          $ref: '#/components/schemas/device_intelligence_breakdown_properties_device'
+        ip:
+          $ref: '#/components/schemas/device_intelligence_breakdown_properties_ip'
+        geolocation:
+          $ref: '#/components/schemas/device_intelligence_breakdown_properties_geolocation'
+      type: object
+    device_intelligence_breakdown_properties_device:
+      properties:
+        sdk_version:
+          description: The SDK version that was used.
+          type: string
+        sdk_source:
+          description: The SDK used to upload the media.
+          enum:
+          - onfido-android-sdk
+          - onfido-ios-sdk
+          - onfido-web-sdk
+          type: string
+        authentication_type:
+          description: The token used to authenticate the request.
+          enum:
+          - sdk_token
+          - mobile_token
+          - api_token
+          type: string
+        raw_model:
+          description: The model as set by the phone manufacturer (for Android and iOS) or the browser manufacturer (for Web). The model can be presented in name or number form depending on each manufacturer implementation.
+          type: string
+        os:
+          description: The operating system of the device. The value came from manufacturer implementation (for Android and iOS) or browser's user agent (for Web).
+          type: string
+        browser:
+          description: The browser name reported by the browser's user agent.
+          type: string
+        emulator:
+          description: Whether the device is an emulator.
+          type: boolean
+        randomized_device:
+          description: Whether the device is providing false randomized device and network information.
+          type: boolean
+        fake_network_request:
+          description: Whether device is using stolen security tokens to send the network information.
+          type: boolean
+        ip_reputation:
+          description: Whether there is highly suspicious traffic related to the IP address. The risk depends on the overall ratio of clear checks on a given IP.
+          enum:
+          - NOT_ENOUGH_DATA
+          - HIGH_RISK
+          - LOW_RISK
+          type: string
+        device_fingerprint_reuse:
+          description: The number of times the device was used to create a report for a new applicant. A value greater than 1 indicates potential device reuse.
+          type: integer
+        single_device_used:
+          description: Whether the document or biometric media were uploaded from a single device.
+          nullable: true
+          type: boolean
+        document_capture:
+          description: Whether the document media were live captured from the device camera.
+          enum:
+          - live
+          - unknown_method
+          type: string
+        biometric_capture:
+          description: Whether the biometric media were live captured from the device camera.
+          enum:
+          - live
+          - unknown_method
+          type: string
+      type: object
+    watchlist_enhanced_properties_records_inner_associate_inner:
+      properties:
+        entity_name:
+          type: string
+        relationship_direction:
+          type: string
+        relationship_type:
+          type: string
+      type: object
+    proof_of_address_breakdown_image_integrity:
+      description: Asserts whether the quality of the uploaded document was sufficient to verify the address.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/proof_of_address_breakdown_image_integrity_breakdown'
+      type: object
+    known_faces_breakdown:
+      properties:
+        previously_seen_faces:
+          $ref: '#/components/schemas/known_faces_breakdown_previously_seen_faces'
+        image_integrity:
+          $ref: '#/components/schemas/known_faces_breakdown_image_integrity'
+      type: object
+    watchlist_aml_breakdown_legal_and_regulatory_warnings:
+      description: Asserts if there are any records found in Law-Enforcement and Regulatory bodies Monitored Lists (including Terrorism, Money Laundering and Most Wanted lists).
+      properties:
+        result:
+          type: string
+      type: object
+    facial_similarity_video_breakdown_visual_authenticity_breakdown_liveness_detected:
+      description: Asserts whether the numbers and head movements were correctly executed.
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    facial_similarity_photo_breakdown_image_integrity_breakdown:
+      properties:
+        face_detected:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_image_integrity_breakdown_face_detected'
+        source_integrity:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_image_integrity_breakdown_source_integrity'
+      type: object
+    proof_of_address_breakdown:
+      properties:
+        data_comparison:
+          $ref: '#/components/schemas/proof_of_address_breakdown_data_comparison'
+        document_classification:
+          $ref: '#/components/schemas/proof_of_address_breakdown_document_classification'
+        image_integrity:
+          $ref: '#/components/schemas/proof_of_address_breakdown_image_integrity'
+      type: object
+    document_properties_document_classification:
+      example:
+        issuing_country: issuing_country
+        issuing_state: issuing_state
+        document_type: document_type
+      properties:
+        issuing_country:
+          type: string
+        document_type:
+          type: string
+        issuing_state:
+          type: string
+      type: object
+    india_pan_report_allOf_properties:
+      properties:
+        device:
+          $ref: '#/components/schemas/india_pan_report_allOf_properties_device'
+      type: object
+    watchlist_enhanced_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/watchlist_enhanced_breakdown'
+          properties:
+            $ref: '#/components/schemas/watchlist_enhanced_properties'
+        type: object
+    facial_similarity_motion_breakdown_visual_authenticity_breakdown:
+      properties:
+        liveness_detected:
+          $ref: '#/components/schemas/facial_similarity_video_breakdown_visual_authenticity_breakdown_liveness_detected'
+        spoofing_detection:
+          $ref: '#/components/schemas/facial_similarity_motion_breakdown_visual_authenticity_breakdown_spoofing_detection'
+      type: object
+    watchlist_enhanced_properties:
+      properties:
+        records:
+          description: Returns any matches including, but not limited to, name and date of birth of match, aliases and associates, and relevant events and sources.
+          items:
+            $ref: '#/components/schemas/watchlist_enhanced_properties_records_inner'
+          type: array
+      type: object
+    document_breakdown_image_integrity:
+      description: Asserts if the document is of sufficient quality to verify.
+      example:
+        result: result
+        breakdown:
+          colour_picture:
+            result: result
+            properties: '{}'
+          supported_document:
+            result: result
+            properties: '{}'
+          conclusive_document_quality:
+            result: result
+            properties:
+              missing_back: missing_back
+              punctured_document: punctured_document
+              watermarks_digital_text_overlay: watermarks_digital_text_overlay
+              digital_document: digital_document
+              corner_removed: corner_removed
+              obscured_data_points: obscured_data_points
+              abnormal_document_features: abnormal_document_features
+              obscured_security_features: obscured_security_features
+          image_quality:
+            result: result
+            properties:
+              incorrect_side: incorrect_side
+              glare_on_photo: glare_on_photo
+              other_photo_issue: other_photo_issue
+              cut_off_document: cut_off_document
+              covered_photo: covered_photo
+              two_documents_uploaded: two_documents_uploaded
+              blurred_photo: blurred_photo
+              no_document_in_image: no_document_in_image
+              damaged_document: damaged_document
+              dark_photo: dark_photo
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/document_breakdown_image_integrity_breakdown'
+      type: object
+    india_pan_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/india_pan_report_allOf_breakdown'
+          properties:
+            $ref: '#/components/schemas/india_pan_report_allOf_properties'
+        type: object
+    watchlist_enhanced_breakdown:
+      properties:
+        politically_exposed_person:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_politically_exposed_person'
+        sanction:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_sanction'
+        adverse_media:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_adverse_media'
+        monitored_lists:
+          $ref: '#/components/schemas/watchlist_aml_breakdown_legal_and_regulatory_warnings'
+      type: object
+    identity_enhanced_breakdown_address_breakdown_telephone_database:
+      description: Address match against telephone database.
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    document_with_driver_verification_report_allOf_properties_allOf_passenger_vehicle:
+      description: Normalised data for passenger cars
+      properties:
+        is_qualified:
+          description: Whether they are qualified for a passenger car, such as a B class in the UK
+          type: boolean
+        obtainment_date:
+          description: Date the class qualification was obtained
+          format: date
+          type: string
+        expiry_date:
+          description: Date the class qualification expires, which may be different to doc expiry
+          format: date
+          type: string
+      type: object
+    document_video_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/document_breakdown'
+          properties:
+            $ref: '#/components/schemas/document_properties'
+        type: object
+    facial_similarity_photo_breakdown_image_integrity_breakdown_face_detected:
+      description: Asserts a single face of good enough quality has been found in both the document image and the live photo.
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    facial_similarity_motion_breakdown:
+      properties:
+        face_comparison:
+          $ref: '#/components/schemas/facial_similarity_motion_breakdown_face_comparison'
+        image_integrity:
+          $ref: '#/components/schemas/facial_similarity_motion_breakdown_image_integrity'
+        visual_authenticity:
+          $ref: '#/components/schemas/facial_similarity_motion_breakdown_visual_authenticity'
+      type: object
+    document_breakdown_visual_authenticity_breakdown_template:
+      description: The document doesn't match the expected template for the document type and country it is from.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    document_breakdown_issuing_authority_breakdown_nfc_active_authentication:
+      description: Asserts whether the document NFC chip is original or cloned.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    us_driving_licence_breakdown_document_breakdown:
+      properties:
+        category:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        expiration_date:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        issue_date:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        document_number:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    identity_enhanced_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/identity_enhanced_breakdown'
+          properties:
+            $ref: '#/components/schemas/identity_enhanced_properties'
+        type: object
+    identity_enhanced_breakdown_sources_breakdown:
+      properties:
+        total_sources:
+          $ref: '#/components/schemas/identity_enhanced_breakdown_sources_breakdown_total_sources'
+      type: object
+    india_pan_report_allOf_breakdown_device:
+      properties:
+        breakdown:
+          $ref: '#/components/schemas/india_pan_report_allOf_breakdown_device_breakdown'
+      type: object
+    proof_of_address_breakdown_data_comparison:
+      description: Asserts whether the first name, last name and address provided by the applicant match those on the PoA document.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/proof_of_address_breakdown_data_comparison_breakdown'
+      type: object
+    document_properties_barcode_inner:
+      example:
+        document_number: document_number
+        issuing_date: '2000-01-23T00:00:00.000Z'
+        gender: gender
+        date_of_birth: '2000-01-23T00:00:00.000Z'
+        last_name: last_name
+        middle_name: middle_name
+        real_id_classification: real_id_classification
+        date_of_expiry: '2000-01-23T00:00:00.000Z'
+        issuing_country: issuing_country
+        address_line_1: address_line_1
+        address_line_3: address_line_3
+        address_line_2: address_line_2
+        issuing_state: issuing_state
+        address_line_5: address_line_5
+        first_name: first_name
+        address_line_4: address_line_4
+        class: class
+        document_type: document_type
+      properties:
+        first_name:
+          type: string
+        middle_name:
+          type: string
+        last_name:
+          type: string
+        document_type:
+          type: string
+        date_of_expiry:
+          format: date
+          type: string
+        date_of_birth:
+          format: date
+          type: string
+        issuing_date:
+          format: date
+          type: string
+        address_line_1:
+          type: string
+        address_line_2:
+          type: string
+        address_line_3:
+          type: string
+        address_line_4:
+          type: string
+        address_line_5:
+          type: string
+        issuing_state:
+          type: string
+        class:
+          type: string
+        gender:
+          type: string
+        issuing_country:
+          type: string
+        document_number:
+          type: string
+        real_id_classification:
+          type: string
+      type: object
+    document_breakdown_data_validation_breakdown:
+      example:
+        document_numbers:
+          result: result
+          properties: '{}'
+        gender:
+          result: result
+          properties: '{}'
+        mrz:
+          result: result
+          properties: '{}'
+        document_expiration:
+          result: result
+          properties: '{}'
+        date_of_birth:
+          result: result
+          properties: '{}'
+        expiry_date:
+          result: result
+          properties: '{}'
+        barcode:
+          result: result
+          properties: '{}'
+      properties:
+        gender:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        date_of_birth:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        document_numbers:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        document_expiration:
+          $ref: '#/components/schemas/document_breakdown_data_validation_breakdown_document_expiration'
+        expiry_date:
+          $ref: '#/components/schemas/document_breakdown_data_validation_breakdown_expiry_date'
+        mrz:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+        barcode:
+          $ref: '#/components/schemas/document_breakdown_data_comparison_breakdown_issuing_country'
+      type: object
+    report:
+      discriminator:
+        mapping:
+          document: '#/components/schemas/document_report'
+          document_video: '#/components/schemas/document_video_report'
+          document_video_with_address_information: '#/components/schemas/document_video_with_address_information_report'
+          document_with_address_information: '#/components/schemas/document_with_address_information_report'
+          document_with_driving_licence_information: '#/components/schemas/document_with_driving_licence_information_report'
+          document_with_driver_verification: '#/components/schemas/document_with_driver_verification_report'
+          facial_similarity_photo: '#/components/schemas/facial_similarity_photo_report'
+          facial_similarity_photo_fully_auto: '#/components/schemas/facial_similarity_photo_fully_auto_report'
+          facial_similarity_video: '#/components/schemas/facial_similarity_video_report'
+          facial_similarity_motion: '#/components/schemas/facial_similarity_motion_report'
+          known_faces: '#/components/schemas/known_faces_report'
+          identity_enhanced: '#/components/schemas/identity_enhanced_report'
+          watchlist_aml: '#/components/schemas/watchlist_aml_report'
+          watchlist_enhanced: '#/components/schemas/watchlist_enhanced_report'
+          watchlist_standard: '#/components/schemas/watchlist_standard_report'
+          watchlist_peps_only: '#/components/schemas/watchlist_peps_only_report'
+          watchlist_sanctions_only: '#/components/schemas/watchlist_sanctions_only_report'
+          proof_of_address: '#/components/schemas/proof_of_address_report'
+          us_driving_licence: '#/components/schemas/us_driving_licence_report'
+          device_intelligence: '#/components/schemas/device_intelligence_report'
+          india_pan: '#/components/schemas/india_pan_report'
+        propertyName: name
+      oneOf:
+      - $ref: '#/components/schemas/document_report'
+      - $ref: '#/components/schemas/document_video_report'
+      - $ref: '#/components/schemas/document_video_with_address_information_report'
+      - $ref: '#/components/schemas/document_with_address_information_report'
+      - $ref: '#/components/schemas/document_with_driving_licence_information_report'
+      - $ref: '#/components/schemas/document_with_driver_verification_report'
+      - $ref: '#/components/schemas/facial_similarity_photo_report'
+      - $ref: '#/components/schemas/facial_similarity_photo_fully_auto_report'
+      - $ref: '#/components/schemas/facial_similarity_video_report'
+      - $ref: '#/components/schemas/facial_similarity_motion_report'
+      - $ref: '#/components/schemas/known_faces_report'
+      - $ref: '#/components/schemas/identity_enhanced_report'
+      - $ref: '#/components/schemas/watchlist_aml_report'
+      - $ref: '#/components/schemas/watchlist_enhanced_report'
+      - $ref: '#/components/schemas/watchlist_standard_report'
+      - $ref: '#/components/schemas/watchlist_peps_only_report'
+      - $ref: '#/components/schemas/watchlist_sanctions_only_report'
+      - $ref: '#/components/schemas/proof_of_address_report'
+      - $ref: '#/components/schemas/us_driving_licence_report'
+      - $ref: '#/components/schemas/device_intelligence_report'
+      - $ref: '#/components/schemas/india_pan_report'
+    facial_similarity_motion_breakdown_visual_authenticity_breakdown_spoofing_detection:
+      description: Asserts whether the motion capture is not a spoof (such as videos of digital screens).
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_visual_authenticity_breakdown_spoofing_detection_properties'
+      type: object
+    watchlist_aml_properties:
+      properties:
+        records:
+          deprecated: true
+          description: Returns any matches including, but not limited to, name and date of birth of match, aliases and associates, and relevant events and sources.
+          items:
+            type: string
+          type: array
+      type: object
+    document_breakdown_age_validation:
+      description: Asserts whether the age calculated from the document's date of birth data point is greater than or equal to the minimum accepted age.
+      example:
+        result: result
+        breakdown:
+          minimum_accepted_age:
+            result: result
+            properties: '{}'
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/document_breakdown_age_validation_breakdown'
+      type: object
+    watchlist_sanctions_only_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/watchlist_standard_breakdown'
+          properties:
+            $ref: '#/components/schemas/watchlist_standard_properties'
+        type: object
+    device_intelligence_breakdown_breakdown_device:
+      description: Asserts whether the device used to upload the media is trustworthy, i.e. it is a real, physical device.
+      properties:
+        breakdown:
+          $ref: '#/components/schemas/device_intelligence_breakdown_breakdown_device_breakdown'
+      type: object
+    device_intelligence_breakdown_properties_ip:
+      properties:
+        address:
+          description: The IP address that uploaded the media.
+          type: string
+      type: object
+    document_breakdown_data_validation_breakdown_expiry_date:
+      description: If this is flagged, the expiration date has the incorrect format.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    us_driving_licence_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/us_driving_licence_breakdown'
+          properties:
+            $ref: '#/components/schemas/document_properties'
+        type: object
+    report_shared:
+      properties:
+        id:
+          description: The unique identifier for the report. Read-only.
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time at which the report was first initiated. Read-only.
+          format: date-time
+          type: string
+        href:
+          description: The API endpoint to retrieve the report. Read-only.
+          type: string
+        status:
+          $ref: '#/components/schemas/report_status'
+        result:
+          $ref: '#/components/schemas/report_result'
+        sub_result:
+          $ref: '#/components/schemas/report_sub_result'
+        check_id:
+          description: The ID of the check to which the report belongs. Read-only.
+          format: uuid
+          type: string
+        documents:
+          description: Array of objects with document ids that were used in the Onfido engine. [ONLY POPULATED FOR DOCUMENT AND FACIAL SIMILARITY REPORTS]
+          items:
+            $ref: '#/components/schemas/report_document'
+          type: array
+        name:
+          $ref: '#/components/schemas/report_name'
+      required:
+      - id
+      - name
+    facial_similarity_motion_breakdown_image_integrity_breakdown_source_integrity:
+      description: Asserts whether the motion capture is trustworthy - e.g. not from a fake webcam.
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/video_reasons'
+      type: object
+    india_pan_report_allOf_breakdown_device_breakdown:
+      properties:
+        pan_valid:
+          $ref: '#/components/schemas/india_pan_report_allOf_breakdown_device_breakdown_pan_valid'
+        name_match:
+          $ref: '#/components/schemas/india_pan_report_allOf_breakdown_device_breakdown_pan_valid'
+      type: object
+    watchlist_aml_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/watchlist_aml_breakdown'
+          properties:
+            $ref: '#/components/schemas/watchlist_aml_properties'
+        type: object
+    document_breakdown_image_integrity_breakdown_image_quality:
+      description: Asserts whether the quality of the image was sufficient for processing.
+      example:
+        result: result
+        properties:
+          incorrect_side: incorrect_side
+          glare_on_photo: glare_on_photo
+          other_photo_issue: other_photo_issue
+          cut_off_document: cut_off_document
+          covered_photo: covered_photo
+          two_documents_uploaded: two_documents_uploaded
+          blurred_photo: blurred_photo
+          no_document_in_image: no_document_in_image
+          damaged_document: damaged_document
+          dark_photo: dark_photo
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/document_IQ_reasons'
+      type: object
+    facial_similarity_photo_fully_auto_breakdown_image_integrity_breakdown_source_integrity:
+      description: Asserts whether the live photo is trustworthy - i.e. not digitally tampered, from a fake webcam, or from other dubious sources.
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/photo_auto_reasons'
+      type: object
+    watchlist_standard_properties:
+      properties:
+        records:
+          deprecated: true
+          description: Returns any matches including, but not limited to, name and date of birth of match, aliases and associates, and relevant events and sources.
+          items:
+            type: string
+          type: array
+      type: object
+    watchlist_enhanced_properties_records_inner:
+      properties:
+        address:
+          description: All addresses on file.
+          items:
+            $ref: '#/components/schemas/watchlist_enhanced_properties_records_inner_address_inner'
+          type: array
+        alias:
+          description: Any names that the person is also known as.
+          items:
+            $ref: '#/components/schemas/watchlist_enhanced_properties_records_inner_alias_inner'
+          type: array
+        associate:
+          description: Any linked persons, for example family relatives or business partners.
+          items:
+            $ref: '#/components/schemas/watchlist_enhanced_properties_records_inner_associate_inner'
+          type: array
+        attribute:
+          description: Information about the person, for example hair color or nationality.
+          items:
+            $ref: '#/components/schemas/watchlist_enhanced_properties_records_inner_attribute_inner'
+          type: array
+        date_of_birth:
+          description: All the date of births on file.
+          items:
+            type: string
+          type: array
+        event:
+          description: Information about events that have occurred to the person, for example deportation or arrest.
+          items:
+            $ref: '#/components/schemas/watchlist_enhanced_properties_records_inner_event_inner'
+          type: array
+        full_name:
+          description: The name on file
+          type: string
+        position:
+          description: The role, country and date of each position.
+          items:
+            type: string
+          type: array
+        source:
+          description: Details about where the information was obtained.
+          items:
+            $ref: '#/components/schemas/watchlist_enhanced_properties_records_inner_source_inner'
+          type: array
+      type: object
+    repeat_attempts_list:
+      example:
+        attempts_clear_rate: 0.6027456
+        report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        repeat_attempts:
+        - result: clear
+          completed_at: '2000-01-23T04:56:07.000Z'
+          names: match
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          date_of_birth: match
+          created_at: '2000-01-23T04:56:07.000Z'
+        - result: clear
+          completed_at: '2000-01-23T04:56:07.000Z'
+          names: match
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          date_of_birth: match
+          created_at: '2000-01-23T04:56:07.000Z'
+        attempts_count: 0
+        unique_mismatches_count: 1
+      properties:
+        report_id:
+          description: The unique identifier of the completed Document report.
+          format: uuid
+          type: string
+        repeat_attempts:
+          description: 'An array of repeat attempt objects. If no repeat attempts were found, the array will be empty. The number of objects returned can increase over time if more matches are received.
+
+            '
+          items:
+            $ref: '#/components/schemas/repeat_attempts_list_repeat_attempts_inner'
+          type: array
+        attempts_count:
+          description: The total number of attempts using the same document, including the current report under assessment.
+          type: integer
+        attempts_clear_rate:
+          description: A number between 0 and 1 which indicates the proportion of attempts that have been cleared, including the current report under assessment.
+          format: float
+          maximum: 1
+          minimum: 0
+          type: number
+        unique_mismatches_count:
+          description: The number of unique entries in the repeat_attempts field for which at least one of the fields is a mismatch.
+          type: integer
+      required:
+      - repeat_attempts
+      type: object
+    document_breakdown_image_integrity_breakdown_conclusive_document_quality:
+      description: Asserts if the document was of enough quality to be able to perform a fraud inspection.
+      example:
+        result: result
+        properties:
+          missing_back: missing_back
+          punctured_document: punctured_document
+          watermarks_digital_text_overlay: watermarks_digital_text_overlay
+          digital_document: digital_document
+          corner_removed: corner_removed
+          obscured_data_points: obscured_data_points
+          abnormal_document_features: abnormal_document_features
+          obscured_security_features: obscured_security_features
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/document_CDQ_reasons'
+      type: object
+    facial_similarity_photo_breakdown_visual_authenticity_breakdown:
+      properties:
+        spoofing_detection:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_visual_authenticity_breakdown_spoofing_detection'
+      type: object
+    device_intelligence_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/device_intelligence_breakdown'
+        type: object
+    document_breakdown_visual_authenticity_breakdown_original_document_present:
+      description: The document was not present when the photo was taken.
+      example:
+        result: result
+        properties:
+          scan: scan
+          document_on_printed_paper: document_on_printed_paper
+          screenshot: screenshot
+          photo_of_screen: photo_of_screen
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/document_ODP_reasons'
+      type: object
+    document_properties_nfc:
+      example:
+        document_number: document_number
+        address: address
+        gender: gender
+        issuing_date: '2000-01-23T00:00:00.000Z'
+        date_of_birth: '2000-01-23T00:00:00.000Z'
+        place_of_birth: place_of_birth
+        full_name: full_name
+        nationality: nationality
+        issuing_country: issuing_country
+        date_of_expiry: '2000-01-23T00:00:00.000Z'
+        issuing_authority: issuing_authority
+        personal_number: personal_number
+        document_type: document_type
+      properties:
+        document_type:
+          type: string
+        issuing_country:
+          type: string
+        full_name:
+          type: string
+        document_number:
+          type: string
+        nationality:
+          type: string
+        date_of_birth:
+          format: date
+          type: string
+        gender:
+          type: string
+        date_of_expiry:
+          format: date
+          type: string
+        personal_number:
+          type: string
+        place_of_birth:
+          type: string
+        address:
+          type: string
+        issuing_date:
+          format: date
+          type: string
+        issuing_authority:
+          type: string
+      type: object
+    india_pan_report_allOf_breakdown_device_breakdown_pan_valid:
+      properties:
+        result:
+          type: string
+      type: object
+    facial_similarity_video_breakdown_image_integrity_breakdown_face_detected:
+      description: Asserts a single face of good enough quality has been found in both the document image and the live video.
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    document_breakdown_image_integrity_breakdown_supported_document:
+      description: Asserts whether the submitted document is supported.
+      example:
+        result: result
+        properties: '{}'
+      properties:
+        result:
+          type: string
+        properties:
+          type: object
+      type: object
+    facial_similarity_photo_breakdown_face_comparison_breakdown_face_match:
+      description: Contains a score value under the properties bag.
+      properties:
+        result:
+          type: string
+        properties:
+          $ref: '#/components/schemas/facial_similarity_photo_breakdown_face_comparison_breakdown_face_match_properties'
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    facial_similarity_photo_breakdown_visual_authenticity_breakdown_spoofing_detection_properties:
+      properties:
+        score:
+          description: A floating point number between 0 and 1. The closer the score is to 0, the more likely it is to be a spoof.
+          format: float
+          type: number
+      type: object
+    facial_similarity_motion_breakdown_visual_authenticity:
+      description: Asserts whether the person in the motion capture is real (not a spoof) and live.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/facial_similarity_motion_breakdown_visual_authenticity_breakdown'
+      readOnly: true
+      type: object
+    facial_similarity_motion_breakdown_image_integrity:
+      description: Asserts whether the quality and integrity of the uploaded files were sufficient to perform a face comparison.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/facial_similarity_motion_breakdown_image_integrity_breakdown'
+      readOnly: true
+      type: object
+    watchlist_enhanced_properties_records_inner_event_inner_source:
+      properties:
+        source_date:
+          format: date
+          type: string
+        source_format:
+          type: string
+        source_name:
+          type: string
+        source_url:
+          type: string
+      type: object
+    proof_of_address_properties:
+      properties:
+        address:
+          description: This property provides the address on the document.
+          type: string
+        document_type:
+          description: This property provides the document type according to the set of supported documents.
+          enum:
+          - bank_building_society_statement
+          - utility_bill
+          - council_tax
+          - benefit_letters
+          - mortgage_statement
+          - mobile_phone_bill
+          - general_letter
+          - insurance_statement
+          - pension_property_statement_letter
+          - identity_document_with_address
+          - exchange_house_statement
+          type: string
+        first_names:
+          description: This property provides the first names on the document, including any initials and middle names.
+          type: string
+        last_names:
+          description: This property provided the last names on the document.
+          type: string
+        issue_date:
+          description: This property provides the issue date of the document.
+          format: date
+          type: string
+        issuer:
+          description: This property provides the document issuer (e.g. HSBC, British Gas).
+          type: string
+        summary_period_start:
+          description: This property provides the summary period start date.
+          format: date
+          type: string
+        summary_period_end:
+          description: This property provides the summary period end date.
+          format: date
+          type: string
+      type: object
+    document_report:
+      allOf:
+      - $ref: '#/components/schemas/report_shared'
+      - properties:
+          breakdown:
+            $ref: '#/components/schemas/document_breakdown'
+          properties:
+            $ref: '#/components/schemas/document_properties'
+        type: object
+      example:
+        result: clear
+        documents:
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        breakdown:
+          visual_authenticity:
+            result: result
+            breakdown:
+              template:
+                result: result
+                properties: '{}'
+              other:
+                result: result
+                properties: '{}'
+              fonts:
+                result: result
+                properties: '{}'
+              digital_tampering:
+                result: result
+                properties: '{}'
+              picture_face_integrity:
+                result: result
+                properties: '{}'
+              face_detection:
+                result: result
+                properties: '{}'
+              original_document_present:
+                result: result
+                properties:
+                  scan: scan
+                  document_on_printed_paper: document_on_printed_paper
+                  screenshot: screenshot
+                  photo_of_screen: photo_of_screen
+              security_features:
+                result: result
+                properties: '{}'
+          compromised_document:
+            result: result
+            breakdown:
+              document_database:
+                result: result
+                properties: '{}'
+              repeat_attempts:
+                result: result
+                properties: '{}'
+          age_validation:
+            result: result
+            breakdown:
+              minimum_accepted_age:
+                result: result
+                properties: '{}'
+          issuing_authority:
+            result: result
+            breakdown:
+              nfc_active_authentication:
+                result: result
+                properties: '{}'
+              nfc_passive_authentication:
+                result: result
+                properties: '{}'
+          data_consistency:
+            result: result
+            breakdown:
+              document_numbers:
+                result: result
+                properties: '{}'
+              gender:
+                result: result
+                properties: '{}'
+              nationality:
+                result: result
+                properties: '{}'
+              date_of_expiry:
+                result: result
+                properties: '{}'
+              issuing_country:
+                result: result
+                properties: '{}'
+              date_of_birth:
+                result: result
+                properties: '{}'
+              last_name:
+                result: result
+                properties: '{}'
+              multiple_data_sources_present:
+                result: result
+                properties: '{}'
+              first_name:
+                result: result
+                properties: '{}'
+              document_type:
+                result: result
+                properties: '{}'
+          data_comparison:
+            result: result
+            breakdown:
+              document_numbers:
+                result: result
+                properties: '{}'
+              gender:
+                result: result
+                properties: '{}'
+              issuing_country:
+                result: result
+                properties: '{}'
+              date_of_expiry:
+                result: result
+                properties: '{}'
+              date_of_birth:
+                result: result
+                properties: '{}'
+              last_name:
+                result: result
+                properties: '{}'
+              first_name:
+                result: result
+                properties: '{}'
+              document_type:
+                result: result
+                properties: '{}'
+          police_record:
+            result: result
+          data_validation:
+            result: result
+            breakdown:
+              document_numbers:
+                result: result
+                properties: '{}'
+              gender:
+                result: result
+                properties: '{}'
+              mrz:
+                result: result
+                properties: '{}'
+              document_expiration:
+                result: result
+                properties: '{}'
+              date_of_birth:
+                result: result
+                properties: '{}'
+              expiry_date:
+                result: result
+                properties: '{}'
+              barcode:
+                result: result
+                properties: '{}'
+          image_integrity:
+            result: result
+            breakdown:
+              colour_picture:
+                result: result
+                properties: '{}'
+              supported_document:
+                result: result
+                properties: '{}'
+              conclusive_document_quality:
+                result: result
+                properties:
+                  missing_back: missing_back
+                  punctured_document: punctured_document
+                  watermarks_digital_text_overlay: watermarks_digital_text_overlay
+                  digital_document: digital_document
+                  corner_removed: corner_removed
+                  obscured_data_points: obscured_data_points
+                  abnormal_document_features: abnormal_document_features
+                  obscured_security_features: obscured_security_features
+              image_quality:
+                result: result
+                properties:
+                  incorrect_side: incorrect_side
+                  glare_on_photo: glare_on_photo
+                  other_photo_issue: other_photo_issue
+                  cut_off_document: cut_off_document
+                  covered_photo: covered_photo
+                  two_documents_uploaded: two_documents_uploaded
+                  blurred_photo: blurred_photo
+                  no_document_in_image: no_document_in_image
+                  damaged_document: damaged_document
+                  dark_photo: dark_photo
+        name: document
+        created_at: '2000-01-23T04:56:07.000Z'
+        sub_result: clear
+        check_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        properties:
+          gender: gender
+          security_document_number: security_document_number
+          date_of_birth: '2000-01-23T00:00:00.000Z'
+          security_tier: tier_1
+          mother_name: mother_name
+          version_number: version_number
+          categorisation: categorisation
+          widow_name: widow_name
+          extracted_data:
+            document_number: document_number
+            gender: gender
+            date_of_birth: '2000-01-23T00:00:00.000Z'
+            last_name: last_name
+            middle_name: middle_name
+            alias_name: alias_name
+            widow_name: widow_name
+            spouse_name: spouse_name
+            mrz_line1: mrz_line1
+            full_name: full_name
+            mrz_line3: mrz_line3
+            nationality: nationality
+            date_of_expiry: '2000-01-23T00:00:00.000Z'
+            mrz_line2: mrz_line2
+            issuing_authority: issuing_authority
+            address_line_1: address_line_1
+            address_line_3: address_line_3
+            address_line_2: address_line_2
+            address_line_5: address_line_5
+            first_name: first_name
+            address_line_4: address_line_4
+          mrz_line1: mrz_line1
+          spouse_name: spouse_name
+          has_issuance_confirmation: 'true'
+          real_id_compliance: true
+          address_lines:
+            street_address: street_address
+            country: country
+            country_code: country_code
+            city: city
+            state: state
+            postal_code: postal_code
+          driving_licence_information:
+            codes: codes
+            obtainment_date: '2000-01-23T00:00:00.000Z'
+            expiry_date: '2000-01-23T00:00:00.000Z'
+            category: category
+          mrz_line3: mrz_line3
+          issuing_country: issuing_country
+          mrz_line2: mrz_line2
+          tax_number: tax_number
+          issuing_state: issuing_state
+          first_name: first_name
+          barcode:
+          - document_number: document_number
+            issuing_date: '2000-01-23T00:00:00.000Z'
+            gender: gender
+            date_of_birth: '2000-01-23T00:00:00.000Z'
+            last_name: last_name
+            middle_name: middle_name
+            real_id_classification: real_id_classification
+            date_of_expiry: '2000-01-23T00:00:00.000Z'
+            issuing_country: issuing_country
+            address_line_1: address_line_1
+            address_line_3: address_line_3
+            address_line_2: address_line_2
+            issuing_state: issuing_state
+            address_line_5: address_line_5
+            first_name: first_name
+            address_line_4: address_line_4
+            class: class
+            document_type: document_type
+          - document_number: document_number
+            issuing_date: '2000-01-23T00:00:00.000Z'
+            gender: gender
+            date_of_birth: '2000-01-23T00:00:00.000Z'
+            last_name: last_name
+            middle_name: middle_name
+            real_id_classification: real_id_classification
+            date_of_expiry: '2000-01-23T00:00:00.000Z'
+            issuing_country: issuing_country
+            address_line_1: address_line_1
+            address_line_3: address_line_3
+            address_line_2: address_line_2
+            issuing_state: issuing_state
+            address_line_5: address_line_5
+            first_name: first_name
+            address_line_4: address_line_4
+            class: class
+            document_type: document_type
+          document_type: document_type
+          profession: profession
+          nist_identity_evidence_strength: superior
+          document_numbers:
+          - type: type
+            value: value
+          - type: type
+            value: value
+          address: address
+          issuing_date: '2000-01-23T00:00:00.000Z'
+          document_subtype: document_subtype
+          type_of_permit: type_of_permit
+          last_name: last_name
+          nfc:
+            document_number: document_number
+            address: address
+            gender: gender
+            issuing_date: '2000-01-23T00:00:00.000Z'
+            date_of_birth: '2000-01-23T00:00:00.000Z'
+            place_of_birth: place_of_birth
+            full_name: full_name
+            nationality: nationality
+            issuing_country: issuing_country
+            date_of_expiry: '2000-01-23T00:00:00.000Z'
+            issuing_authority: issuing_authority
+            personal_number: personal_number
+            document_type: document_type
+          document_classification:
+            issuing_country: issuing_country
+            issuing_state: issuing_state
+            document_type: document_type
+          middle_name: middle_name
+          alias_name: alias_name
+          expatriation: expatriation
+          religion: religion
+          place_of_birth: place_of_birth
+          nationality: nationality
+          date_of_expiry: '2000-01-23T00:00:00.000Z'
+          father_name: father_name
+          issuing_authority: issuing_authority
+          civil_state: civil_state
+          personal_number: personal_number
+          remarks: remarks
+        status: awaiting_data
+    proof_of_address_breakdown_document_classification:
+      description: Asserts whether the document is of a valid type as PoA.
+      properties:
+        result:
+          type: string
+        breakdown:
+          $ref: '#/components/schemas/proof_of_address_breakdown_document_classification_breakdown'
+      type: object
+    document_CDQ_reasons:
+      example:
+        missing_back: missing_back
+        punctured_document: punctured_document
+        watermarks_digital_text_overlay: watermarks_digital_text_overlay
+        digital_document: digital_document
+        corner_removed: corner_removed
+        obscured_data_points: obscured_data_points
+        abnormal_document_features: abnormal_document_features
+        obscured_security_features: obscured_security_features
+      properties:
+        obscured_data_points:
+          description: When data points are obscured to the point that we cannot confirm if the fonts match the expected ones.
+          type: string
+        obscured_security_features:
+          description: When a critical security feature is obscured. This can also refer to when the holder's wet signature, necessary for the document to be valid, is not present.
+          type: string
+        abnormal_document_features:
+          description: One of 3 reasons (1) OCR Assisted Scans (i.e. when you're able to move the mouse and highlight part of text), (2) Severely Washed out Background, (3) Overlapping Text.
+          type: string
+        watermarks_digital_text_overlay:
+          description: Any digital text or electronic watermarks on the document.
+          type: string
+        corner_removed:
+          description: If the corner has been physically cut off. This can be found on some documents that are no longer valid.
+          type: string
+        punctured_document:
+          description: A punched hole is present.
+          type: string
+        missing_back:
+          description: When the back of a document is needed for processing, but is not available.
+          type: string
+        digital_document:
+          description: When a document has been published digitally, there aren't enough security features to review so we cannot perform a full fraud assessment.
+          type: string
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

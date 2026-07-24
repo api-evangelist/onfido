@@ -1,0 +1,239 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Motion API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Motion
+paths:
+  /motion_captures:
+    get:
+      description: 'Lists all the motion captures that belong to an applicant.
+
+        '
+      operationId: list_motion_captures
+      parameters:
+      - description: The id of the applicant the motion captures belong to.
+        in: query
+        name: applicant_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Motion_Captures_list'
+          description: An array of motion captures
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: List motion captures
+      tags:
+      - Motion
+  /motion_captures/{motion_capture_id}:
+    get:
+      description: 'Retrieves a single motion capture. Returns the corresponding motion capture object.
+
+        '
+      operationId: find_motion_capture
+      parameters:
+      - description: The motion capture's unique identifier.
+        in: path
+        name: motion_capture_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/motion_capture'
+          description: A motion capture
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve motion capture
+      tags:
+      - Motion
+  /motion_captures/{motion_capture_id}/download:
+    get:
+      description: Motion captures are downloaded using this endpoint.
+      operationId: download_motion_capture
+      parameters:
+      - description: The motion capture's unique identifier.
+        in: path
+        name: motion_capture_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The motion capture's binary data.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download motion capture
+      tags:
+      - Motion
+  /motion_captures/{motion_capture_id}/frame:
+    get:
+      description: Instead of the whole capture binary, a single frame can be downloaded using this endpoint. Returns the binary data representing the frame.
+      operationId: download_motion_capture_frame
+      parameters:
+      - description: The motion capture's unique identifier.
+        in: path
+        name: motion_capture_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The motion capture frame's binary data.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download motion capture frame
+      tags:
+      - Motion
+components:
+  schemas:
+    motion_capture:
+      example:
+        download_href: download_href
+        file_name: file_name
+        file_type: file_type
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        file_size: 0
+      properties:
+        id:
+          description: The unique identifier for the motion capture.
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time at which the motion capture was uploaded.
+          format: date-time
+          type: string
+        href:
+          description: The uri of this resource.
+          type: string
+        download_href:
+          description: The uri that can be used to download the motion capture.
+          type: string
+        file_name:
+          description: The name of the uploaded file.
+          type: string
+        file_size:
+          description: The size of the file in bytes.
+          type: integer
+        file_type:
+          description: The file type of the uploaded file.
+          type: string
+      type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    Motion_Captures_list:
+      example:
+        motion_captures:
+        - download_href: download_href
+          file_name: file_name
+          file_type: file_type
+          created_at: '2000-01-23T04:56:07.000Z'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          file_size: 0
+        - download_href: download_href
+          file_name: file_name
+          file_type: file_type
+          created_at: '2000-01-23T04:56:07.000Z'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          file_size: 0
+      properties:
+        motion_captures:
+          items:
+            $ref: '#/components/schemas/motion_capture'
+          type: array
+      required:
+      - motion_captures
+      title: Motion Captures list
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

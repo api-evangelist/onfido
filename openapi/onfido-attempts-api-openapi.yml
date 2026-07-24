@@ -1,0 +1,183 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Attempts API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Attempts
+paths:
+  /repeat_attempts/{report_id}:
+    get:
+      description: 'Returns all repeat attempts for a given Document report
+
+        '
+      operationId: list_repeat_attempts
+      parameters:
+      - in: path
+        name: report_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/repeat_attempts_list'
+          description: Repeat attempts object
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve repeat attempts
+      tags:
+      - Attempts
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    repeat_attempts_list_repeat_attempts_inner:
+      example:
+        result: clear
+        completed_at: '2000-01-23T04:56:07.000Z'
+        names: match
+        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        date_of_birth: match
+        created_at: '2000-01-23T04:56:07.000Z'
+      properties:
+        report_id:
+          description: The unique identifier of the matching Document report.
+          format: uuid
+          type: string
+        applicant_id:
+          description: The unique identifier of the applicant for the matching Document report.
+          format: uuid
+          type: string
+        date_of_birth:
+          description: Whether the dates of birth are exactly the same or are different.
+          enum:
+          - match
+          - mismatch
+          type: string
+        names:
+          description: Whether the names are exactly the same or are different.
+          enum:
+          - match
+          - mismatch
+          type: string
+        result:
+          description: The report result of this attempt.
+          enum:
+          - clear
+          - consider
+          type: string
+        created_at:
+          description: When the matching report was created.
+          format: date-time
+          type: string
+        completed_at:
+          description: When the matching report was completed.
+          format: date-time
+          type: string
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    repeat_attempts_list:
+      example:
+        attempts_clear_rate: 0.6027456
+        report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        repeat_attempts:
+        - result: clear
+          completed_at: '2000-01-23T04:56:07.000Z'
+          names: match
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          date_of_birth: match
+          created_at: '2000-01-23T04:56:07.000Z'
+        - result: clear
+          completed_at: '2000-01-23T04:56:07.000Z'
+          names: match
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          date_of_birth: match
+          created_at: '2000-01-23T04:56:07.000Z'
+        attempts_count: 0
+        unique_mismatches_count: 1
+      properties:
+        report_id:
+          description: The unique identifier of the completed Document report.
+          format: uuid
+          type: string
+        repeat_attempts:
+          description: 'An array of repeat attempt objects. If no repeat attempts were found, the array will be empty. The number of objects returned can increase over time if more matches are received.
+
+            '
+          items:
+            $ref: '#/components/schemas/repeat_attempts_list_repeat_attempts_inner'
+          type: array
+        attempts_count:
+          description: The total number of attempts using the same document, including the current report under assessment.
+          type: integer
+        attempts_clear_rate:
+          description: A number between 0 and 1 which indicates the proportion of attempts that have been cleared, including the current report under assessment.
+          format: float
+          maximum: 1
+          minimum: 0
+          type: number
+        unique_mismatches_count:
+          description: The number of unique entries in the repeat_attempts field for which at least one of the fields is a mismatch.
+          type: integer
+      required:
+      - repeat_attempts
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

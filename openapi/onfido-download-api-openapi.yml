@@ -1,0 +1,237 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Download API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Download
+paths:
+  /documents/{document_id}/download:
+    get:
+      description: 'Downloads specific documents belonging to an applicant. If successful, the response will be the binary data representing the image.
+
+        '
+      operationId: download_document
+      parameters:
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The document binary data
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download document
+      tags:
+      - Download
+  /live_photos/{live_photo_id}/download:
+    get:
+      description: Live photos are downloaded using this endpoint.
+      operationId: download_live_photo
+      parameters:
+      - description: The live photo's unique identifier.
+        in: path
+        name: live_photo_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The live photo's binary data.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download live photo
+      tags:
+      - Download
+  /live_videos/{live_video_id}/download:
+    get:
+      description: Live videos are downloaded using this endpoint.
+      operationId: download_live_video
+      parameters:
+      - description: The live video's unique identifier.
+        in: path
+        name: live_video_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The live video's binary data.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download live video
+      tags:
+      - Download
+  /motion_captures/{motion_capture_id}/download:
+    get:
+      description: Motion captures are downloaded using this endpoint.
+      operationId: download_motion_capture
+      parameters:
+      - description: The motion capture's unique identifier.
+        in: path
+        name: motion_capture_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The motion capture's binary data.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download motion capture
+      tags:
+      - Download
+  /id_photos/{id_photo_id}/download:
+    get:
+      description: ID photos are downloaded using this endpoint.
+      operationId: download_id_photo
+      parameters:
+      - description: The ID photo's unique identifier.
+        in: path
+        name: id_photo_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The ID photo's binary data.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download ID photo
+      tags:
+      - Download
+  /checks/{check_id}/download:
+    get:
+      description: 'Downloads a PDF of a check with a given check ID. Returns the binary data representing the PDF.
+
+        '
+      operationId: download_check
+      parameters:
+      - in: path
+        name: check_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                format: binary
+                type: string
+          description: The check PDF binary data
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download check
+      tags:
+      - Download
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

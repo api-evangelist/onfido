@@ -1,0 +1,721 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Documents API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Documents
+paths:
+  /documents:
+    get:
+      description: All documents belonging to an applicant can be listed from this endpoint
+      operationId: list_documents
+      parameters:
+      - in: query
+        name: applicant_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents_list'
+          description: List of Documents
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: List documents
+      tags:
+      - Documents
+    post:
+      description: 'Documents are uploaded using this endpoint. Along with the file upload the relevant document type must be specified. Documents must be uploaded as a multipart form. The valid file types are: jpg, png and pdf. The file size must be between 2KB and 3MB.
+
+        '
+      operationId: upload_document
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/document_uploader'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/document'
+          description: A document
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Upload a document
+      tags:
+      - Documents
+  /documents/{document_id}:
+    get:
+      description: 'A single document can be retrieved by calling this endpoint with the document''s unique identifier.
+
+        '
+      operationId: find_document
+      parameters:
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/document'
+          description: A document
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve document
+      tags:
+      - Documents
+  /documents/{document_id}/download:
+    get:
+      description: 'Downloads specific documents belonging to an applicant. If successful, the response will be the binary data representing the image.
+
+        '
+      operationId: download_document
+      parameters:
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The document binary data
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download document
+      tags:
+      - Documents
+  /documents/{document_id}/video/download:
+    get:
+      description: 'Downloads a document video. If successful, the response will be the binary data representing the video.
+
+        '
+      operationId: download_document_video
+      parameters:
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: The document's video binary data
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download document video
+      tags:
+      - Documents
+  /qualified_electronic_signature/documents:
+    get:
+      description: 'Retrieves the signed document or application form depending on the file_id provided.
+
+        '
+      operationId: download_qes_document
+      parameters:
+      - description: The unique identifier of the Workflow Run for which you want to retrieve the signed document.
+        in: query
+        name: workflow_run_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      - description: The unique identifier of the file which you want to retrieve.
+        in: query
+        name: file_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                format: binary
+                type: string
+          description: The signed document PDF binary data.
+        '302':
+          description: Found
+          headers:
+            Location:
+              description: Pre-signed URL to download the file.
+              schema:
+                format: uri
+                type: string
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieves the signed document or application form
+      tags:
+      - Documents
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    location_shared:
+      properties:
+        ip_address:
+          description: The applicant's ip address.
+          type: string
+        country_of_residence:
+          allOf:
+          - $ref: '#/components/schemas/country_codes'
+          description: The applicant's country of residence in 3-letter ISO code.
+          example: GBR
+      type: object
+    document_uploader:
+      allOf:
+      - $ref: '#/components/schemas/document_shared'
+      - $ref: '#/components/schemas/document_request'
+      required:
+      - applicant_id
+      - file
+      - type
+    document_response:
+      properties:
+        id:
+          description: The unique identifier for the document
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time at which the document was uploaded
+          format: date-time
+          type: string
+        href:
+          description: The uri of this resource
+          type: string
+        download_href:
+          description: The uri that can be used to download the document
+          type: string
+        file_name:
+          description: The name of the uploaded file
+          type: string
+        file_size:
+          description: The size of the file in bytes
+          type: integer
+      required:
+      - id
+      type: object
+    country_codes:
+      enum:
+      - ABW
+      - AFG
+      - AGO
+      - AIA
+      - ALA
+      - ALB
+      - AND
+      - ARE
+      - ARG
+      - ARM
+      - ASM
+      - ATA
+      - ATF
+      - ATG
+      - AUS
+      - AUT
+      - AZE
+      - BDI
+      - BEL
+      - BEN
+      - BES
+      - BFA
+      - BGD
+      - BGR
+      - BHR
+      - BHS
+      - BIH
+      - BLM
+      - BLR
+      - BLZ
+      - BMU
+      - BOL
+      - BRA
+      - BRB
+      - BRN
+      - BTN
+      - BVT
+      - BWA
+      - CAF
+      - CAN
+      - CCK
+      - CHE
+      - CHL
+      - CHN
+      - CIV
+      - CMR
+      - COD
+      - COG
+      - COK
+      - COL
+      - COM
+      - CPV
+      - CRI
+      - CUB
+      - CUW
+      - CXR
+      - CYM
+      - CYP
+      - CZE
+      - DEU
+      - DJI
+      - DMA
+      - DNK
+      - DOM
+      - DZA
+      - ECU
+      - EGY
+      - ERI
+      - ESH
+      - ESP
+      - EST
+      - ETH
+      - FIN
+      - FJI
+      - FLK
+      - FRA
+      - FRO
+      - FSM
+      - GAB
+      - GBR
+      - GEO
+      - GGY
+      - GHA
+      - GIB
+      - GIN
+      - GLP
+      - GMB
+      - GNB
+      - GNQ
+      - GRC
+      - GRD
+      - GRL
+      - GTM
+      - GUF
+      - GUM
+      - GUY
+      - HKG
+      - HMD
+      - HND
+      - HRV
+      - HTI
+      - HUN
+      - IDN
+      - IMN
+      - IND
+      - IOT
+      - IRL
+      - IRN
+      - IRQ
+      - ISL
+      - ISR
+      - ITA
+      - JAM
+      - JEY
+      - JOR
+      - JPN
+      - KAZ
+      - KEN
+      - KGZ
+      - KHM
+      - KIR
+      - KNA
+      - KOR
+      - KWT
+      - LAO
+      - LBN
+      - LBR
+      - LBY
+      - LCA
+      - LIE
+      - LKA
+      - LSO
+      - LTU
+      - LUX
+      - LVA
+      - MAC
+      - MAF
+      - MAR
+      - MCO
+      - MDA
+      - MDG
+      - MDV
+      - MEX
+      - MHL
+      - MKD
+      - MLI
+      - MLT
+      - MMR
+      - MNE
+      - MNG
+      - MNP
+      - MOZ
+      - MRT
+      - MSR
+      - MTQ
+      - MUS
+      - MWI
+      - MYS
+      - MYT
+      - NAM
+      - NCL
+      - NER
+      - NFK
+      - NGA
+      - NIC
+      - NIU
+      - NLD
+      - NOR
+      - NPL
+      - NRU
+      - NZL
+      - OMN
+      - PAK
+      - PAN
+      - PCN
+      - PER
+      - PHL
+      - PLW
+      - PNG
+      - POL
+      - PRI
+      - PRK
+      - PRT
+      - PRY
+      - PSE
+      - PYF
+      - QAT
+      - REU
+      - RKS
+      - ROU
+      - RUS
+      - RWA
+      - SAU
+      - SDN
+      - SEN
+      - SGP
+      - SGS
+      - SHN
+      - SJM
+      - SLB
+      - SLE
+      - SLV
+      - SMR
+      - SOM
+      - SPM
+      - SRB
+      - SSD
+      - STP
+      - SUR
+      - SVK
+      - SVN
+      - SWE
+      - SWZ
+      - SXM
+      - SYC
+      - SYR
+      - TCA
+      - TCD
+      - TGO
+      - THA
+      - TJK
+      - TKL
+      - TKM
+      - TLS
+      - TON
+      - TTO
+      - TUN
+      - TUR
+      - TUV
+      - TWN
+      - TZA
+      - UGA
+      - UKR
+      - UMI
+      - URY
+      - USA
+      - UZB
+      - VAT
+      - VCT
+      - VEN
+      - VGB
+      - VIR
+      - VNM
+      - VUT
+      - WLF
+      - WSM
+      - YEM
+      - ZAF
+      - ZMB
+      - ZWE
+      type: string
+    document_request:
+      properties:
+        file:
+          description: The file to be uploaded.
+          format: binary
+          type: string
+        validate_image_quality:
+          description: Defaults to false. When true the submitted image will undergo an image quality validation which may take up to 5 seconds.
+          type: boolean
+        location:
+          $ref: '#/components/schemas/location_builder'
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    document_types:
+      enum:
+      - passport
+      - driving_licence
+      - national_identity_card
+      - residence_permit
+      - passport_card
+      - tax_id
+      - visa
+      - voter_id
+      - residence_status_document
+      - postal_identity_card
+      - social_security_card
+      - work_permit
+      - asylum_registration_card
+      - national_health_insurance_card
+      - municipality_identity_card
+      - private_operators_card
+      - proof_of_citizenship
+      - service_id_card
+      - immigration_status_document
+      - indigenous_card
+      - vehicle_registration_card
+      - certificate_of_naturalisation
+      - professional_qualification_card
+      - consular_id
+      - international_driving_licence
+      - home_office_letter
+      - birth_certificate
+      - vehicle_registration_certificate
+      - form_for_affixing_the_visa
+      - identification_number_document
+      - adoption_certificate
+      - bank_building_society_statement
+      - bank_statement
+      - benefit_letters
+      - cbt
+      - certificate_of_sponsorship
+      - character_reference
+      - civil_partnership_certificate
+      - council_tax
+      - credit_card_statement
+      - deed_poll
+      - divorce_absolute_decree
+      - educational_statement
+      - electricity_bill
+      - gas_bill
+      - government_letter
+      - internet_bill
+      - marriage_certificate
+      - motorcycle_insurance
+      - national_insurance_card
+      - naturalisation_certificate
+      - non_uk_driving_licence
+      - p45_p60
+      - payslip
+      - phone_bill
+      - professional_identification_card
+      - right_to_work_share_code_result
+      - statement_fact
+      - t4_student_university_term_dates_evidence
+      - uk_biometric_residence_permit
+      - uk_driving_licence
+      - unknown
+      - utility_bill
+      - utility_bill_electric
+      - utility_bill_gas
+      - utility_bill_other
+      - water_bill
+      - address_certificate
+      - general_letter
+      - insurance_statement
+      - pension_property_statement_letter
+      - mortgage_statement
+      - mobile_phone_bill
+      - identity_document_with_address
+      - exchange_house_statement
+      - accommodation_tenancy_certificate
+      type: string
+    document:
+      allOf:
+      - $ref: '#/components/schemas/document_shared'
+      - $ref: '#/components/schemas/document_response'
+      example:
+        side: front
+        download_href: download_href
+        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        issuing_country: issuing_country
+        file_type: jpg
+        file_name: file_name
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        type: type
+        file_size: 0
+    location_builder:
+      allOf:
+      - $ref: '#/components/schemas/location_shared'
+    Documents_list:
+      example:
+        documents:
+        - side: front
+          download_href: download_href
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          issuing_country: issuing_country
+          file_type: jpg
+          file_name: file_name
+          created_at: '2000-01-23T04:56:07.000Z'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          type: type
+          file_size: 0
+        - side: front
+          download_href: download_href
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          issuing_country: issuing_country
+          file_type: jpg
+          file_name: file_name
+          created_at: '2000-01-23T04:56:07.000Z'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          type: type
+          file_size: 0
+      properties:
+        documents:
+          items:
+            $ref: '#/components/schemas/document'
+          type: array
+      required:
+      - documents
+      title: Documents list
+      type: object
+    document_shared:
+      properties:
+        file_type:
+          description: The file type of the uploaded file
+          enum:
+          - jpg
+          - jpeg
+          - png
+          - pdf
+          type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/document_types'
+          description: The type of document
+          type: string
+        side:
+          description: The side of the document, if applicable. The possible values are front and back
+          enum:
+          - front
+          - back
+          type: string
+        issuing_country:
+          allOf:
+          - $ref: '#/components/schemas/country_codes'
+          description: The issuing country of the document, a 3-letter ISO code.
+          type: string
+        applicant_id:
+          description: The ID of the applicant whose document is being uploaded.
+          format: uuid
+          type: string
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

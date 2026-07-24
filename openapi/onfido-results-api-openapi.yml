@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Results API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Results
+paths:
+  /results_feedback:
+    post:
+      description: 'Create Feedback on checks and reports
+
+        '
+      operationId: post_results_feedback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/results_feedback'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/results_feedback'
+          description: Created feedback
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Fraud reporting (ALPHA)
+      tags:
+      - Results
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    results_feedback:
+      example:
+        feedback_notes: feedback_notes
+        report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        check_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        expected_result: clear
+      properties:
+        expected_result:
+          description: The expected result for the check or report.
+          enum:
+          - clear
+          - consider
+          type: string
+        check_id:
+          description: The ID of the check (only if report_id is not provided).
+          format: uuid
+          type: string
+        report_id:
+          description: The ID of the check (only if check_id is not provided).
+          format: uuid
+          type: string
+        feedback_notes:
+          description: Any additional information or feedback.
+          type: string
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

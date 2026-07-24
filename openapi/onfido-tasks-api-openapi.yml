@@ -1,0 +1,265 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Tasks API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Tasks
+paths:
+  /workflow_runs/{workflow_run_id}/tasks:
+    get:
+      description: 'The tasks of a Workflow can be retrieved by calling this endpoint with the unique identifier of the Workflow Run.
+
+        '
+      operationId: list_tasks
+      parameters:
+      - description: The unique identifier of the Workflow Run to which the Tasks belong.
+        in: path
+        name: workflow_run_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TaskItem'
+                title: Tasks
+                type: array
+          description: An array of subset Task objects that were already started or completed, ordered by the created_at field, in ascending order.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: List Tasks
+      tags:
+      - Tasks
+  /workflow_runs/{workflow_run_id}/tasks/{task_id}:
+    get:
+      description: 'A single task can be retrieved by calling this endpoint with the unique identifier of the Task and Workflow Run.
+
+        '
+      operationId: find_task
+      parameters:
+      - description: The unique identifier of the Workflow Run to which the Task belongs.
+        in: path
+        name: workflow_run_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      - description: The identifier of the Task you want to retrieve.
+        in: path
+        name: task_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/task'
+          description: A Task object.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve Task
+      tags:
+      - Tasks
+  /workflow_runs/{workflow_run_id}/tasks/{task_id}/complete:
+    post:
+      description: 'Completes a Send / Receive Data Task.
+
+        '
+      operationId: complete_task
+      parameters:
+      - description: The unique identifier of the Workflow Run to which the Task belongs.
+        in: path
+        name: workflow_run_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      - description: The identifier of the Task you want to complete.
+        in: path
+        name: task_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/complete_task_builder'
+        required: true
+      responses:
+        '200':
+          description: An empty response body.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Complete Task
+      tags:
+      - Tasks
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    Complete_Task_Data_Builder:
+      description: The Task completion payload.
+      oneOf:
+      - items:
+          type: object
+        type: array
+      - type: object
+      title: Complete Task Data Builder
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    task:
+      example:
+        output: '{}'
+        task_def_version: task_def_version
+        input: '{}'
+        updated_at: '2000-01-23T04:56:07.000Z'
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: profile_123
+        task_def_id: task_123
+        workflow_run_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: The identifier for the Task.
+          example: profile_123
+          pattern: ^[0-9a-z_-]+$
+          type: string
+        workflow_run_id:
+          description: The workflow run id the task belongs to.
+          format: uuid
+          type: string
+        task_def_id:
+          description: The identifier for the Task Definition.
+          example: task_123
+          pattern: ^[0-9a-z_-]+$
+          type: string
+        task_def_version:
+          description: The task definition version.
+          nullable: true
+          type: string
+        input:
+          description: Input object with the fields used by the Task to execute.
+          type: object
+        output:
+          description: Value field (it can be an Object, List, etc.) with the fields produced by the Task execution.
+          nullable: true
+          type: object
+        created_at:
+          description: The date and time when the Task was created.
+          format: date-time
+          type: string
+        updated_at:
+          description: The date and time when the Task was last updated.
+          format: date-time
+          type: string
+      type: object
+    TaskItem:
+      example:
+        task_def_version: task_def_version
+        updated_at: '2000-01-23T04:56:07.000Z'
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: profile_123
+        task_def_id: task_123
+        workflow_run_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: The identifier for the Task.
+          example: profile_123
+          pattern: ^[0-9a-z_-]+$
+          type: string
+        workflow_run_id:
+          description: The workflow run id the task belongs to.
+          format: uuid
+          type: string
+        task_def_id:
+          description: The identifier for the Task Definition.
+          example: task_123
+          pattern: ^[0-9a-z_-]+$
+          type: string
+        task_def_version:
+          description: The task definition version.
+          nullable: true
+          type: string
+        created_at:
+          description: The date and time when the Task was created.
+          format: date-time
+          type: string
+        updated_at:
+          description: The date and time when the Task was last updated.
+          format: date-time
+          type: string
+      title: TaskItem
+      type: object
+    complete_task_builder:
+      properties:
+        data:
+          $ref: '#/components/schemas/Complete_Task_Data_Builder'
+      required:
+      - data
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com

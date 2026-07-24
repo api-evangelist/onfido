@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: Onfido
+    url: https://public.support.onfido.com
+  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  license:
+    name: MIT
+  title: Onfido Resend API
+  version: v3.6
+servers:
+- url: https://api.{region}.onfido.com/v3.6
+  variables:
+    region:
+      default: eu
+      enum:
+      - eu
+      - us
+      - ca
+security:
+- Token: []
+tags:
+- name: Resend
+paths:
+  /webhooks/resend:
+    post:
+      description: 'Resends events to all webhooks registered with a matching environment in your account.
+
+        '
+      operationId: resend_webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhook_resend'
+        required: true
+      responses:
+        '204':
+          description: Webhooks are resent for the respective checks
+        '422':
+          description: Request was received but it could not be processed
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Resends webhooks
+      tags:
+      - Resend
+components:
+  schemas:
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    webhook_event_type:
+      enum:
+      - audit_log.created
+      - watchlist_monitor.matches_updated
+      - workflow_run.completed
+      - workflow_task.started
+      - workflow_task.completed
+      - check.started
+      - check.reopened
+      - check.withdrawn
+      - check.completed
+      - check.form_completed
+      - report.withdrawn
+      - report.resumed
+      - report.cancelled
+      - report.awaiting_approval
+      - report.completed
+      - workflow_timeline_file.created
+      - workflow_signed_evidence_file.created
+      - workflow_run_evidence_folder.created
+      type: string
+    Webhooks_resend_item:
+      properties:
+        resource_id:
+          description: ID of the resource whose webhooks are to be retriggered.
+          format: uuid
+          type: string
+        event:
+          allOf:
+          - $ref: '#/components/schemas/webhook_event_type'
+          description: The events that should retrigger webhooks. Accepts values check.completed.
+          example: check.completed
+          type: string
+      required:
+      - event
+      - resource_id
+      title: Webhooks resend item
+      type: object
+    webhook_resend:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Webhooks_resend_item'
+          title: Webhooks resend list
+          type: array
+      type: object
+  securitySchemes:
+    Token:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  url: https://documentation.onfido.com
