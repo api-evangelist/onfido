@@ -1,73 +1,610 @@
 aid: onfido
 url: https://raw.githubusercontent.com/api-evangelist/onfido/refs/heads/main/apis.yml
 apis:
-  - aid: onfido:onfido
-    name: Onfido
-    tags:
-      - Addresses
-      - Applicants
-      - Attempts
-      - Cancel
-      - Capture
-      - Captures
-      - Checks
-      - Complete
-      - Documents
-      - Download
-      - Downloads
-      - Electronic
-      - Evidence
-      - Extractions
-      - Feedback
-      - Files
-      - Frame
-      - Live
-      - Matches
-      - Monitors
-      - Motion
-      - Photo
-      - Photos
-      - Pick
-      - Pings
-      - Repeat
-      - Report
-      - Reports
-      - Resend
-      - Restore
-      - Results
-      - Resume
-      - Run
-      - Runs
-      - Signatures
-      - Signed
-      - Task
-      - Tasks
-      - Timeline
-      - Token
-      - Video
-      - Videos
-      - Watchlist
-      - Webhooks
-      - Workflows
-    humanURL: https://documentation.onfido.com/
-    properties:
-      - url: https://documentation.onfido.com/
-        type: Documentation
-      - url: openapi/onfido-openapi.yml
-        type: OpenAPI
-      - url: openapi/onfido-asyncapi.yml
-        type: AsyncAPI
-    description: >-
-      Create trust at onboarding and beyond with a complete, AI-powered digital identity
-      solution built to help you know your customers online. Automation allows you
-      to acquire new customers and reduce costs while meeting global KYC and AML compliance.
+- aid: onfido:onfido-addresses-api
+  name: Onfido Addresses API
+  description: The Addresses API from Onfido — 1 operation(s) for addresses.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Addresses
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-addresses-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-applicants-api
+  name: Onfido Applicants API
+  description: The Applicants API from Onfido — 3 operation(s) for applicants.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Applicants
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-applicants-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-attempts-api
+  name: Onfido Attempts API
+  description: The Attempts API from Onfido — 1 operation(s) for attempts.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Attempts
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-attempts-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-cancel-api
+  name: Onfido Cancel API
+  description: The Cancel API from Onfido — 1 operation(s) for cancel.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Cancel
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-cancel-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-capture-api
+  name: Onfido Capture API
+  description: The Capture API from Onfido — 3 operation(s) for capture.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Capture
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-capture-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-captures-api
+  name: Onfido Captures API
+  description: The Captures API from Onfido — 4 operation(s) for captures.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Captures
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-captures-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-checks-api
+  name: Onfido Checks API
+  description: The Checks API from Onfido — 4 operation(s) for checks.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Checks
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-checks-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-complete-api
+  name: Onfido Complete API
+  description: The Complete API from Onfido — 1 operation(s) for complete.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Complete
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-complete-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-documents-api
+  name: Onfido Documents API
+  description: The Documents API from Onfido — 5 operation(s) for documents.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-documents-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-download-api
+  name: Onfido Download API
+  description: The Download API from Onfido — 6 operation(s) for download.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Download
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-download-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-downloads-api
+  name: Onfido Downloads API
+  description: The Downloads API from Onfido — 1 operation(s) for downloads.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Downloads
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-downloads-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-electronic-api
+  name: Onfido Electronic API
+  description: The Electronic API from Onfido — 1 operation(s) for electronic.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Electronic
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-electronic-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-evidence-api
+  name: Onfido Evidence API
+  description: The Evidence API from Onfido — 1 operation(s) for evidence.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Evidence
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-evidence-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-extractions-api
+  name: Onfido Extractions API
+  description: The Extractions API from Onfido — 1 operation(s) for extractions.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Extractions
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-extractions-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-feedback-api
+  name: Onfido Feedback API
+  description: The Feedback API from Onfido — 1 operation(s) for feedback.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Feedback
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-feedback-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-files-api
+  name: Onfido Files API
+  description: The Files API from Onfido — 3 operation(s) for files.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-files-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-frame-api
+  name: Onfido Frame API
+  description: The Frame API from Onfido — 2 operation(s) for frame.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Frame
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-frame-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-live-api
+  name: Onfido Live API
+  description: The Live API from Onfido — 7 operation(s) for live.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Live
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-live-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-matches-api
+  name: Onfido Matches API
+  description: The Matches API from Onfido — 1 operation(s) for matches.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Matches
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-matches-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-monitors-api
+  name: Onfido Monitors API
+  description: The Monitors API from Onfido — 4 operation(s) for monitors.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Monitors
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-monitors-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-motion-api
+  name: Onfido Motion API
+  description: The Motion API from Onfido — 4 operation(s) for motion.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Motion
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-motion-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-photo-api
+  name: Onfido Photo API
+  description: The Photo API from Onfido — 4 operation(s) for photo.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Photo
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-photo-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-photos-api
+  name: Onfido Photos API
+  description: The Photos API from Onfido — 6 operation(s) for photos.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Photos
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-photos-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-pick-api
+  name: Onfido Pick API
+  description: The Pick API from Onfido — 1 operation(s) for pick.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Pick
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-pick-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-pings-api
+  name: Onfido Pings API
+  description: The Pings API from Onfido — 1 operation(s) for pings.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Pings
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-pings-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-repeat-api
+  name: Onfido Repeat API
+  description: The Repeat API from Onfido — 1 operation(s) for repeat.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Repeat
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-repeat-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-report-api
+  name: Onfido Report API
+  description: The Report API from Onfido — 1 operation(s) for report.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Report
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-report-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-reports-api
+  name: Onfido Reports API
+  description: The Reports API from Onfido — 5 operation(s) for reports.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-reports-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-resend-api
+  name: Onfido Resend API
+  description: The Resend API from Onfido — 1 operation(s) for resend.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Resend
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-resend-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-restore-api
+  name: Onfido Restore API
+  description: The Restore API from Onfido — 1 operation(s) for restore.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Restore
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-restore-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-results-api
+  name: Onfido Results API
+  description: The Results API from Onfido — 1 operation(s) for results.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Results
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-results-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-resume-api
+  name: Onfido Resume API
+  description: The Resume API from Onfido — 2 operation(s) for resume.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Resume
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-resume-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-run-api
+  name: Onfido Run API
+  description: The Run API from Onfido — 7 operation(s) for run.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Run
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-run-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-runs-api
+  name: Onfido Runs API
+  description: The Runs API from Onfido — 8 operation(s) for runs.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-runs-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-signatures-api
+  name: Onfido Signatures API
+  description: The Signatures API from Onfido — 1 operation(s) for signatures.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Signatures
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-signatures-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-signed-api
+  name: Onfido Signed API
+  description: The Signed API from Onfido — 1 operation(s) for signed.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Signed
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-signed-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-task-api
+  name: Onfido Task API
+  description: The Task API from Onfido — 2 operation(s) for task.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Task
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-task-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-tasks-api
+  name: Onfido Tasks API
+  description: The Tasks API from Onfido — 3 operation(s) for tasks.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-timeline-api
+  name: Onfido Timeline API
+  description: The Timeline API from Onfido — 2 operation(s) for timeline.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Timeline
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-timeline-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-token-api
+  name: Onfido Token API
+  description: The Token API from Onfido — 1 operation(s) for token.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-token-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-video-api
+  name: Onfido Video API
+  description: The Video API from Onfido — 1 operation(s) for video.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Video
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-video-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-videos-api
+  name: Onfido Videos API
+  description: The Videos API from Onfido — 4 operation(s) for videos.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Videos
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-videos-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-watchlist-api
+  name: Onfido Watchlist API
+  description: The Watchlist API from Onfido — 4 operation(s) for watchlist.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Watchlist
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-watchlist-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-webhooks-api
+  name: Onfido Webhooks API
+  description: The Webhooks API from Onfido — 3 operation(s) for webhooks.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
+- aid: onfido:onfido-workflows-api
+  name: Onfido Workflows API
+  description: The Workflows API from Onfido — 8 operation(s) for workflows.
+  humanURL: https://documentation.onfido.com/
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/onfido-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.onfido.com/
+  - type: AsyncAPI
+    url: openapi/onfido-asyncapi.yml
 name: Onfido
 tags:
   - Authentication
   - Identity
   - Verification
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/onfido.png
 access: 3rd-Party
 created: '2024-11-07T00:00:00.000Z'
 modified: '2026-05-30'
