@@ -1,0 +1,721 @@
+{
+  "item": [
+    {
+      "id": "3ec00236-ef32-478a-a1ec-008898ebd972",
+      "name": "Captures",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d87812c4-1114-4fec-b64b-f74bc381a648",
+          "name": "List motion captures",
+          "request": {
+            "name": "List motion captures",
+            "description": {
+              "content": "Lists all the motion captures that belong to an applicant.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "motion_captures"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "applicant_id",
+                  "value": "<uuid>",
+                  "description": "(Required) The id of the applicant the motion captures belong to."
+                }
+              ],
+              "variable": [
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0e545f8f-1bfc-423d-8b30-b402a9aaa3ee",
+              "name": "An array of motion captures",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "motion_captures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "applicant_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"motion_captures\": [\n    {\n      \"download_href\": \"download_href\",\n      \"file_name\": \"file_name\",\n      \"file_type\": \"file_type\",\n      \"created_at\": \"2000-01-23T04:56:07.000Z\",\n      \"href\": \"href\",\n      \"file_size\": 0\n    },\n    {\n      \"download_href\": \"download_href\",\n      \"file_name\": \"file_name\",\n      \"file_type\": \"file_type\",\n      \"created_at\": \"2000-01-23T04:56:07.000Z\",\n      \"href\": \"href\",\n      \"file_size\": 0\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7297cb1e-4225-43c3-be5d-6e8fe39ca912",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "motion_captures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "applicant_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3035c07e-b2a6-4da7-b08f-80c068d3387e",
+          "name": "Retrieve motion capture",
+          "request": {
+            "name": "Retrieve motion capture",
+            "description": {
+              "content": "Retrieves a single motion capture. Returns the corresponding motion capture object.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "motion_captures",
+                ":motion_capture_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "motion_capture_id",
+                  "description": "(Required) The motion capture's unique identifier."
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30b94666-2dec-4f44-950b-89d39b2ddd7b",
+              "name": "A motion capture",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "motion_captures",
+                    ":motion_capture_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "motion_capture_id",
+                      "description": "(Required) The motion capture's unique identifier."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"download_href\": \"download_href\",\n  \"file_name\": \"file_name\",\n  \"file_type\": \"file_type\",\n  \"created_at\": \"2000-01-23T04:56:07.000Z\",\n  \"href\": \"href\",\n  \"file_size\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af841fd2-8972-421e-a41a-9f939f177957",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "motion_captures",
+                    ":motion_capture_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "motion_capture_id",
+                      "description": "(Required) The motion capture's unique identifier."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1145cec3-7340-4fc4-b97b-ab7c007ff94a",
+          "name": "Download motion capture",
+          "request": {
+            "name": "Download motion capture",
+            "description": {
+              "content": "Motion captures are downloaded using this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "motion_captures",
+                ":motion_capture_id",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "motion_capture_id",
+                  "description": "(Required) The motion capture's unique identifier."
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41ae5a1f-4998-4afa-a0f5-7812d76c1b00",
+              "name": "The motion capture's binary data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "motion_captures",
+                    ":motion_capture_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "motion_capture_id",
+                      "description": "(Required) The motion capture's unique identifier."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c88e6ca-d0b7-46de-b589-372ff27aeaa9",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "motion_captures",
+                    ":motion_capture_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "motion_capture_id",
+                      "description": "(Required) The motion capture's unique identifier."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c81cda5b-8763-487a-955f-cd2342efe8c9",
+          "name": "Download motion capture frame",
+          "request": {
+            "name": "Download motion capture frame",
+            "description": {
+              "content": "Instead of the whole capture binary, a single frame can be downloaded using this endpoint. Returns the binary data representing the frame.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "motion_captures",
+                ":motion_capture_id",
+                "frame"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "motion_capture_id",
+                  "description": "(Required) The motion capture's unique identifier."
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9d8ee2e5-6c0f-4b3e-a94c-8b03d1687936",
+              "name": "The motion capture frame's binary data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "motion_captures",
+                    ":motion_capture_id",
+                    "frame"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "motion_capture_id",
+                      "description": "(Required) The motion capture's unique identifier."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "41d80276-97d9-4935-9cf0-cc3a0678556b",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "motion_captures",
+                    ":motion_capture_id",
+                    "frame"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "motion_capture_id",
+                      "description": "(Required) The motion capture's unique identifier."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of eu,us,ca)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "eu",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://api.{{region}}.onfido.com/v3.6",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a93fc061-63f6-4d93-b9e0-96ab612c2e94",
+    "name": "Onfido Captures API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance.\n\nContact Support:\n Name: Onfido",
+      "type": "text/plain"
+    }
+  }
+}

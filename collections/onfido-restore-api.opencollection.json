@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Restore API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Restore",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Restore Applicant",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/applicants/:applicant_id/restore",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restores a single applicant scheduled for deletion.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

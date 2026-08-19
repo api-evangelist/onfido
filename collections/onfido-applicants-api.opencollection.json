@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Applicants API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Applicants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Applicants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/applicants",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. The first page is `page=1`"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "The number of objects per page."
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query",
+                "description": "Whether to also include applicants scheduled for deletion."
+              }
+            ]
+          },
+          "docs": "Lists all applicants you've created, sorted by creation date in descending order.\n"
+        },
+        {
+          "info": {
+            "name": "Create Applicant",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/applicants",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a single applicant. Returns an applicant object.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Applicant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/applicants/:applicant_id",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single applicant. Returns an applicant object.\n"
+        },
+        {
+          "info": {
+            "name": "Update Applicant",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.{region}.onfido.com/v3.6/applicants/:applicant_id",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allows updating applicant's information before any checks is created.\n- Partial updates - Addresses and ID numbers present will replace existing ones - Same applicant validations to create applicant\n"
+        },
+        {
+          "info": {
+            "name": "Delete Applicant",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.{region}.onfido.com/v3.6/applicants/:applicant_id",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a single applicant.\n"
+        },
+        {
+          "info": {
+            "name": "Restore Applicant",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/applicants/:applicant_id/restore",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restores a single applicant scheduled for deletion.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

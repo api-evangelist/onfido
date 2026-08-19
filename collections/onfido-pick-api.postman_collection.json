@@ -1,0 +1,220 @@
+{
+  "item": [
+    {
+      "id": "86ee702a-1dbe-443b-b82e-29ba88caeb67",
+      "name": "Pick",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "791b044c-505a-43fc-9ac8-6698b1817a50",
+          "name": "Address Picker",
+          "request": {
+            "name": "Address Picker",
+            "description": {
+              "content": "Search for addresses by postcode\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "addresses",
+                "pick"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "postcode",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5fdd10d5-ebbf-479c-8082-7e25d7bf4f11",
+              "name": "A list of addresses",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    "pick"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "postcode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addresses\": [\n    {\n      \"country\": \"BHS\",\n      \"postcode\": \"string\",\n      \"flat_number\": \"string\",\n      \"building_number\": \"string\",\n      \"building_name\": \"string\",\n      \"street\": \"string\",\n      \"sub_street\": \"string\",\n      \"town\": \"string\",\n      \"state\": \"string\",\n      \"line1\": \"\\\\&@;nB\",\n      \"line2\": \"M0 CfZWL0\",\n      \"line3\": \"u\\\"3,\"\n    },\n    {\n      \"country\": \"GUM\",\n      \"postcode\": \"string\",\n      \"flat_number\": \"string\",\n      \"building_number\": \"string\",\n      \"building_name\": \"string\",\n      \"street\": \"string\",\n      \"sub_street\": \"string\",\n      \"town\": \"string\",\n      \"state\": \"string\",\n      \"line1\": \",rBbJ0\",\n      \"line2\": \"l-016i)+G[\",\n      \"line3\": \"?+vL\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3cf09cac-e871-4260-97b7-80dce85e85fa",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    "pick"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "postcode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of eu,us,ca)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "eu",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://api.{{region}}.onfido.com/v3.6",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a63e6b25-016e-4023-a970-180ec296dd6d",
+    "name": "Onfido Pick API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance.\n\nContact Support:\n Name: Onfido",
+      "type": "text/plain"
+    }
+  }
+}

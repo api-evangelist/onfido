@@ -1,0 +1,288 @@
+{
+  "item": [
+    {
+      "id": "6f9dff2f-3463-47e4-9a91-c8bc6965f975",
+      "name": "Signed",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "337c5da1-a066-4ac3-bfac-7141b5535e3b",
+          "name": "Retrieve Workflow Run Evidence Summary File",
+          "request": {
+            "name": "Retrieve Workflow Run Evidence Summary File",
+            "description": {
+              "content": "Retrieves the signed evidence file for the designated Workflow Run\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workflow_runs",
+                ":workflow_run_id",
+                "signed_evidence_file"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workflow_run_id",
+                  "description": "(Required) Workflow Run ID"
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d832012-ab48-4874-a850-d59526bd3766",
+              "name": "The signed evidence PDF binary data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow_runs",
+                    ":workflow_run_id",
+                    "signed_evidence_file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workflow_run_id",
+                      "description": "(Required) Workflow Run ID"
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "854bc8ee-3c65-4352-a6a9-67d80c2d5074",
+              "name": "Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow_runs",
+                    ":workflow_run_id",
+                    "signed_evidence_file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workflow_run_id",
+                      "description": "(Required) Workflow Run ID"
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Link to the signed evidence file PDF.",
+                  "key": "Location",
+                  "value": "https://vbxrGyLeNI.qoTCHRJPg-hllQUTp9wiSJwRW"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a246afa7-9086-497c-8d5d-6bed83fa0956",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow_runs",
+                    ":workflow_run_id",
+                    "signed_evidence_file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workflow_run_id",
+                      "description": "(Required) Workflow Run ID"
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of eu,us,ca)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "eu",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://api.{{region}}.onfido.com/v3.6",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "abfd14fb-df50-40ea-8cac-286b5e9a50a8",
+    "name": "Onfido Signed API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance.\n\nContact Support:\n Name: Onfido",
+      "type": "text/plain"
+    }
+  }
+}

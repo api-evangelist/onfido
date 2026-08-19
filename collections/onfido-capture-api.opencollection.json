@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Capture API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Capture",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve motion capture",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/motion_captures/:motion_capture_id",
+            "params": [
+              {
+                "name": "motion_capture_id",
+                "value": "",
+                "type": "path",
+                "description": "The motion capture's unique identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a single motion capture. Returns the corresponding motion capture object.\n"
+        },
+        {
+          "info": {
+            "name": "Download motion capture",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/motion_captures/:motion_capture_id/download",
+            "params": [
+              {
+                "name": "motion_capture_id",
+                "value": "",
+                "type": "path",
+                "description": "The motion capture's unique identifier."
+              }
+            ]
+          },
+          "docs": "Motion captures are downloaded using this endpoint."
+        },
+        {
+          "info": {
+            "name": "Download motion capture frame",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/motion_captures/:motion_capture_id/frame",
+            "params": [
+              {
+                "name": "motion_capture_id",
+                "value": "",
+                "type": "path",
+                "description": "The motion capture's unique identifier."
+              }
+            ]
+          },
+          "docs": "Instead of the whole capture binary, a single frame can be downloaded using this endpoint. Returns the binary data representing the frame."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

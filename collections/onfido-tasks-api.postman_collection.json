@@ -1,0 +1,641 @@
+{
+  "item": [
+    {
+      "id": "dd7316cc-cac5-4ab4-9e9d-5962d95b5cb1",
+      "name": "Tasks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "67634b74-8ec4-4a0e-bdd0-feaaf7ed1bc6",
+          "name": "List Tasks",
+          "request": {
+            "name": "List Tasks",
+            "description": {
+              "content": "The tasks of a Workflow can be retrieved by calling this endpoint with the unique identifier of the Workflow Run.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workflow_runs",
+                ":workflow_run_id",
+                "tasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workflow_run_id",
+                  "description": "(Required) The unique identifier of the Workflow Run to which the Tasks belong."
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "35eb17c3-86cc-4023-96c2-c1e43a9ca758",
+              "name": "An array of subset Task objects that were already started or completed, ordered by the created_at field, in ascending order.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow_runs",
+                    ":workflow_run_id",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workflow_run_id",
+                      "description": "(Required) The unique identifier of the Workflow Run to which the Tasks belong."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"task_def_version\": \"task_def_version\",\n    \"updated_at\": \"2000-01-23T04:56:07.000Z\",\n    \"created_at\": \"2000-01-23T04:56:07.000Z\",\n    \"task_def_id\": \"task_123\",\n    \"workflow_run_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\"\n  },\n  {\n    \"task_def_version\": \"task_def_version\",\n    \"updated_at\": \"2000-01-23T04:56:07.000Z\",\n    \"created_at\": \"2000-01-23T04:56:07.000Z\",\n    \"task_def_id\": \"task_123\",\n    \"workflow_run_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94540d40-d678-49a3-bf7a-97a8b99e457b",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow_runs",
+                    ":workflow_run_id",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workflow_run_id",
+                      "description": "(Required) The unique identifier of the Workflow Run to which the Tasks belong."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e123a411-64ee-43af-85e0-88935c9807cd",
+          "name": "Retrieve Task",
+          "request": {
+            "name": "Retrieve Task",
+            "description": {
+              "content": "A single task can be retrieved by calling this endpoint with the unique identifier of the Task and Workflow Run.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workflow_runs",
+                ":workflow_run_id",
+                "tasks",
+                ":task_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workflow_run_id",
+                  "description": "(Required) The unique identifier of the Workflow Run to which the Task belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "task_id",
+                  "description": "(Required) The identifier of the Task you want to retrieve."
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb163d5e-60e9-460d-87f8-6e855b9cc42b",
+              "name": "A Task object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow_runs",
+                    ":workflow_run_id",
+                    "tasks",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workflow_run_id",
+                      "description": "(Required) The unique identifier of the Workflow Run to which the Task belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) The identifier of the Task you want to retrieve."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"profile_123\",\n  \"workflow_run_id\": \"406dfe98-3861-c8f1-8eef-a5261b83f712\",\n  \"task_def_id\": \"task_123\",\n  \"task_def_version\": \"string\",\n  \"input\": {},\n  \"output\": {},\n  \"created_at\": \"1963-05-19T08:26:41.715Z\",\n  \"updated_at\": \"1954-08-07T12:24:25.156Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08339d82-2942-4e79-8fe0-6aa645748ecf",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow_runs",
+                    ":workflow_run_id",
+                    "tasks",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workflow_run_id",
+                      "description": "(Required) The unique identifier of the Workflow Run to which the Task belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) The identifier of the Task you want to retrieve."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "179858fd-324b-40e5-8238-0cdb7a7cb532",
+          "name": "Complete Task",
+          "request": {
+            "name": "Complete Task",
+            "description": {
+              "content": "Completes a Send / Receive Data Task.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workflow_runs",
+                ":workflow_run_id",
+                "tasks",
+                ":task_id",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "workflow_run_id",
+                  "description": "(Required) The unique identifier of the Workflow Run to which the Task belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "task_id",
+                  "description": "(Required) The identifier of the Task you want to complete."
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a5263461-e939-4c32-891f-e80b0b2b1324",
+              "name": "An empty response body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow_runs",
+                    ":workflow_run_id",
+                    "tasks",
+                    ":task_id",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workflow_run_id",
+                      "description": "(Required) The unique identifier of the Workflow Run to which the Task belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) The identifier of the Task you want to complete."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa2457de-5beb-4fe0-851e-797c5d11ffe0",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow_runs",
+                    ":workflow_run_id",
+                    "tasks",
+                    ":task_id",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "workflow_run_id",
+                      "description": "(Required) The unique identifier of the Workflow Run to which the Task belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) The identifier of the Task you want to complete."
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of eu,us,ca)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "eu",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://api.{{region}}.onfido.com/v3.6",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ab11f736-cc99-4cd2-8b7f-fcbea3a2851b",
+    "name": "Onfido Tasks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance.\n\nContact Support:\n Name: Onfido",
+      "type": "text/plain"
+    }
+  }
+}

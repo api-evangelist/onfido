@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Cancel API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cancel",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cancel report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/reports/:report_id/cancel",
+            "params": [
+              {
+                "name": "report_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancels single paused reports.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

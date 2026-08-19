@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Matches API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Matches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List matches (BETA)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/watchlist_monitors/:monitor_id/matches",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List match IDs on this monitor, as well as their enabled/disabled status\n"
+        },
+        {
+          "info": {
+            "name": "Set match status (BETA)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.{region}.onfido.com/v3.6/watchlist_monitors/:monitor_id/matches",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the status of the given matches\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

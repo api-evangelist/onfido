@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Checks API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Checks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/checks",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves a single check. Returns a check object.\n"
+        },
+        {
+          "info": {
+            "name": "Create a check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/checks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a check for an applicant, which can contain one or more reports. Returns a check object.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/checks/:check_id",
+            "params": [
+              {
+                "name": "check_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single check. Returns a check object.\n"
+        },
+        {
+          "info": {
+            "name": "Resume a Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/checks/:check_id/resume",
+            "params": [
+              {
+                "name": "check_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resumes a paused check.\n"
+        },
+        {
+          "info": {
+            "name": "Download check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/checks/:check_id/download",
+            "params": [
+              {
+                "name": "check_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Downloads a PDF of a check with a given check ID. Returns the binary data representing the PDF.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

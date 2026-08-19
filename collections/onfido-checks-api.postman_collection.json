@@ -1,0 +1,888 @@
+{
+  "item": [
+    {
+      "id": "a6d01c0c-934d-4fd0-af98-70c26f4b365a",
+      "name": "Checks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5fca80a3-bf8f-41cf-991d-c0201a61d05f",
+          "name": "Retrieve Checks",
+          "request": {
+            "name": "Retrieve Checks",
+            "description": {
+              "content": "Retrieves a single check. Returns a check object.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "applicant_id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a056210a-5e57-4d70-bb81-fb9ba6e1b499",
+              "name": "An array of checks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "applicant_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"checks\": [\n    {\n      \"applicant_id\": \"def80e0d-6e26-5672-a068-adfbc5db7ad1\",\n      \"id\": \"748445ea-33bf-6f56-a696-d85259d5ced5\",\n      \"webhook_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"applicant_provides_data\": true,\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"redirect_uri\": \"string\",\n      \"privacy_notices_read_consent_given\": true,\n      \"created_at\": \"1950-02-02T21:05:28.648Z\",\n      \"href\": \"string\",\n      \"status\": \"complete\",\n      \"result\": \"consider\",\n      \"form_uri\": \"string\",\n      \"results_uri\": \"string\",\n      \"report_ids\": [\n        \"48781ca1-7c05-940d-0eda-9719a534b48a\",\n        \"b36c3f5e-58f1-5377-8621-b2d686e14027\"\n      ],\n      \"sandbox\": true,\n      \"paused\": true,\n      \"version\": \"3.6\"\n    },\n    {\n      \"applicant_id\": \"c09733a8-c385-dcdc-ddca-222f6b2572a1\",\n      \"id\": \"9e688908-e67d-deb8-c06e-2dc829e1110b\",\n      \"webhook_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"applicant_provides_data\": false,\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"redirect_uri\": \"string\",\n      \"privacy_notices_read_consent_given\": true,\n      \"created_at\": \"1980-09-01T08:32:32.058Z\",\n      \"href\": \"string\",\n      \"status\": \"reopened\",\n      \"result\": \"consider\",\n      \"form_uri\": \"string\",\n      \"results_uri\": \"string\",\n      \"report_ids\": [\n        \"6f79139c-f1a3-da6e-0c5e-b4879a4732ce\",\n        \"d8988808-a8c0-a6ef-ad4f-619a59c0e379\"\n      ],\n      \"sandbox\": true,\n      \"paused\": true,\n      \"version\": \"3.6\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d6545cb-8efb-4945-8486-8912504c33f4",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "applicant_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbe8284a-7f81-4e04-a188-96f5db8293dd",
+          "name": "Create a check",
+          "request": {
+            "name": "Create a check",
+            "description": {
+              "content": "Initiates a check for an applicant, which can contain one or more reports. Returns a check object.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"applicant_id\": \"<uuid>\",\n  \"report_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"webhook_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"applicant_provides_data\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"redirect_uri\": \"<string>\",\n  \"privacy_notices_read_consent_given\": \"<boolean>\",\n  \"document_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"asynchronous\": true,\n  \"suppress_form_emails\": \"<boolean>\",\n  \"sub_result\": \"<string>\",\n  \"consider\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"us_driving_licence\": {\n    \"id_number\": \"<string>\",\n    \"issue_state\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"date_of_birth\": \"<date>\",\n    \"document_category\": \"<string>\",\n    \"expiration_date\": \"<date>\",\n    \"eye_color_code\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"issue_date\": \"<date>\",\n    \"last_name\": \"<string>\",\n    \"middle_name\": \"<string>\",\n    \"name_suffix\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"state\": \"<string>\",\n    \"weight_measure\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7b39e416-6eec-466b-a026-69bd12b1899f",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applicant_id\": \"<uuid>\",\n  \"report_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"webhook_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"applicant_provides_data\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"redirect_uri\": \"<string>\",\n  \"privacy_notices_read_consent_given\": \"<boolean>\",\n  \"document_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"asynchronous\": true,\n  \"suppress_form_emails\": \"<boolean>\",\n  \"sub_result\": \"<string>\",\n  \"consider\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"us_driving_licence\": {\n    \"id_number\": \"<string>\",\n    \"issue_state\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"date_of_birth\": \"<date>\",\n    \"document_category\": \"<string>\",\n    \"expiration_date\": \"<date>\",\n    \"eye_color_code\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"issue_date\": \"<date>\",\n    \"last_name\": \"<string>\",\n    \"middle_name\": \"<string>\",\n    \"name_suffix\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"state\": \"CA\",\n    \"weight_measure\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applicant_id\": \"<uuid>\",\n  \"id\": \"ec4e6603-0088-b9a9-962e-3a63e55e7dc6\",\n  \"webhook_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"applicant_provides_data\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"redirect_uri\": \"<string>\",\n  \"privacy_notices_read_consent_given\": \"<boolean>\",\n  \"created_at\": \"1987-09-25T15:41:01.309Z\",\n  \"href\": \"string\",\n  \"status\": \"awaiting_applicant\",\n  \"result\": \"consider\",\n  \"form_uri\": \"string\",\n  \"results_uri\": \"string\",\n  \"report_ids\": [\n    \"8c95fd78-e5d3-c648-0b1d-08217243041d\",\n    \"e6e53910-ad2d-f2c8-cea0-fb6469978a1f\"\n  ],\n  \"sandbox\": true,\n  \"paused\": true,\n  \"version\": \"3.6\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1a3dcde-29c5-4b77-8e1c-da5963dcc04a",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applicant_id\": \"<uuid>\",\n  \"report_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"webhook_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"applicant_provides_data\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"redirect_uri\": \"<string>\",\n  \"privacy_notices_read_consent_given\": \"<boolean>\",\n  \"document_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"asynchronous\": true,\n  \"suppress_form_emails\": \"<boolean>\",\n  \"sub_result\": \"<string>\",\n  \"consider\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"us_driving_licence\": {\n    \"id_number\": \"<string>\",\n    \"issue_state\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"date_of_birth\": \"<date>\",\n    \"document_category\": \"<string>\",\n    \"expiration_date\": \"<date>\",\n    \"eye_color_code\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"issue_date\": \"<date>\",\n    \"last_name\": \"<string>\",\n    \"middle_name\": \"<string>\",\n    \"name_suffix\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"state\": \"CA\",\n    \"weight_measure\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "310929f6-3d1b-481e-a5ad-bcbe880e35e5",
+          "name": "Retrieve a Check",
+          "request": {
+            "name": "Retrieve a Check",
+            "description": {
+              "content": "Retrieves a single check. Returns a check object.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checks",
+                ":check_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "check_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6efa9863-9739-410a-886f-5f32b661b9d0",
+              "name": "Check object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checks",
+                    ":check_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "check_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applicant_id\": \"<uuid>\",\n  \"id\": \"ec4e6603-0088-b9a9-962e-3a63e55e7dc6\",\n  \"webhook_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"applicant_provides_data\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"redirect_uri\": \"<string>\",\n  \"privacy_notices_read_consent_given\": \"<boolean>\",\n  \"created_at\": \"1987-09-25T15:41:01.309Z\",\n  \"href\": \"string\",\n  \"status\": \"awaiting_applicant\",\n  \"result\": \"consider\",\n  \"form_uri\": \"string\",\n  \"results_uri\": \"string\",\n  \"report_ids\": [\n    \"8c95fd78-e5d3-c648-0b1d-08217243041d\",\n    \"e6e53910-ad2d-f2c8-cea0-fb6469978a1f\"\n  ],\n  \"sandbox\": true,\n  \"paused\": true,\n  \"version\": \"3.6\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ffb4cdd-3f73-4dd2-9fc5-97c2127c3ba3",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checks",
+                    ":check_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "check_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd148825-8aa1-4754-b696-85f1d2a47837",
+          "name": "Resume a Check",
+          "request": {
+            "name": "Resume a Check",
+            "description": {
+              "content": "Resumes a paused check.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checks",
+                ":check_id",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "check_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "04ed35ab-bdc8-4aff-b225-a2acd146f9fe",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checks",
+                    ":check_id",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "check_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "01f74811-963c-4702-b235-76ba193bad22",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checks",
+                    ":check_id",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "check_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "155bc4de-5391-47b3-b078-9af333dc38ec",
+          "name": "Download check",
+          "request": {
+            "name": "Download check",
+            "description": {
+              "content": "Downloads a PDF of a check with a given check ID. Returns the binary data representing the PDF.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checks",
+                ":check_id",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "check_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5549bd27-2bc3-4872-85b8-76a71fd38231",
+              "name": "The check PDF binary data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checks",
+                    ":check_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "check_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "137d917d-4cab-4957-9f33-df645a4ac70d",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checks",
+                    ":check_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "check_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of eu,us,ca)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "eu",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://api.{{region}}.onfido.com/v3.6",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "520c966a-7f5b-4182-a4e8-96e11d7630cc",
+    "name": "Onfido Checks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance.\n\nContact Support:\n Name: Onfido",
+      "type": "text/plain"
+    }
+  }
+}

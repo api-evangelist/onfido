@@ -1,0 +1,229 @@
+{
+  "item": [
+    {
+      "id": "5d7b1fc7-b343-43e0-8db1-22e500f319dd",
+      "name": "Extractions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "86d7608e-60d5-4f14-b6b7-cbc40a6ed911",
+          "name": "Autofill",
+          "request": {
+            "name": "Autofill",
+            "description": {
+              "content": "Extract information from a document\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "extractions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e8584fb5-7193-4797-87c4-34c716b7127c",
+              "name": "Extraction result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document_id\": \"cb50953e-0a54-770f-b147-387bb083ccb4\",\n  \"document_classification\": {\n    \"issuing_country\": \"HRV\",\n    \"document_type\": \"cbt\",\n    \"issuing_state\": \"string\",\n    \"subtype\": \"full\",\n    \"version\": \"string\"\n  },\n  \"extracted_data\": {\n    \"document_number\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"full_name\": \"string\",\n    \"spouse_name\": \"string\",\n    \"widow_name\": \"string\",\n    \"alias_name\": \"string\",\n    \"gender\": \"Male\",\n    \"date_of_birth\": \"1995-05-30\",\n    \"date_of_expiry\": \"1977-10-14\",\n    \"expiry_date\": \"1948-08-29\",\n    \"nationality\": \"LSR\",\n    \"mrz_line_1\": \"string\",\n    \"mrz_line_2\": \"string\",\n    \"mrz_line_3\": \"string\",\n    \"address_1\": \"string\",\n    \"address_2\": \"string\",\n    \"address_3\": \"string\",\n    \"address_4\": \"string\",\n    \"address_5\": \"string\",\n    \"issuing_authority\": \"string\",\n    \"issuing_country\": \"VEN\",\n    \"document_type\": \"passport\",\n    \"place_of_birth\": \"string\",\n    \"issuing_state\": \"string\",\n    \"issuing_date\": \"2002-05-09\",\n    \"personal_number\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17789731-daa1-4844-a588-b4010ab0006a",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document_id\": \"document_id\",\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of eu,us,ca)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "eu",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://api.{{region}}.onfido.com/v3.6",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "69eff61c-9c50-49a4-9661-59fd2e7fe0d8",
+    "name": "Onfido Extractions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance.\n\nContact Support:\n Name: Onfido",
+      "type": "text/plain"
+    }
+  }
+}

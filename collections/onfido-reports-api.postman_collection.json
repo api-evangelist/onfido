@@ -1,0 +1,879 @@
+{
+  "item": [
+    {
+      "id": "44eeddaa-f98c-40f3-b231-93d4f42bd2fe",
+      "name": "Reports",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "98580752-b5fe-409a-ae88-26433d9a8f29",
+          "name": "Retrieve repeat attempts",
+          "request": {
+            "name": "Retrieve repeat attempts",
+            "description": {
+              "content": "Returns all repeat attempts for a given Document report\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "repeat_attempts",
+                ":report_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "report_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a97ddbfe-f2d2-4066-ae56-ba768f63c897",
+              "name": "Repeat attempts object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repeat_attempts",
+                    ":report_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "report_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attempts_clear_rate\": 0.6027456,\n  \"report_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n  \"repeat_attempts\": [\n    {\n      \"result\": \"clear\",\n      \"completed_at\": \"2000-01-23T04:56:07.000Z\",\n      \"names\": \"match\",\n      \"applicant_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n      \"report_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n      \"date_of_birth\": \"match\",\n      \"created_at\": \"2000-01-23T04:56:07.000Z\"\n    },\n    {\n      \"result\": \"clear\",\n      \"completed_at\": \"2000-01-23T04:56:07.000Z\",\n      \"names\": \"match\",\n      \"applicant_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n      \"report_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n      \"date_of_birth\": \"match\",\n      \"created_at\": \"2000-01-23T04:56:07.000Z\"\n    }\n  ],\n  \"attempts_count\": 0,\n  \"unique_mismatches_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d823c2af-25b1-44c4-878f-0a620cc66357",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repeat_attempts",
+                    ":report_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "report_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "384d7a6b-af85-4f98-ad9c-fdd0125eb4fb",
+          "name": "List reports",
+          "request": {
+            "name": "List reports",
+            "description": {
+              "content": "All the reports belonging to a particular check can be listed from this endpoint.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "check_id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc92f581-e238-4852-af72-d5a148b0e886",
+              "name": "List of Reports",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "check_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reports\": [\n    {\n      \"id\": \"2802bd5a-2903-900a-e438-0b75bdd760f9\",\n      \"name\": \"facial_similarity_video\",\n      \"created_at\": \"1955-10-16T10:24:18.976Z\",\n      \"href\": \"string\",\n      \"status\": \"complete\",\n      \"result\": \"unidentified\",\n      \"sub_result\": \"caution\",\n      \"check_id\": \"f1300532-754b-a0fd-2ccc-586d8d212260\",\n      \"documents\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"breakdown\": {\n        \"visual_authenticity\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"template\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"other\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"fonts\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"digital_tampering\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"picture_face_integrity\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"face_detection\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"original_document_present\": {\n              \"result\": \"result\",\n              \"properties\": {\n                \"scan\": \"scan\",\n                \"document_on_printed_paper\": \"document_on_printed_paper\",\n                \"screenshot\": \"screenshot\",\n                \"photo_of_screen\": \"photo_of_screen\"\n              }\n            },\n            \"security_features\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"compromised_document\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"document_database\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"repeat_attempts\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"age_validation\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"minimum_accepted_age\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"issuing_authority\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"nfc_active_authentication\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"nfc_passive_authentication\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"data_consistency\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"document_numbers\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"gender\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"nationality\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"date_of_expiry\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"issuing_country\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"date_of_birth\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"last_name\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"multiple_data_sources_present\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"first_name\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"document_type\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"data_comparison\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"document_numbers\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"gender\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"issuing_country\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"date_of_expiry\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"date_of_birth\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"last_name\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"first_name\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"document_type\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"police_record\": {\n          \"result\": \"result\"\n        },\n        \"data_validation\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"document_numbers\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"gender\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"mrz\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"document_expiration\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"date_of_birth\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"expiry_date\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"barcode\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"image_integrity\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"colour_picture\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"supported_document\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"conclusive_document_quality\": {\n              \"result\": \"result\",\n              \"properties\": {\n                \"missing_back\": \"missing_back\",\n                \"punctured_document\": \"punctured_document\",\n                \"watermarks_digital_text_overlay\": \"watermarks_digital_text_overlay\",\n                \"digital_document\": \"digital_document\",\n                \"corner_removed\": \"corner_removed\",\n                \"obscured_data_points\": \"obscured_data_points\",\n                \"abnormal_document_features\": \"abnormal_document_features\",\n                \"obscured_security_features\": \"obscured_security_features\"\n              }\n            },\n            \"image_quality\": {\n              \"result\": \"result\",\n              \"properties\": {\n                \"incorrect_side\": \"incorrect_side\",\n                \"glare_on_photo\": \"glare_on_photo\",\n                \"other_photo_issue\": \"other_photo_issue\",\n                \"cut_off_document\": \"cut_off_document\",\n                \"covered_photo\": \"covered_photo\",\n                \"two_documents_uploaded\": \"two_documents_uploaded\",\n                \"blurred_photo\": \"blurred_photo\",\n                \"no_document_in_image\": \"no_document_in_image\",\n                \"damaged_document\": \"damaged_document\",\n                \"dark_photo\": \"dark_photo\"\n              }\n            }\n          }\n        }\n      },\n      \"properties\": {\n        \"date_of_birth\": \"1970-05-11\",\n        \"date_of_expiry\": \"2016-08-07\",\n        \"personal_number\": \"string\",\n        \"document_numbers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"document_type\": \"string\",\n        \"first_name\": \"string\",\n        \"middle_name\": \"string\",\n        \"last_name\": \"string\",\n        \"gender\": \"string\",\n        \"issuing_country\": \"string\",\n        \"nationality\": \"string\",\n        \"issuing_state\": \"string\",\n        \"issuing_date\": \"2002-05-14\",\n        \"categorisation\": \"string\",\n        \"mrz_line1\": \"string\",\n        \"mrz_line2\": \"string\",\n        \"mrz_line3\": \"string\",\n        \"address\": \"string\",\n        \"place_of_birth\": \"string\",\n        \"spouse_name\": \"string\",\n        \"widow_name\": \"string\",\n        \"alias_name\": \"string\",\n        \"issuing_authority\": \"string\",\n        \"remarks\": \"string\",\n        \"civil_state\": \"string\",\n        \"expatriation\": \"string\",\n        \"father_name\": \"string\",\n        \"mother_name\": \"string\",\n        \"religion\": \"string\",\n        \"type_of_permit\": \"string\",\n        \"version_number\": \"string\",\n        \"document_subtype\": \"string\",\n        \"profession\": \"string\",\n        \"security_document_number\": \"string\",\n        \"tax_number\": \"string\",\n        \"nist_identity_evidence_strength\": \"superior\",\n        \"has_issuance_confirmation\": \"unspecified\",\n        \"real_id_compliance\": true,\n        \"security_tier\": \"tier_5\",\n        \"address_lines\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"barcode\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"nfc\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"driving_licence_information\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"document_classification\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"extracted_data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"id\": \"24a22706-9bbb-6567-661b-413a53649712\",\n      \"name\": \"watchlist_standard\",\n      \"created_at\": \"1960-02-17T12:23:53.371Z\",\n      \"href\": \"string\",\n      \"status\": \"withdrawn\",\n      \"result\": \"unidentified\",\n      \"sub_result\": \"clear\",\n      \"check_id\": \"2a24ac55-70f6-7969-c203-98348555db4a\",\n      \"documents\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"breakdown\": {\n        \"visual_authenticity\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"template\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"other\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"fonts\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"digital_tampering\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"picture_face_integrity\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"face_detection\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"original_document_present\": {\n              \"result\": \"result\",\n              \"properties\": {\n                \"scan\": \"scan\",\n                \"document_on_printed_paper\": \"document_on_printed_paper\",\n                \"screenshot\": \"screenshot\",\n                \"photo_of_screen\": \"photo_of_screen\"\n              }\n            },\n            \"security_features\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"compromised_document\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"document_database\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"repeat_attempts\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"age_validation\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"minimum_accepted_age\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"issuing_authority\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"nfc_active_authentication\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"nfc_passive_authentication\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"data_consistency\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"document_numbers\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"gender\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"nationality\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"date_of_expiry\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"issuing_country\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"date_of_birth\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"last_name\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"multiple_data_sources_present\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"first_name\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"document_type\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"data_comparison\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"document_numbers\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"gender\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"issuing_country\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"date_of_expiry\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"date_of_birth\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"last_name\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"first_name\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"document_type\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"police_record\": {\n          \"result\": \"result\"\n        },\n        \"data_validation\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"document_numbers\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"gender\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"mrz\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"document_expiration\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"date_of_birth\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"expiry_date\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"barcode\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            }\n          }\n        },\n        \"image_integrity\": {\n          \"result\": \"result\",\n          \"breakdown\": {\n            \"colour_picture\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"supported_document\": {\n              \"result\": \"result\",\n              \"properties\": \"{}\"\n            },\n            \"conclusive_document_quality\": {\n              \"result\": \"result\",\n              \"properties\": {\n                \"missing_back\": \"missing_back\",\n                \"punctured_document\": \"punctured_document\",\n                \"watermarks_digital_text_overlay\": \"watermarks_digital_text_overlay\",\n                \"digital_document\": \"digital_document\",\n                \"corner_removed\": \"corner_removed\",\n                \"obscured_data_points\": \"obscured_data_points\",\n                \"abnormal_document_features\": \"abnormal_document_features\",\n                \"obscured_security_features\": \"obscured_security_features\"\n              }\n            },\n            \"image_quality\": {\n              \"result\": \"result\",\n              \"properties\": {\n                \"incorrect_side\": \"incorrect_side\",\n                \"glare_on_photo\": \"glare_on_photo\",\n                \"other_photo_issue\": \"other_photo_issue\",\n                \"cut_off_document\": \"cut_off_document\",\n                \"covered_photo\": \"covered_photo\",\n                \"two_documents_uploaded\": \"two_documents_uploaded\",\n                \"blurred_photo\": \"blurred_photo\",\n                \"no_document_in_image\": \"no_document_in_image\",\n                \"damaged_document\": \"damaged_document\",\n                \"dark_photo\": \"dark_photo\"\n              }\n            }\n          }\n        }\n      },\n      \"properties\": {\n        \"date_of_birth\": \"2008-07-20\",\n        \"date_of_expiry\": \"2021-07-23\",\n        \"personal_number\": \"string\",\n        \"document_numbers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"document_type\": \"string\",\n        \"first_name\": \"string\",\n        \"middle_name\": \"string\",\n        \"last_name\": \"string\",\n        \"gender\": \"string\",\n        \"issuing_country\": \"string\",\n        \"nationality\": \"string\",\n        \"issuing_state\": \"string\",\n        \"issuing_date\": \"1957-06-05\",\n        \"categorisation\": \"string\",\n        \"mrz_line1\": \"string\",\n        \"mrz_line2\": \"string\",\n        \"mrz_line3\": \"string\",\n        \"address\": \"string\",\n        \"place_of_birth\": \"string\",\n        \"spouse_name\": \"string\",\n        \"widow_name\": \"string\",\n        \"alias_name\": \"string\",\n        \"issuing_authority\": \"string\",\n        \"remarks\": \"string\",\n        \"civil_state\": \"string\",\n        \"expatriation\": \"string\",\n        \"father_name\": \"string\",\n        \"mother_name\": \"string\",\n        \"religion\": \"string\",\n        \"type_of_permit\": \"string\",\n        \"version_number\": \"string\",\n        \"document_subtype\": \"string\",\n        \"profession\": \"string\",\n        \"security_document_number\": \"string\",\n        \"tax_number\": \"string\",\n        \"nist_identity_evidence_strength\": \"superior\",\n        \"has_issuance_confirmation\": \"true\",\n        \"real_id_compliance\": true,\n        \"security_tier\": \"unspecified_security_tier\",\n        \"address_lines\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"barcode\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"nfc\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"driving_licence_information\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"document_classification\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"extracted_data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16a6fb3b-84bb-4eb1-af76-79d3f830af72",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "check_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ddffcb0a-6525-468b-9b95-cc77793f7947",
+          "name": "Retrieve report",
+          "request": {
+            "name": "Retrieve report",
+            "description": {
+              "content": "A single report can be retrieved using this endpoint with the corresponding unique identifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                ":report_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "report_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f13481b2-038a-4fe3-8917-9f08e3bc499e",
+              "name": "Report object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    ":report_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "report_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"7e9bc3a3-0985-171a-409a-21c2fc2f3918\",\n  \"name\": \"watchlist_standard\",\n  \"created_at\": \"2026-05-03T09:01:46.078Z\",\n  \"href\": \"string\",\n  \"status\": \"withdrawn\",\n  \"result\": \"clear\",\n  \"sub_result\": \"rejected\",\n  \"check_id\": \"36b4d189-5a46-e082-9245-dc33689ab35c\",\n  \"documents\": [\n    {\n      \"id\": \"d0dbd764-e059-e1cf-0864-cfa6a54ab753\"\n    },\n    {\n      \"id\": \"0c65a831-33d9-9c14-9565-521c1a70f241\"\n    }\n  ],\n  \"breakdown\": {\n    \"visual_authenticity\": {\n      \"result\": \"result\",\n      \"breakdown\": {\n        \"template\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"other\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"fonts\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"digital_tampering\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"picture_face_integrity\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"face_detection\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"original_document_present\": {\n          \"result\": \"result\",\n          \"properties\": {\n            \"scan\": \"scan\",\n            \"document_on_printed_paper\": \"document_on_printed_paper\",\n            \"screenshot\": \"screenshot\",\n            \"photo_of_screen\": \"photo_of_screen\"\n          }\n        },\n        \"security_features\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        }\n      }\n    },\n    \"compromised_document\": {\n      \"result\": \"result\",\n      \"breakdown\": {\n        \"document_database\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"repeat_attempts\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        }\n      }\n    },\n    \"age_validation\": {\n      \"result\": \"result\",\n      \"breakdown\": {\n        \"minimum_accepted_age\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        }\n      }\n    },\n    \"issuing_authority\": {\n      \"result\": \"result\",\n      \"breakdown\": {\n        \"nfc_active_authentication\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"nfc_passive_authentication\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        }\n      }\n    },\n    \"data_consistency\": {\n      \"result\": \"result\",\n      \"breakdown\": {\n        \"document_numbers\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"gender\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"nationality\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"date_of_expiry\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"issuing_country\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"date_of_birth\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"last_name\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"multiple_data_sources_present\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"first_name\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"document_type\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        }\n      }\n    },\n    \"data_comparison\": {\n      \"result\": \"result\",\n      \"breakdown\": {\n        \"document_numbers\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"gender\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"issuing_country\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"date_of_expiry\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"date_of_birth\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"last_name\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"first_name\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"document_type\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        }\n      }\n    },\n    \"police_record\": {\n      \"result\": \"result\"\n    },\n    \"data_validation\": {\n      \"result\": \"result\",\n      \"breakdown\": {\n        \"document_numbers\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"gender\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"mrz\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"document_expiration\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"date_of_birth\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"expiry_date\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"barcode\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        }\n      }\n    },\n    \"image_integrity\": {\n      \"result\": \"result\",\n      \"breakdown\": {\n        \"colour_picture\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"supported_document\": {\n          \"result\": \"result\",\n          \"properties\": \"{}\"\n        },\n        \"conclusive_document_quality\": {\n          \"result\": \"result\",\n          \"properties\": {\n            \"missing_back\": \"missing_back\",\n            \"punctured_document\": \"punctured_document\",\n            \"watermarks_digital_text_overlay\": \"watermarks_digital_text_overlay\",\n            \"digital_document\": \"digital_document\",\n            \"corner_removed\": \"corner_removed\",\n            \"obscured_data_points\": \"obscured_data_points\",\n            \"abnormal_document_features\": \"abnormal_document_features\",\n            \"obscured_security_features\": \"obscured_security_features\"\n          }\n        },\n        \"image_quality\": {\n          \"result\": \"result\",\n          \"properties\": {\n            \"incorrect_side\": \"incorrect_side\",\n            \"glare_on_photo\": \"glare_on_photo\",\n            \"other_photo_issue\": \"other_photo_issue\",\n            \"cut_off_document\": \"cut_off_document\",\n            \"covered_photo\": \"covered_photo\",\n            \"two_documents_uploaded\": \"two_documents_uploaded\",\n            \"blurred_photo\": \"blurred_photo\",\n            \"no_document_in_image\": \"no_document_in_image\",\n            \"damaged_document\": \"damaged_document\",\n            \"dark_photo\": \"dark_photo\"\n          }\n        }\n      }\n    }\n  },\n  \"properties\": {\n    \"date_of_birth\": \"2010-02-08\",\n    \"date_of_expiry\": \"1992-05-10\",\n    \"personal_number\": \"string\",\n    \"document_numbers\": [\n      {\n        \"type\": \"type\",\n        \"value\": \"value\"\n      },\n      {\n        \"type\": \"type\",\n        \"value\": \"value\"\n      }\n    ],\n    \"document_type\": \"string\",\n    \"first_name\": \"string\",\n    \"middle_name\": \"string\",\n    \"last_name\": \"string\",\n    \"gender\": \"string\",\n    \"issuing_country\": \"string\",\n    \"nationality\": \"string\",\n    \"issuing_state\": \"string\",\n    \"issuing_date\": \"2023-06-12\",\n    \"categorisation\": \"string\",\n    \"mrz_line1\": \"string\",\n    \"mrz_line2\": \"string\",\n    \"mrz_line3\": \"string\",\n    \"address\": \"string\",\n    \"place_of_birth\": \"string\",\n    \"spouse_name\": \"string\",\n    \"widow_name\": \"string\",\n    \"alias_name\": \"string\",\n    \"issuing_authority\": \"string\",\n    \"remarks\": \"string\",\n    \"civil_state\": \"string\",\n    \"expatriation\": \"string\",\n    \"father_name\": \"string\",\n    \"mother_name\": \"string\",\n    \"religion\": \"string\",\n    \"type_of_permit\": \"string\",\n    \"version_number\": \"string\",\n    \"document_subtype\": \"string\",\n    \"profession\": \"string\",\n    \"security_document_number\": \"string\",\n    \"tax_number\": \"string\",\n    \"nist_identity_evidence_strength\": \"fair\",\n    \"has_issuance_confirmation\": \"false\",\n    \"real_id_compliance\": true,\n    \"security_tier\": \"tier_2\",\n    \"address_lines\": {\n      \"street_address\": \"street_address\",\n      \"country\": \"country\",\n      \"country_code\": \"country_code\",\n      \"city\": \"city\",\n      \"state\": \"state\",\n      \"postal_code\": \"postal_code\"\n    },\n    \"barcode\": [\n      {\n        \"first_name\": \"string\",\n        \"middle_name\": \"string\",\n        \"last_name\": \"string\",\n        \"document_type\": \"string\",\n        \"date_of_expiry\": \"1949-10-02\",\n        \"date_of_birth\": \"1976-08-10\",\n        \"issuing_date\": \"1973-12-12\",\n        \"address_line_1\": \"string\",\n        \"address_line_2\": \"string\",\n        \"address_line_3\": \"string\",\n        \"address_line_4\": \"string\",\n        \"address_line_5\": \"string\",\n        \"issuing_state\": \"string\",\n        \"class\": \"string\",\n        \"gender\": \"string\",\n        \"issuing_country\": \"string\",\n        \"document_number\": \"string\",\n        \"real_id_classification\": \"string\"\n      },\n      {\n        \"first_name\": \"string\",\n        \"middle_name\": \"string\",\n        \"last_name\": \"string\",\n        \"document_type\": \"string\",\n        \"date_of_expiry\": \"2016-01-23\",\n        \"date_of_birth\": \"1967-03-17\",\n        \"issuing_date\": \"1978-08-14\",\n        \"address_line_1\": \"string\",\n        \"address_line_2\": \"string\",\n        \"address_line_3\": \"string\",\n        \"address_line_4\": \"string\",\n        \"address_line_5\": \"string\",\n        \"issuing_state\": \"string\",\n        \"class\": \"string\",\n        \"gender\": \"string\",\n        \"issuing_country\": \"string\",\n        \"document_number\": \"string\",\n        \"real_id_classification\": \"string\"\n      }\n    ],\n    \"nfc\": {\n      \"document_type\": \"string\",\n      \"issuing_country\": \"string\",\n      \"full_name\": \"string\",\n      \"document_number\": \"string\",\n      \"nationality\": \"string\",\n      \"date_of_birth\": \"1989-07-17\",\n      \"gender\": \"string\",\n      \"date_of_expiry\": \"2011-12-15\",\n      \"personal_number\": \"string\",\n      \"place_of_birth\": \"string\",\n      \"address\": \"string\",\n      \"issuing_date\": \"1968-07-30\",\n      \"issuing_authority\": \"string\"\n    },\n    \"driving_licence_information\": {\n      \"category\": \"string\",\n      \"obtainment_date\": \"1969-02-05\",\n      \"expiry_date\": \"1975-02-06\",\n      \"codes\": \"string\"\n    },\n    \"document_classification\": {\n      \"issuing_country\": \"issuing_country\",\n      \"issuing_state\": \"issuing_state\",\n      \"document_type\": \"document_type\"\n    },\n    \"extracted_data\": {\n      \"document_number\": \"string\",\n      \"date_of_birth\": \"1972-06-18\",\n      \"date_of_expiry\": \"1954-11-23\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"middle_name\": \"string\",\n      \"full_name\": \"string\",\n      \"spouse_name\": \"string\",\n      \"widow_name\": \"string\",\n      \"alias_name\": \"string\",\n      \"gender\": \"string\",\n      \"mrz_line1\": \"string\",\n      \"mrz_line2\": \"string\",\n      \"mrz_line3\": \"string\",\n      \"nationality\": \"string\",\n      \"address_line_1\": \"string\",\n      \"address_line_2\": \"string\",\n      \"address_line_3\": \"string\",\n      \"address_line_4\": \"string\",\n      \"address_line_5\": \"string\",\n      \"issuing_authority\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f8feac3-a3e3-4a56-b91e-c5e69fec3bb2",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    ":report_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "report_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "633e5f2c-309b-483f-b25d-6a347d9da28c",
+          "name": "Resume report",
+          "request": {
+            "name": "Resume report",
+            "description": {
+              "content": "Resumes a single paused report.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                ":report_id",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "report_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c35159f-1da7-4c9d-8f0e-eb9180d42e52",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    ":report_id",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "report_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5c8e4b09-8840-46b5-9403-515d26712a19",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    ":report_id",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "report_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d15cc50-b97d-4f0d-ba83-86b4f0559845",
+          "name": "Cancel report",
+          "request": {
+            "name": "Cancel report",
+            "description": {
+              "content": "Cancels single paused reports.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                ":report_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "report_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fdbb067d-663e-49df-86cc-005f638cc19f",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    ":report_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "report_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ded66039-97cd-4ecb-b426-5d5273eab9e2",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    ":report_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "report_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of eu,us,ca)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "eu",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://api.{{region}}.onfido.com/v3.6",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2235e71f-3275-407b-a592-dc6546dbfe8d",
+    "name": "Onfido Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance.\n\nContact Support:\n Name: Onfido",
+      "type": "text/plain"
+    }
+  }
+}

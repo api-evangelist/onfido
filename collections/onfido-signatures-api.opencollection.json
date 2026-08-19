@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Signatures API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Signatures",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves the signed document or application form",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/qualified_electronic_signature/documents",
+            "params": [
+              {
+                "name": "workflow_run_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the Workflow Run for which you want to retrieve the signed document."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the file which you want to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieves the signed document or application form depending on the file_id provided.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

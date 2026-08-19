@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Videos API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Videos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List live videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/live_videos",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "query",
+                "description": "The id of the applicant the live videos belong to."
+              }
+            ]
+          },
+          "docs": "Lists all the live videos that belong to an applicant.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve live video",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/live_videos/:live_video_id",
+            "params": [
+              {
+                "name": "live_video_id",
+                "value": "",
+                "type": "path",
+                "description": "The live video's unique identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a single live video. Returns the corresponding live video object.\n"
+        },
+        {
+          "info": {
+            "name": "Download live video",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/live_videos/:live_video_id/download",
+            "params": [
+              {
+                "name": "live_video_id",
+                "value": "",
+                "type": "path",
+                "description": "The live video's unique identifier."
+              }
+            ]
+          },
+          "docs": "Live videos are downloaded using this endpoint."
+        },
+        {
+          "info": {
+            "name": "Download live video frame",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/live_videos/:live_video_id/frame",
+            "params": [
+              {
+                "name": "live_video_id",
+                "value": "",
+                "type": "path",
+                "description": "The live video's unique identifier."
+              }
+            ]
+          },
+          "docs": "Returns the binary data representing a single frame from a live video."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

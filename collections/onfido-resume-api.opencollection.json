@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Resume API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Resume",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Resume a Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/checks/:check_id/resume",
+            "params": [
+              {
+                "name": "check_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resumes a paused check.\n"
+        },
+        {
+          "info": {
+            "name": "Resume report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/reports/:report_id/resume",
+            "params": [
+              {
+                "name": "report_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resumes a single paused report.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

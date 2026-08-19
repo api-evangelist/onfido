@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Photos API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Photos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List live photos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/live_photos",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "query",
+                "description": "The id of the applicant the live photos belong to."
+              }
+            ]
+          },
+          "docs": "Lists the live photos that belong to an applicant.\n"
+        },
+        {
+          "info": {
+            "name": "Upload live photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/live_photos",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "You can upload live photos to this endpoint. Like document upload, files must be uploaded as a multipart form. Valid file types are jpg, png and pdf. The file size must be between 32KB and 10MB. Live photos are validated at the point of upload to check that they contain exactly one face. This validation can be disabled by setting the advanced_validation argument to false.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve live photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/live_photos/:live_photo_id",
+            "params": [
+              {
+                "name": "live_photo_id",
+                "value": "",
+                "type": "path",
+                "description": "The live photo's unique identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a single live photo. Returns a live photo object.\n"
+        },
+        {
+          "info": {
+            "name": "Download live photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/live_photos/:live_photo_id/download",
+            "params": [
+              {
+                "name": "live_photo_id",
+                "value": "",
+                "type": "path",
+                "description": "The live photo's unique identifier."
+              }
+            ]
+          },
+          "docs": "Live photos are downloaded using this endpoint."
+        },
+        {
+          "info": {
+            "name": "List ID photos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/id_photos",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "query",
+                "description": "The id of the applicant the ID photos belong to."
+              }
+            ]
+          },
+          "docs": "Lists the ID photos that belong to an applicant.\n"
+        },
+        {
+          "info": {
+            "name": "Upload ID photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/id_photos",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "You can upload ID photos to this endpoint. Like document upload, files must be uploaded as a multipart form. Valid file types are jpg, png and pdf. The file size must be between 32KB and 10MB.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve ID photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/id_photos/:id_photo_id",
+            "params": [
+              {
+                "name": "id_photo_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID photo's unique identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a single ID photo. Returns a ID photo object.\n"
+        },
+        {
+          "info": {
+            "name": "Download ID photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/id_photos/:id_photo_id/download",
+            "params": [
+              {
+                "name": "id_photo_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID photo's unique identifier."
+              }
+            ]
+          },
+          "docs": "ID photos are downloaded using this endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

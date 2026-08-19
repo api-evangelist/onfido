@@ -1,0 +1,224 @@
+{
+  "item": [
+    {
+      "id": "7462d8cc-ee02-4457-966f-1c2ea25a20fc",
+      "name": "Repeat",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d7b04c97-8c37-43c8-b992-f8de95aa8da4",
+          "name": "Retrieve repeat attempts",
+          "request": {
+            "name": "Retrieve repeat attempts",
+            "description": {
+              "content": "Returns all repeat attempts for a given Document report\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "repeat_attempts",
+                ":report_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "report_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": " (This can only be one of eu,us,ca)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "360a4c9d-c2d7-4db2-a0c3-d998b68b4386",
+              "name": "Repeat attempts object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repeat_attempts",
+                    ":report_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "report_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attempts_clear_rate\": 0.6027456,\n  \"report_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n  \"repeat_attempts\": [\n    {\n      \"result\": \"clear\",\n      \"completed_at\": \"2000-01-23T04:56:07.000Z\",\n      \"names\": \"match\",\n      \"applicant_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n      \"report_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n      \"date_of_birth\": \"match\",\n      \"created_at\": \"2000-01-23T04:56:07.000Z\"\n    },\n    {\n      \"result\": \"clear\",\n      \"completed_at\": \"2000-01-23T04:56:07.000Z\",\n      \"names\": \"match\",\n      \"applicant_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n      \"report_id\": \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n      \"date_of_birth\": \"match\",\n      \"created_at\": \"2000-01-23T04:56:07.000Z\"\n    }\n  ],\n  \"attempts_count\": 0,\n  \"unique_mismatches_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31233a62-68d2-4fcb-8a0a-c07c4ccc851b",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repeat_attempts",
+                    ":report_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "report_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of eu,us,ca)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"type\",\n    \"message\": \"message\",\n    \"fields\": {\n      \"key\": \"\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of eu,us,ca)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "eu",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://api.{{region}}.onfido.com/v3.6",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "98f2add6-e3f3-418f-88e5-48bd6d36ce78",
+    "name": "Onfido Repeat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance.\n\nContact Support:\n Name: Onfido",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Tasks API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/workflow_runs/:workflow_run_id/tasks",
+            "params": [
+              {
+                "name": "workflow_run_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Workflow Run to which the Tasks belong."
+              }
+            ]
+          },
+          "docs": "The tasks of a Workflow can be retrieved by calling this endpoint with the unique identifier of the Workflow Run.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/workflow_runs/:workflow_run_id/tasks/:task_id",
+            "params": [
+              {
+                "name": "workflow_run_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Workflow Run to which the Task belongs."
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the Task you want to retrieve."
+              }
+            ]
+          },
+          "docs": "A single task can be retrieved by calling this endpoint with the unique identifier of the Task and Workflow Run.\n"
+        },
+        {
+          "info": {
+            "name": "Complete Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.{region}.onfido.com/v3.6/workflow_runs/:workflow_run_id/tasks/:task_id/complete",
+            "params": [
+              {
+                "name": "workflow_run_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Workflow Run to which the Task belongs."
+              },
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the Task you want to complete."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Completes a Send / Receive Data Task.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

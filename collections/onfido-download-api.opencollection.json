@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Download API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Download",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/documents/:document_id/download",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Downloads specific documents belonging to an applicant. If successful, the response will be the binary data representing the image.\n"
+        },
+        {
+          "info": {
+            "name": "Download live photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/live_photos/:live_photo_id/download",
+            "params": [
+              {
+                "name": "live_photo_id",
+                "value": "",
+                "type": "path",
+                "description": "The live photo's unique identifier."
+              }
+            ]
+          },
+          "docs": "Live photos are downloaded using this endpoint."
+        },
+        {
+          "info": {
+            "name": "Download live video",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/live_videos/:live_video_id/download",
+            "params": [
+              {
+                "name": "live_video_id",
+                "value": "",
+                "type": "path",
+                "description": "The live video's unique identifier."
+              }
+            ]
+          },
+          "docs": "Live videos are downloaded using this endpoint."
+        },
+        {
+          "info": {
+            "name": "Download motion capture",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/motion_captures/:motion_capture_id/download",
+            "params": [
+              {
+                "name": "motion_capture_id",
+                "value": "",
+                "type": "path",
+                "description": "The motion capture's unique identifier."
+              }
+            ]
+          },
+          "docs": "Motion captures are downloaded using this endpoint."
+        },
+        {
+          "info": {
+            "name": "Download ID photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/id_photos/:id_photo_id/download",
+            "params": [
+              {
+                "name": "id_photo_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID photo's unique identifier."
+              }
+            ]
+          },
+          "docs": "ID photos are downloaded using this endpoint."
+        },
+        {
+          "info": {
+            "name": "Download check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/checks/:check_id/download",
+            "params": [
+              {
+                "name": "check_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Downloads a PDF of a check with a given check ID. Returns the binary data representing the PDF.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

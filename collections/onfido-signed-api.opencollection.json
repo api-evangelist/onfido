@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Onfido Signed API",
+    "version": "v3.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Signed",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Workflow Run Evidence Summary File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.{region}.onfido.com/v3.6/workflow_runs/:workflow_run_id/signed_evidence_file",
+            "params": [
+              {
+                "name": "workflow_run_id",
+                "value": "",
+                "type": "path",
+                "description": "Workflow Run ID"
+              }
+            ]
+          },
+          "docs": "Retrieves the signed evidence file for the designated Workflow Run\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
