@@ -71,6 +71,8 @@ apis:
   description: The Captures API from Onfido — 4 operation(s) for captures.
   humanURL: https://documentation.onfido.com/
   tags:
+  - Capture
+  tags_raw:
   - Captures
   properties:
   - type: OpenAPI
@@ -123,6 +125,8 @@ apis:
   description: The Download API from Onfido — 6 operation(s) for download.
   humanURL: https://documentation.onfido.com/
   tags:
+  - Downloads
+  tags_raw:
   - Download
   properties:
   - type: OpenAPI
@@ -201,6 +205,8 @@ apis:
   description: The Files API from Onfido — 3 operation(s) for files.
   humanURL: https://documentation.onfido.com/
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -487,6 +493,8 @@ apis:
   description: The Tasks API from Onfido — 3 operation(s) for tasks.
   humanURL: https://documentation.onfido.com/
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
@@ -500,6 +508,8 @@ apis:
   description: The Timeline API from Onfido — 2 operation(s) for timeline.
   humanURL: https://documentation.onfido.com/
   tags:
+  - Timelines
+  tags_raw:
   - Timeline
   properties:
   - type: OpenAPI
@@ -565,6 +575,8 @@ apis:
   description: The Webhooks API from Onfido — 3 operation(s) for webhooks.
   humanURL: https://documentation.onfido.com/
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
