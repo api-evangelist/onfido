@@ -604,6 +604,18 @@ tags:
   - Identity
   - Verification
 kind: contract
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
@@ -632,6 +644,9 @@ maintainers:
     email: kin@apievangelist.com
 specificationVersion: '0.23'
 common:
+  - type: CapabilityMap
+    url: capabilities/onfido-capability-edges.yml
+    name: Onfido Business Capability Map
   - type: DomainSecurity
     url: security/onfido-domain-security.yml
   - type: GitHubOrganization
