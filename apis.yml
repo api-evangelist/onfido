@@ -175,6 +175,8 @@ apis:
   description: The Token API from Onfido — 1 operation(s) for token.
   humanURL: https://documentation.onfido.com/
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
