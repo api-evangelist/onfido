@@ -1,9 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     name: Onfido
     url: https://public.support.onfido.com
-  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  description: 'Create trust at onboarding and beyond with a complete, AI-powered digital
+
+    identity solution built to help you know your customers online.
+
+    Automation allows you to acquire new customers and reduce costs while
+
+    meeting global KYC and AML compliance.'
   license:
     name: MIT
   title: Onfido Live API
@@ -24,9 +30,7 @@ tags:
 paths:
   /live_photos:
     get:
-      description: 'Lists the live photos that belong to an applicant.
-
-        '
+      description: Lists the live photos that belong to an applicant.
       operationId: list_live_photos
       parameters:
       - description: The id of the applicant the live photos belong to.
@@ -53,9 +57,7 @@ paths:
       tags:
       - Live
     post:
-      description: 'You can upload live photos to this endpoint. Like document upload, files must be uploaded as a multipart form. Valid file types are jpg, png and pdf. The file size must be between 32KB and 10MB. Live photos are validated at the point of upload to check that they contain exactly one face. This validation can be disabled by setting the advanced_validation argument to false.
-
-        '
+      description: You can upload live photos to this endpoint. Like document upload, files must be uploaded as a multipart form. Valid file types are jpg, png and pdf. The file size must be between 32KB and 10MB. Live photos are validated at the point of upload to check that they contain exactly one face. This validation can be disabled by setting the advanced_validation argument to false.
       operationId: upload_live_photo
       requestBody:
         content:
@@ -81,9 +83,7 @@ paths:
       - Live
   /live_photos/{live_photo_id}:
     get:
-      description: 'Retrieves a single live photo. Returns a live photo object.
-
-        '
+      description: Retrieves a single live photo. Returns a live photo object.
       operationId: find_live_photo
       parameters:
       - description: The live photo's unique identifier.
@@ -140,9 +140,7 @@ paths:
       - Live
   /live_videos:
     get:
-      description: 'Lists all the live videos that belong to an applicant.
-
-        '
+      description: Lists all the live videos that belong to an applicant.
       operationId: list_live_videos
       parameters:
       - description: The id of the applicant the live videos belong to.
@@ -170,9 +168,7 @@ paths:
       - Live
   /live_videos/{live_video_id}:
     get:
-      description: 'Retrieves a single live video. Returns the corresponding live video object.
-
-        '
+      description: Retrieves a single live video. Returns the corresponding live video object.
       operationId: find_live_video
       parameters:
       - description: The live video's unique identifier.
@@ -258,21 +254,108 @@ paths:
       - Live
 components:
   schemas:
-    ErrorProperties:
+    Live_Videos_list:
       example:
-        type: type
-        message: message
-        fields:
-          key: ''
+        live_videos:
+        - download_href: download_href
+          file_name: file_name
+          file_type: file_type
+          created_at: '2000-01-23T04:56:07.000Z'
+          challenge:
+          - key: ''
+          - key: ''
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          file_size: 0
+        - download_href: download_href
+          file_name: file_name
+          file_type: file_type
+          created_at: '2000-01-23T04:56:07.000Z'
+          challenge:
+          - key: ''
+          - key: ''
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          file_size: 0
       properties:
-        type:
+        live_videos:
+          items:
+            $ref: '#/components/schemas/live_video'
+          type: array
+      required:
+      - live_videos
+      title: Live Videos list
+      type: object
+    live_video:
+      example:
+        download_href: download_href
+        file_name: file_name
+        file_type: file_type
+        created_at: '2000-01-23T04:56:07.000Z'
+        challenge:
+        - key: ''
+        - key: ''
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        file_size: 0
+      properties:
+        id:
+          description: The unique identifier for the video.
+          format: uuid
           type: string
-        message:
+        created_at:
+          description: The date and time at which the video was uploaded.
+          format: date-time
           type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
+        href:
+          description: The uri of this resource.
+          type: string
+        download_href:
+          description: The uri that can be used to download the video.
+          type: string
+        file_name:
+          description: The name of the uploaded file.
+          type: string
+        file_size:
+          description: The size of the file in bytes.
+          type: integer
+        file_type:
+          description: The file type of the uploaded file.
+          type: string
+        challenge:
+          description: Challenge the end user was asked to perform during the video recording.
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+      type: object
+    live_photo_response:
+      properties:
+        id:
+          description: The unique identifier for the photo.
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time at which the photo was uploaded.
+          format: date-time
+          type: string
+        href:
+          description: The uri of this resource.
+          type: string
+        download_href:
+          description: The uri that can be used to download the photo.
+          type: string
+        file_name:
+          description: The name of the uploaded file.
+          type: string
+        file_type:
+          description: The file type of the uploaded file.
+          type: string
+        file_size:
+          description: The size of the file in bytes.
+          type: integer
+      required:
+      - id
       type: object
     live_photo_request:
       properties:
@@ -321,6 +404,17 @@ components:
       required:
       - applicant_id
       - file
+    live_photo:
+      allOf:
+      - $ref: '#/components/schemas/live_photo_response'
+      example:
+        download_href: download_href
+        file_name: file_name
+        file_type: file_type
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        file_size: 0
     Error:
       example:
         error:
@@ -333,119 +427,21 @@ components:
           $ref: '#/components/schemas/ErrorProperties'
       title: Error
       type: object
-    live_photo_response:
-      properties:
-        id:
-          description: The unique identifier for the photo.
-          format: uuid
-          type: string
-        created_at:
-          description: The date and time at which the photo was uploaded.
-          format: date-time
-          type: string
-        href:
-          description: The uri of this resource.
-          type: string
-        download_href:
-          description: The uri that can be used to download the photo.
-          type: string
-        file_name:
-          description: The name of the uploaded file.
-          type: string
-        file_type:
-          description: The file type of the uploaded file.
-          type: string
-        file_size:
-          description: The size of the file in bytes.
-          type: integer
-      required:
-      - id
-      type: object
-    live_photo:
-      allOf:
-      - $ref: '#/components/schemas/live_photo_response'
+    ErrorProperties:
       example:
-        download_href: download_href
-        file_name: file_name
-        file_type: file_type
-        created_at: '2000-01-23T04:56:07.000Z'
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        href: href
-        file_size: 0
-    live_video:
-      example:
-        download_href: download_href
-        file_name: file_name
-        file_type: file_type
-        created_at: '2000-01-23T04:56:07.000Z'
-        challenge:
-        - key: ''
-        - key: ''
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        href: href
-        file_size: 0
+        type: type
+        message: message
+        fields:
+          key: ''
       properties:
-        id:
-          description: The unique identifier for the video.
-          format: uuid
+        type:
           type: string
-        created_at:
-          description: The date and time at which the video was uploaded.
-          format: date-time
+        message:
           type: string
-        href:
-          description: The uri of this resource.
-          type: string
-        download_href:
-          description: The uri that can be used to download the video.
-          type: string
-        file_name:
-          description: The name of the uploaded file.
-          type: string
-        file_size:
-          description: The size of the file in bytes.
-          type: integer
-        file_type:
-          description: The file type of the uploaded file.
-          type: string
-        challenge:
-          description: Challenge the end user was asked to perform during the video recording.
-          items:
-            additionalProperties: true
-            type: object
-          type: array
-      type: object
-    Live_Videos_list:
-      example:
-        live_videos:
-        - download_href: download_href
-          file_name: file_name
-          file_type: file_type
-          created_at: '2000-01-23T04:56:07.000Z'
-          challenge:
-          - key: ''
-          - key: ''
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          href: href
-          file_size: 0
-        - download_href: download_href
-          file_name: file_name
-          file_type: file_type
-          created_at: '2000-01-23T04:56:07.000Z'
-          challenge:
-          - key: ''
-          - key: ''
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          href: href
-          file_size: 0
-      properties:
-        live_videos:
-          items:
-            $ref: '#/components/schemas/live_video'
-          type: array
-      required:
-      - live_videos
-      title: Live Videos list
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
       type: object
   securitySchemes:
     Token:

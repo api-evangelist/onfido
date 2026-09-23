@@ -1,9 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     name: Onfido
     url: https://public.support.onfido.com
-  description: "\nCreate trust at onboarding and beyond with a complete, AI-powered digital\nidentity solution built to help you know your customers online. \nAutomation allows you to acquire new customers and reduce costs while\nmeeting global KYC and AML compliance."
+  description: 'Create trust at onboarding and beyond with a complete, AI-powered digital
+
+    identity solution built to help you know your customers online.
+
+    Automation allows you to acquire new customers and reduce costs while
+
+    meeting global KYC and AML compliance.'
   license:
     name: MIT
   title: Onfido Electronic API
@@ -24,9 +30,7 @@ tags:
 paths:
   /qualified_electronic_signature/documents:
     get:
-      description: 'Retrieves the signed document or application form depending on the file_id provided.
-
-        '
+      description: Retrieves the signed document or application form depending on the file_id provided.
       operationId: download_qes_document
       parameters:
       - description: The unique identifier of the Workflow Run for which you want to retrieve the signed document.
@@ -70,6 +74,18 @@ paths:
       - Electronic
 components:
   schemas:
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
     ErrorProperties:
       example:
         type: type
@@ -85,18 +101,6 @@ components:
           additionalProperties: true
           type: object
       title: ErrorProperties
-      type: object
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
       type: object
   securitySchemes:
     Token:
