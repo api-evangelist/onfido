@@ -231,6 +231,10 @@ tags:
 - Authentication
 - Identity
 - Verification
+- Identity Verification
+- KYC
+- Document Verification
+- Biometrics
 kind: contract
 deliveryModel:
   model: saas
@@ -311,7 +315,7 @@ common:
   type: Support
 - name: Security & Compliance | Onfido
   description: 'null'
-  url: https://onfido.com/security/?_gl=1*1uco4yf*_gcl_au*NDQ1MDk5NjAuMTczNTg1NDc1OA..
+  url: https://onfido.com/security/
   type: Security
 - name: Certifications | Onfido
   description: 'null'
@@ -323,7 +327,7 @@ common:
   type: Blog
 - name: Onfido
   description: 'null'
-  url: https://dashboard.onfido.com/users/sign_in?_gl=1*ozb8jg*_gcl_au*NDQ1MDk5NjAuMTczNTg1NDc1OA..*_ga*NzM1NTAyODEzLjE3MzU4NTQ3NTg.*_ga_KPSB470MLM*MTczNTg1NTEzMi4xLjEuMTczNTg1NTE2NS4wLjAuMTUwNjc1NzE2Nw..
+  url: https://dashboard.onfido.com/users/sign_in
   type: Login
 - name: Onfido
   description: 'null'
@@ -341,3 +345,7 @@ common:
   description: 'null'
   url: https://onfido.com/company/partners/
   type: Partners
+x-status: acquired
+x-acquired-by: entrust
+x-acquired-date: '2024-04-09'
+x-status-source: https://www.entrust.com/company/newsroom/entrust-completes-acquisition-of-onfido-creating-a-new-era-of-identity-centric-security

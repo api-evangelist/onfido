@@ -195,6 +195,162 @@ paths:
       - Webhooks
 components:
   schemas:
+    Webhooks_list:
+      example:
+        webhooks:
+        - payload_version: 0
+          environments:
+          - environments
+          - environments
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          enabled: true
+          events:
+          - audit_log.created
+          - audit_log.created
+          url: url
+          token: token
+        - payload_version: 0
+          environments:
+          - environments
+          - environments
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          enabled: true
+          events:
+          - audit_log.created
+          - audit_log.created
+          url: url
+          token: token
+      properties:
+        webhooks:
+          items:
+            $ref: '#/components/schemas/webhook'
+          type: array
+      required:
+      - webhooks
+      title: Webhooks list
+      type: object
+    webhook_resend:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Webhooks_resend_item'
+          title: Webhooks resend list
+          type: array
+      type: object
+    workflow_run_error:
+      properties:
+        type:
+          description: The type of error.
+          type: string
+        message:
+          description: A textual description of the error.
+          type: string
+      type: object
+    webhook:
+      allOf:
+      - $ref: '#/components/schemas/webhook_shared'
+      - $ref: '#/components/schemas/webhook_response'
+      example:
+        payload_version: 0
+        environments:
+        - environments
+        - environments
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        enabled: true
+        events:
+        - audit_log.created
+        - audit_log.created
+        url: url
+        token: token
+    workflow_run_link:
+      properties:
+        url:
+          description: Link to access the Workflow Run without the need to integrate with Onfido's SDKs.
+          type: string
+        completed_redirect_url:
+          description: When the interactive section of the Workflow Run has completed successfully, the user will be redirected to this URL instead of seeing the default Onfido 'thank you' page.
+          type:
+          - string
+          - 'null'
+        expired_redirect_url:
+          description: When the link has expired, the user will be immediately redirected to this URL instead of seeing the default Onfido error message.
+          type:
+          - string
+          - 'null'
+        expires_at:
+          description: Date and time when the link will expire.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        language:
+          description: The code for the language when the workflow run is acessed using the link.
+          enum:
+          - en_US
+          - de_DE
+          - es_ES
+          - fr_FR
+          - it_IT
+          - pt_PT
+          - nl_NL
+          type:
+          - string
+          - 'null'
+    webhook_shared:
+      properties:
+        enabled:
+          description: Determine if the webhook is active.
+          type: boolean
+        events:
+          description: 'The events that will be published to the webhook. If the events parameter is omitted all the events will be subscribed.
+
+            '
+          items:
+            $ref: '#/components/schemas/webhook_event_type'
+          type: array
+        environments:
+          description: 'The environments from which the webhook will receive events. Allowed values are sandbox and live. If the environments parameter is omitted the webhook will receive events from both environments.
+
+            '
+          items:
+            type: string
+          type: array
+        payload_version:
+          description: Webhook version used to control the payload object when sending webhooks.
+          type: integer
+      type: object
+    Webhooks_resend_item:
+      properties:
+        resource_id:
+          description: ID of the resource whose webhooks are to be retriggered.
+          format: uuid
+          type: string
+        event:
+          allOf:
+          - $ref: '#/components/schemas/webhook_event_type'
+          description: The events that should retrigger webhooks. Accepts values check.completed.
+          example: check.completed
+          type: string
+      required:
+      - event
+      - resource_id
+      title: Webhooks resend item
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
     webhook_event_payload_resource:
       description: The resource affected by this event.
       properties:
@@ -266,187 +422,6 @@ components:
           description: Error object that details why a Workflow Run is in Error status.
           type: object
       type: object
-    webhook_update:
-      properties:
-        url:
-          description: The url that will listen to notifications (must be https).
-          type: string
-    webhook_event_payload:
-      properties:
-        resource_type:
-          allOf:
-          - $ref: '#/components/schemas/webhook_event_resource_type'
-          description: Indicates the resource affected by this event.
-          example: workflow_task
-          type: string
-        action:
-          allOf:
-          - $ref: '#/components/schemas/webhook_event_type'
-          description: The event that triggered this webhook.
-          example: workflow_task.completed
-          type: string
-        object:
-          $ref: '#/components/schemas/webhook_event_payload_object'
-        resource:
-          $ref: '#/components/schemas/webhook_event_payload_resource'
-      required:
-      - event
-      - resource_id
-      - resource_type
-      type: object
-    webhook_response:
-      properties:
-        id:
-          description: The unique identifier of the webhook.
-          format: uuid
-          type: string
-        url:
-          description: The url that will listen to notifications (must be https).
-          type: string
-        token:
-          description: Webhook secret token used to sign the webhook's payload.
-          type: string
-        href:
-          description: The API endpoint to retrieve the webhook.
-          type: string
-      required:
-      - id
-      type: object
-    webhook_builder:
-      allOf:
-      - $ref: '#/components/schemas/webhook_shared'
-      - $ref: '#/components/schemas/webhook_create'
-    webhook_event_type:
-      enum:
-      - audit_log.created
-      - watchlist_monitor.matches_updated
-      - workflow_run.completed
-      - workflow_task.started
-      - workflow_task.completed
-      - check.started
-      - check.reopened
-      - check.withdrawn
-      - check.completed
-      - check.form_completed
-      - report.withdrawn
-      - report.resumed
-      - report.cancelled
-      - report.awaiting_approval
-      - report.completed
-      - workflow_timeline_file.created
-      - workflow_signed_evidence_file.created
-      - workflow_run_evidence_folder.created
-      type: string
-    webhook_event:
-      properties:
-        payload:
-          $ref: '#/components/schemas/webhook_event_payload'
-      type: object
-    webhook_event_resource_type:
-      enum:
-      - check
-      - report
-      - audit_log
-      - workflow_run
-      - workflow_task
-      - watchlist_monitor
-      - workflow_timeline_file
-      - workflow_run_evidence_folder
-      type: string
-    webhook_create:
-      properties:
-        url:
-          description: The url that will listen to notifications (must be https).
-          type: string
-      required:
-      - url
-    workflow_run_link:
-      properties:
-        url:
-          description: Link to access the Workflow Run without the need to integrate with Onfido's SDKs.
-          type: string
-        completed_redirect_url:
-          description: When the interactive section of the Workflow Run has completed successfully, the user will be redirected to this URL instead of seeing the default Onfido 'thank you' page.
-          type:
-          - string
-          - 'null'
-        expired_redirect_url:
-          description: When the link has expired, the user will be immediately redirected to this URL instead of seeing the default Onfido error message.
-          type:
-          - string
-          - 'null'
-        expires_at:
-          description: Date and time when the link will expire.
-          format: date-time
-          type:
-          - string
-          - 'null'
-        language:
-          description: The code for the language when the workflow run is acessed using the link.
-          enum:
-          - en_US
-          - de_DE
-          - es_ES
-          - fr_FR
-          - it_IT
-          - pt_PT
-          - nl_NL
-          type:
-          - string
-          - 'null'
-    Webhooks_list:
-      example:
-        webhooks:
-        - payload_version: 0
-          environments:
-          - environments
-          - environments
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          href: href
-          enabled: true
-          events:
-          - audit_log.created
-          - audit_log.created
-          url: url
-          token: token
-        - payload_version: 0
-          environments:
-          - environments
-          - environments
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          href: href
-          enabled: true
-          events:
-          - audit_log.created
-          - audit_log.created
-          url: url
-          token: token
-      properties:
-        webhooks:
-          items:
-            $ref: '#/components/schemas/webhook'
-          type: array
-      required:
-      - webhooks
-      title: Webhooks list
-      type: object
-    Webhooks_resend_item:
-      properties:
-        resource_id:
-          description: ID of the resource whose webhooks are to be retriggered.
-          format: uuid
-          type: string
-        event:
-          allOf:
-          - $ref: '#/components/schemas/webhook_event_type'
-          description: The events that should retrigger webhooks. Accepts values check.completed.
-          example: check.completed
-          type: string
-      required:
-      - event
-      - resource_id
-      title: Webhooks resend item
-      type: object
     webhook_event_payload_object:
       description: The object affected by this event.
       properties:
@@ -472,78 +447,80 @@ components:
       - href
       - id
       type: object
+    webhook_event_payload:
+      properties:
+        resource_type:
+          allOf:
+          - $ref: '#/components/schemas/webhook_event_resource_type'
+          description: Indicates the resource affected by this event.
+          example: workflow_task
+          type: string
+        action:
+          allOf:
+          - $ref: '#/components/schemas/webhook_event_type'
+          description: The event that triggered this webhook.
+          example: workflow_task.completed
+          type: string
+        object:
+          $ref: '#/components/schemas/webhook_event_payload_object'
+        resource:
+          $ref: '#/components/schemas/webhook_event_payload_resource'
+      required:
+      - event
+      - resource_id
+      - resource_type
+      type: object
+    webhook_event_type:
+      enum:
+      - audit_log.created
+      - watchlist_monitor.matches_updated
+      - workflow_run.completed
+      - workflow_task.started
+      - workflow_task.completed
+      - check.started
+      - check.reopened
+      - check.withdrawn
+      - check.completed
+      - check.form_completed
+      - report.withdrawn
+      - report.resumed
+      - report.cancelled
+      - report.awaiting_approval
+      - report.completed
+      - workflow_timeline_file.created
+      - workflow_signed_evidence_file.created
+      - workflow_run_evidence_folder.created
+      type: string
     webhook_updater:
       allOf:
       - $ref: '#/components/schemas/webhook_shared'
       - $ref: '#/components/schemas/webhook_update'
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
-    webhook:
+    webhook_builder:
       allOf:
       - $ref: '#/components/schemas/webhook_shared'
-      - $ref: '#/components/schemas/webhook_response'
-      example:
-        payload_version: 0
-        environments:
-        - environments
-        - environments
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        href: href
-        enabled: true
-        events:
-        - audit_log.created
-        - audit_log.created
-        url: url
-        token: token
-    webhook_resend:
+      - $ref: '#/components/schemas/webhook_create'
+    webhook_response:
       properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Webhooks_resend_item'
-          title: Webhooks resend list
-          type: array
-      type: object
-    webhook_shared:
-      properties:
-        enabled:
-          description: Determine if the webhook is active.
-          type: boolean
-        events:
-          description: 'The events that will be published to the webhook. If the events parameter is omitted all the events will be subscribed.
-
-            '
-          items:
-            $ref: '#/components/schemas/webhook_event_type'
-          type: array
-        environments:
-          description: 'The environments from which the webhook will receive events. Allowed values are sandbox and live. If the environments parameter is omitted the webhook will receive events from both environments.
-
-            '
-          items:
-            type: string
-          type: array
-        payload_version:
-          description: Webhook version used to control the payload object when sending webhooks.
-          type: integer
-      type: object
-    workflow_run_error:
-      properties:
-        type:
-          description: The type of error.
+        id:
+          description: The unique identifier of the webhook.
+          format: uuid
           type: string
-        message:
-          description: A textual description of the error.
+        url:
+          description: The url that will listen to notifications (must be https).
           type: string
+        token:
+          description: Webhook secret token used to sign the webhook's payload.
+          type: string
+        href:
+          description: The API endpoint to retrieve the webhook.
+          type: string
+      required:
+      - id
+      type: object
+    webhook_event:
+      properties:
+        payload:
+          $ref: '#/components/schemas/webhook_event_payload'
       type: object
     webhook_event_object_status:
       description: The current state of the object, if available.
@@ -585,6 +562,29 @@ components:
           type: object
       title: ErrorProperties
       type: object
+    webhook_create:
+      properties:
+        url:
+          description: The url that will listen to notifications (must be https).
+          type: string
+      required:
+      - url
+    webhook_update:
+      properties:
+        url:
+          description: The url that will listen to notifications (must be https).
+          type: string
+    webhook_event_resource_type:
+      enum:
+      - check
+      - report
+      - audit_log
+      - workflow_run
+      - workflow_task
+      - watchlist_monitor
+      - workflow_timeline_file
+      - workflow_run_evidence_folder
+      type: string
   securitySchemes:
     Token:
       in: header

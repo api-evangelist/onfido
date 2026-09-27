@@ -167,17 +167,6 @@ components:
     location_builder:
       allOf:
       - $ref: '#/components/schemas/location_shared'
-    location_shared:
-      properties:
-        ip_address:
-          description: The applicant's ip address.
-          type: string
-        country_of_residence:
-          allOf:
-          - $ref: '#/components/schemas/country_codes'
-          description: The applicant's country of residence in 3-letter ISO code.
-          example: GBR
-      type: object
     document_types:
       enum:
       - passport
@@ -257,6 +246,29 @@ components:
       - exchange_house_statement
       - accommodation_tenancy_certificate
       type: string
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    location_shared:
+      properties:
+        ip_address:
+          description: The applicant's ip address.
+          type: string
+        country_of_residence:
+          allOf:
+          - $ref: '#/components/schemas/country_codes'
+          description: The applicant's country of residence in 3-letter ISO code.
+          example: GBR
+      type: object
     document_response:
       properties:
         id:
@@ -298,6 +310,30 @@ components:
         href: href
         type: type
         file_size: 0
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    document_uploader:
+      allOf:
+      - $ref: '#/components/schemas/document_shared'
+      - $ref: '#/components/schemas/document_request'
+      required:
+      - applicant_id
+      - file
+      - type
     Documents_list:
       example:
         documents:
@@ -331,85 +367,6 @@ components:
       required:
       - documents
       title: Documents list
-      type: object
-    document_shared:
-      properties:
-        file_type:
-          description: The file type of the uploaded file
-          enum:
-          - jpg
-          - jpeg
-          - png
-          - pdf
-          type: string
-        type:
-          allOf:
-          - $ref: '#/components/schemas/document_types'
-          description: The type of document
-          type: string
-        side:
-          description: The side of the document, if applicable. The possible values are front and back
-          enum:
-          - front
-          - back
-          type: string
-        issuing_country:
-          allOf:
-          - $ref: '#/components/schemas/country_codes'
-          description: The issuing country of the document, a 3-letter ISO code.
-          type: string
-        applicant_id:
-          description: The ID of the applicant whose document is being uploaded.
-          format: uuid
-          type: string
-      type: object
-    document_request:
-      properties:
-        file:
-          description: The file to be uploaded.
-          format: binary
-          type: string
-        validate_image_quality:
-          description: Defaults to false. When true the submitted image will undergo an image quality validation which may take up to 5 seconds.
-          type: boolean
-        location:
-          $ref: '#/components/schemas/location_builder'
-      type: object
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
-    document_uploader:
-      allOf:
-      - $ref: '#/components/schemas/document_shared'
-      - $ref: '#/components/schemas/document_request'
-      required:
-      - applicant_id
-      - file
-      - type
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
       type: object
     country_codes:
       enum:
@@ -664,6 +621,49 @@ components:
       - ZMB
       - ZWE
       type: string
+    document_shared:
+      properties:
+        file_type:
+          description: The file type of the uploaded file
+          enum:
+          - jpg
+          - jpeg
+          - png
+          - pdf
+          type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/document_types'
+          description: The type of document
+          type: string
+        side:
+          description: The side of the document, if applicable. The possible values are front and back
+          enum:
+          - front
+          - back
+          type: string
+        issuing_country:
+          allOf:
+          - $ref: '#/components/schemas/country_codes'
+          description: The issuing country of the document, a 3-letter ISO code.
+          type: string
+        applicant_id:
+          description: The ID of the applicant whose document is being uploaded.
+          format: uuid
+          type: string
+      type: object
+    document_request:
+      properties:
+        file:
+          description: The file to be uploaded.
+          format: binary
+          type: string
+        validate_image_quality:
+          description: Defaults to false. When true the submitted image will undergo an image quality validation which may take up to 5 seconds.
+          type: boolean
+        location:
+          $ref: '#/components/schemas/location_builder'
+      type: object
   securitySchemes:
     Token:
       in: header

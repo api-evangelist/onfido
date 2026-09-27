@@ -254,37 +254,76 @@ paths:
       - Live
 components:
   schemas:
-    Live_Videos_list:
-      example:
-        live_videos:
-        - download_href: download_href
-          file_name: file_name
-          file_type: file_type
-          created_at: '2000-01-23T04:56:07.000Z'
-          challenge:
-          - key: ''
-          - key: ''
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          href: href
-          file_size: 0
-        - download_href: download_href
-          file_name: file_name
-          file_type: file_type
-          created_at: '2000-01-23T04:56:07.000Z'
-          challenge:
-          - key: ''
-          - key: ''
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          href: href
-          file_size: 0
+    live_photo_request:
       properties:
-        live_videos:
-          items:
-            $ref: '#/components/schemas/live_video'
-          type: array
+        applicant_id:
+          description: The ID of the applicant whose live photo is being uploaded.
+          format: uuid
+          type: string
+        file:
+          description: The file to be uploaded.
+          format: binary
+          type: string
+        advanced_validation:
+          default: true
+          description: Validates that the live photo contains exactly one face.
+          type: boolean
+      type: object
+    live_photo_response:
+      properties:
+        id:
+          description: The unique identifier for the photo.
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time at which the photo was uploaded.
+          format: date-time
+          type: string
+        href:
+          description: The uri of this resource.
+          type: string
+        download_href:
+          description: The uri that can be used to download the photo.
+          type: string
+        file_name:
+          description: The name of the uploaded file.
+          type: string
+        file_type:
+          description: The file type of the uploaded file.
+          type: string
+        file_size:
+          description: The size of the file in bytes.
+          type: integer
       required:
-      - live_videos
-      title: Live Videos list
+      - id
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
       type: object
     live_video:
       example:
@@ -329,49 +368,49 @@ components:
             type: object
           type: array
       type: object
-    live_photo_response:
+    Live_Videos_list:
+      example:
+        live_videos:
+        - download_href: download_href
+          file_name: file_name
+          file_type: file_type
+          created_at: '2000-01-23T04:56:07.000Z'
+          challenge:
+          - key: ''
+          - key: ''
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          file_size: 0
+        - download_href: download_href
+          file_name: file_name
+          file_type: file_type
+          created_at: '2000-01-23T04:56:07.000Z'
+          challenge:
+          - key: ''
+          - key: ''
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          file_size: 0
       properties:
-        id:
-          description: The unique identifier for the photo.
-          format: uuid
-          type: string
-        created_at:
-          description: The date and time at which the photo was uploaded.
-          format: date-time
-          type: string
-        href:
-          description: The uri of this resource.
-          type: string
-        download_href:
-          description: The uri that can be used to download the photo.
-          type: string
-        file_name:
-          description: The name of the uploaded file.
-          type: string
-        file_type:
-          description: The file type of the uploaded file.
-          type: string
-        file_size:
-          description: The size of the file in bytes.
-          type: integer
+        live_videos:
+          items:
+            $ref: '#/components/schemas/live_video'
+          type: array
       required:
-      - id
+      - live_videos
+      title: Live Videos list
       type: object
-    live_photo_request:
-      properties:
-        applicant_id:
-          description: The ID of the applicant whose live photo is being uploaded.
-          format: uuid
-          type: string
-        file:
-          description: The file to be uploaded.
-          format: binary
-          type: string
-        advanced_validation:
-          default: true
-          description: Validates that the live photo contains exactly one face.
-          type: boolean
-      type: object
+    live_photo:
+      allOf:
+      - $ref: '#/components/schemas/live_photo_response'
+      example:
+        download_href: download_href
+        file_name: file_name
+        file_type: file_type
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        file_size: 0
     Live_Photos_list:
       example:
         live_photos:
@@ -404,45 +443,6 @@ components:
       required:
       - applicant_id
       - file
-    live_photo:
-      allOf:
-      - $ref: '#/components/schemas/live_photo_response'
-      example:
-        download_href: download_href
-        file_name: file_name
-        file_type: file_type
-        created_at: '2000-01-23T04:56:07.000Z'
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        href: href
-        file_size: 0
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
-      type: object
   securitySchemes:
     Token:
       in: header

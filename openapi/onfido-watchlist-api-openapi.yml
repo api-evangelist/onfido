@@ -220,6 +220,117 @@ paths:
       - Watchlist
 components:
   schemas:
+    watchlist_monitor_matches_list:
+      example:
+        matches:
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          enabled: true
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          enabled: true
+      properties:
+        matches:
+          items:
+            $ref: '#/components/schemas/Watchlist_monitor_match'
+          type: array
+      required:
+      - matches
+      title: Watchlist monitor matches list
+      type: object
+    watchlist_monitor_matches_updater:
+      properties:
+        enable:
+          items:
+            description: Match ID to enable.
+            format: uuid
+            type: string
+          type: array
+        disable:
+          items:
+            description: Match ID to disable.
+            format: uuid
+            type: string
+          type: array
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    watchlist_monitor_builder:
+      allOf:
+      - $ref: '#/components/schemas/watchlist_monitor_shared'
+    Watchlist_monitor_match:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        enabled: true
+      properties:
+        id:
+          description: Monitor ID
+          format: uuid
+          type: string
+        enabled:
+          description: Monitor status
+          type: boolean
+      title: Watchlist monitor match
+      type: object
+    watchlist_monitor_shared:
+      properties:
+        applicant_id:
+          description: The ID for the applicant associated with the monitor.
+          format: uuid
+          type: string
+        report_name:
+          description: The name of the report type the monitor creates.
+          enum:
+          - watchlist_standard
+          - watchlist_aml
+          type: string
+        tags:
+          description: A list of tags associated with this monitor. These tags will be applied to each check this monitor creates.
+          items:
+            type: string
+          type: array
+      required:
+      - applicant_id
+      - report_name
+      type: object
+    watchlist_monitor:
+      allOf:
+      - $ref: '#/components/schemas/watchlist_monitor_shared'
+      - $ref: '#/components/schemas/watchlist_monitor_response'
+      example:
+        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        report_name: watchlist_standard
+        deleted_at: '2000-01-23T04:56:07.000Z'
+        is_sandbox: false
+        tags:
+        - tags
+        - tags
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
     Watchlist_monitors_list:
       example:
         monitors:
@@ -250,86 +361,6 @@ components:
       - monitors
       title: Watchlist monitors list
       type: object
-    Watchlist_monitor_match:
-      example:
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        enabled: true
-      properties:
-        id:
-          description: Monitor ID
-          format: uuid
-          type: string
-        enabled:
-          description: Monitor status
-          type: boolean
-      title: Watchlist monitor match
-      type: object
-    watchlist_monitor_matches_list:
-      example:
-        matches:
-        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          enabled: true
-        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          enabled: true
-      properties:
-        matches:
-          items:
-            $ref: '#/components/schemas/Watchlist_monitor_match'
-          type: array
-      required:
-      - matches
-      title: Watchlist monitor matches list
-      type: object
-    watchlist_monitor_shared:
-      properties:
-        applicant_id:
-          description: The ID for the applicant associated with the monitor.
-          format: uuid
-          type: string
-        report_name:
-          description: The name of the report type the monitor creates.
-          enum:
-          - watchlist_standard
-          - watchlist_aml
-          type: string
-        tags:
-          description: A list of tags associated with this monitor. These tags will be applied to each check this monitor creates.
-          items:
-            type: string
-          type: array
-      required:
-      - applicant_id
-      - report_name
-      type: object
-    watchlist_monitor_builder:
-      allOf:
-      - $ref: '#/components/schemas/watchlist_monitor_shared'
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
-    watchlist_monitor:
-      allOf:
-      - $ref: '#/components/schemas/watchlist_monitor_shared'
-      - $ref: '#/components/schemas/watchlist_monitor_response'
-      example:
-        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        created_at: '2000-01-23T04:56:07.000Z'
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        report_name: watchlist_standard
-        deleted_at: '2000-01-23T04:56:07.000Z'
-        is_sandbox: false
-        tags:
-        - tags
-        - tags
     watchlist_monitor_response:
       properties:
         id:
@@ -350,37 +381,6 @@ components:
           type: boolean
       required:
       - id
-      type: object
-    watchlist_monitor_matches_updater:
-      properties:
-        enable:
-          items:
-            description: Match ID to enable.
-            format: uuid
-            type: string
-          type: array
-        disable:
-          items:
-            description: Match ID to disable.
-            format: uuid
-            type: string
-          type: array
-      type: object
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
       type: object
   securitySchemes:
     Token:
