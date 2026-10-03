@@ -73,18 +73,6 @@ components:
           type: object
       title: ErrorProperties
       type: object
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
     repeat_attempts_list_repeat_attempts_inner:
       example:
         result: clear
@@ -129,6 +117,18 @@ components:
           description: When the matching report was completed.
           format: date-time
           type: string
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
       type: object
     repeat_attempts_list:
       example:

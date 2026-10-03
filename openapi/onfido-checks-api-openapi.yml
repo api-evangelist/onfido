@@ -160,6 +160,34 @@ paths:
       - Checks
 components:
   schemas:
+    check:
+      allOf:
+      - $ref: '#/components/schemas/check_shared'
+      - $ref: '#/components/schemas/check_response'
+      example:
+        paused: true
+        sandbox: true
+        created_at: '2000-01-23T04:56:07.000Z'
+        version: '3.6'
+        results_uri: results_uri
+        report_ids:
+        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        tags:
+        - tags
+        - tags
+        privacy_notices_read_consent_given: true
+        result: clear
+        form_uri: form_uri
+        webhook_ids:
+        - webhook_ids
+        - webhook_ids
+        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        redirect_uri: redirect_uri
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        applicant_provides_data: true
+        status: status
     us_driving_licence_shared:
       description: An object that contains all accepted fields for the Driver's License Data Verification report.
       properties:
@@ -244,6 +272,61 @@ components:
       - id_number
       - issue_state
       type: object
+    check_shared:
+      properties:
+        webhook_ids:
+          description: An array of webhook ids describing which webhooks to trigger for this check.
+          items:
+            type: string
+          type: array
+        applicant_id:
+          description: The ID of the applicant to do the check on.
+          format: uuid
+          type: string
+        applicant_provides_data:
+          description: 'Send an applicant form to applicant to complete to proceed with check. Defaults to false.
+
+            '
+          type: boolean
+        tags:
+          description: Array of tags being assigned to this check.
+          items:
+            type: string
+          type: array
+        redirect_uri:
+          description: For checks where `applicant_provides_data` is `true`, redirect to this URI when the applicant has submitted their data.
+          type: string
+        privacy_notices_read_consent_given:
+          type: boolean
+      required:
+      - applicant_id
+      type: object
+    check_status:
+      description: The current state of the check in the checking process.
+      enum:
+      - in_progress
+      - awaiting_applicant
+      - complete
+      - withdrawn
+      - paused
+      - reopened
+      type: string
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
     Checks_list:
       example:
         checks:
@@ -302,30 +385,6 @@ components:
       - checks
       title: Checks list
       type: object
-    report_name:
-      enum:
-      - document
-      - document_video
-      - document_video_with_address_information
-      - document_with_address_information
-      - document_with_driving_licence_information
-      - document_with_driver_verification
-      - facial_similarity_photo
-      - facial_similarity_photo_fully_auto
-      - facial_similarity_video
-      - facial_similarity_motion
-      - known_faces
-      - identity_enhanced
-      - watchlist_aml
-      - watchlist_enhanced
-      - watchlist_standard
-      - watchlist_peps_only
-      - watchlist_sanctions_only
-      - proof_of_address
-      - us_driving_licence
-      - device_intelligence
-      - india_pan
-      type: string
     Error:
       example:
         error:
@@ -337,64 +396,6 @@ components:
         error:
           $ref: '#/components/schemas/ErrorProperties'
       title: Error
-      type: object
-    check_builder:
-      allOf:
-      - $ref: '#/components/schemas/check_shared'
-      - $ref: '#/components/schemas/check_request'
-    check:
-      allOf:
-      - $ref: '#/components/schemas/check_shared'
-      - $ref: '#/components/schemas/check_response'
-      example:
-        paused: true
-        sandbox: true
-        created_at: '2000-01-23T04:56:07.000Z'
-        version: '3.6'
-        results_uri: results_uri
-        report_ids:
-        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        - 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        tags:
-        - tags
-        - tags
-        privacy_notices_read_consent_given: true
-        result: clear
-        form_uri: form_uri
-        webhook_ids:
-        - webhook_ids
-        - webhook_ids
-        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        redirect_uri: redirect_uri
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        href: href
-        applicant_provides_data: true
-        status: status
-    check_status:
-      description: The current state of the check in the checking process.
-      enum:
-      - in_progress
-      - awaiting_applicant
-      - complete
-      - withdrawn
-      - paused
-      - reopened
-      type: string
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
       type: object
     check_response:
       properties:
@@ -440,35 +441,10 @@ components:
       required:
       - id
       type: object
-    check_shared:
-      properties:
-        webhook_ids:
-          description: An array of webhook ids describing which webhooks to trigger for this check.
-          items:
-            type: string
-          type: array
-        applicant_id:
-          description: The ID of the applicant to do the check on.
-          format: uuid
-          type: string
-        applicant_provides_data:
-          description: 'Send an applicant form to applicant to complete to proceed with check. Defaults to false.
-
-            '
-          type: boolean
-        tags:
-          description: Array of tags being assigned to this check.
-          items:
-            type: string
-          type: array
-        redirect_uri:
-          description: For checks where `applicant_provides_data` is `true`, redirect to this URI when the applicant has submitted their data.
-          type: string
-        privacy_notices_read_consent_given:
-          type: boolean
-      required:
-      - applicant_id
-      type: object
+    check_builder:
+      allOf:
+      - $ref: '#/components/schemas/check_shared'
+      - $ref: '#/components/schemas/check_request'
     check_request:
       properties:
         report_names:
@@ -513,6 +489,30 @@ components:
     us_driving_licence_builder:
       allOf:
       - $ref: '#/components/schemas/us_driving_licence_shared'
+    report_name:
+      enum:
+      - document
+      - document_video
+      - document_video_with_address_information
+      - document_with_address_information
+      - document_with_driving_licence_information
+      - document_with_driver_verification
+      - facial_similarity_photo
+      - facial_similarity_photo_fully_auto
+      - facial_similarity_video
+      - facial_similarity_motion
+      - known_faces
+      - identity_enhanced
+      - watchlist_aml
+      - watchlist_enhanced
+      - watchlist_standard
+      - watchlist_peps_only
+      - watchlist_sanctions_only
+      - proof_of_address
+      - us_driving_licence
+      - device_intelligence
+      - india_pan
+      type: string
   securitySchemes:
     Token:
       in: header

@@ -349,91 +349,91 @@ paths:
       - Workflows
 components:
   schemas:
-    workflow_run_shared:
+    workflow_run_link:
       properties:
-        applicant_id:
-          description: The unique identifier for the Applicant.
-          format: uuid
+        url:
+          description: Link to access the Workflow Run without the need to integrate with Onfido's SDKs.
           type: string
-        workflow_id:
-          description: The unique identifier for the Workflow.
-          format: uuid
-          type: string
-        tags:
-          description: Tags or labels assigned to the workflow run.
-          items:
-            maxLength: 128
-            minLength: 1
-            type: string
-          maxItems: 30
+        completed_redirect_url:
+          description: When the interactive section of the Workflow Run has completed successfully, the user will be redirected to this URL instead of seeing the default Onfido 'thank you' page.
           type:
-          - array
+          - string
           - 'null'
-        customer_user_id:
-          description: Customer-provided user identifier.
-          maxLength: 256
+        expired_redirect_url:
+          description: When the link has expired, the user will be immediately redirected to this URL instead of seeing the default Onfido error message.
+          type:
+          - string
+          - 'null'
+        expires_at:
+          description: Date and time when the link will expire.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        language:
+          description: The code for the language when the workflow run is acessed using the link.
+          enum:
+          - en_US
+          - de_DE
+          - es_ES
+          - fr_FR
+          - it_IT
+          - pt_PT
+          - nl_NL
+          type:
+          - string
+          - 'null'
+    workflow_run_builder:
+      allOf:
+      - $ref: '#/components/schemas/workflow_run_shared'
+      - $ref: '#/components/schemas/workflow_run_request'
+    task:
+      example:
+        output: '{}'
+        task_def_version: task_def_version
+        input: '{}'
+        updated_at: '2000-01-23T04:56:07.000Z'
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: profile_123
+        task_def_id: task_123
+        workflow_run_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: The identifier for the Task.
+          example: profile_123
+          pattern: ^[0-9a-z_-]+$
           type: string
-        link:
-          allOf:
-          - $ref: '#/components/schemas/workflow_run_link'
-          description: Object for the configuration of the Workflow Run link.
+        workflow_run_id:
+          description: The workflow run id the task belongs to.
+          format: uuid
+          type: string
+        task_def_id:
+          description: The identifier for the Task Definition.
+          example: task_123
+          pattern: ^[0-9a-z_-]+$
+          type: string
+        task_def_version:
+          description: The task definition version.
+          type:
+          - string
+          - 'null'
+        input:
+          description: Input object with the fields used by the Task to execute.
           type: object
+        output:
+          description: Value field (it can be an Object, List, etc.) with the fields produced by the Task execution.
+          type:
+          - object
+          - 'null'
         created_at:
-          description: The date and time when the Workflow Run was created.
+          description: The date and time when the Task was created.
           format: date-time
           type: string
         updated_at:
-          description: The date and time when the Workflow Run was last updated.
+          description: The date and time when the Task was last updated.
           format: date-time
           type: string
-      required:
-      - applicant_id
-      - workflow_id
       type: object
-    Complete_Task_Data_Builder:
-      description: The Task completion payload.
-      oneOf:
-      - items:
-          type: object
-        type: array
-      - type: object
-      title: Complete Task Data Builder
-    workflow_run_error:
-      properties:
-        type:
-          description: The type of error.
-          type: string
-        message:
-          description: A textual description of the error.
-          type: string
-      type: object
-    workflow_run:
-      allOf:
-      - $ref: '#/components/schemas/workflow_run_shared'
-      - $ref: '#/components/schemas/workflow_run_response'
-      example:
-        workflow_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        reasons:
-        - reasons
-        - reasons
-        link: '{}'
-        created_at: '2000-01-23T04:56:07.000Z'
-        error: '{}'
-        tags:
-        - tags
-        - tags
-        - tags
-        - tags
-        - tags
-        output: '{}'
-        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        updated_at: '2000-01-23T04:56:07.000Z'
-        sdk_token: sdk_token
-        customer_user_id: customer_user_id
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        workflow_version_id: 0
-        dashboard_url: dashboard_url
-        status: ''
     workflow_run_response:
       properties:
         id:
@@ -509,45 +509,33 @@ components:
           type: string
       title: TaskItem
       type: object
-    timeline_file_reference:
-      example:
-        href: href
-        workflow_timeline_file_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-      properties:
-        workflow_timeline_file_id:
-          description: The unique identifier for the Timefile File that will be created.
-          format: uuid
-          type: string
-        href:
-          description: Link to access the Timefile File that will be created.
-          type: string
-      required:
-      - href
-      - workflow_timeline_file_id
-      type: object
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
-    complete_task_builder:
-      properties:
-        data:
-          $ref: '#/components/schemas/Complete_Task_Data_Builder'
-      required:
-      - data
-      type: object
-    workflow_run_builder:
+    workflow_run:
       allOf:
       - $ref: '#/components/schemas/workflow_run_shared'
-      - $ref: '#/components/schemas/workflow_run_request'
+      - $ref: '#/components/schemas/workflow_run_response'
+      example:
+        workflow_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        reasons:
+        - reasons
+        - reasons
+        link: '{}'
+        created_at: '2000-01-23T04:56:07.000Z'
+        error: '{}'
+        tags:
+        - tags
+        - tags
+        - tags
+        - tags
+        - tags
+        output: '{}'
+        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        updated_at: '2000-01-23T04:56:07.000Z'
+        sdk_token: sdk_token
+        customer_user_id: customer_user_id
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        workflow_version_id: 0
+        dashboard_url: dashboard_url
+        status: ''
     workflow_run_request:
       properties:
         custom_data:
@@ -555,17 +543,6 @@ components:
           description: Object with Custom Input Data to be used in the Workflow Run.
           type: object
       type: object
-    workflow_run_status:
-      enum:
-      - processing
-      - awaiting_input
-      - awaiting_client_input
-      - approved
-      - declined
-      - review
-      - abandoned
-      - error
-      type: string
     ErrorProperties:
       example:
         type: type
@@ -582,86 +559,109 @@ components:
           type: object
       title: ErrorProperties
       type: object
-    workflow_run_link:
-      properties:
-        url:
-          description: Link to access the Workflow Run without the need to integrate with Onfido's SDKs.
-          type: string
-        completed_redirect_url:
-          description: When the interactive section of the Workflow Run has completed successfully, the user will be redirected to this URL instead of seeing the default Onfido 'thank you' page.
-          type:
-          - string
-          - 'null'
-        expired_redirect_url:
-          description: When the link has expired, the user will be immediately redirected to this URL instead of seeing the default Onfido error message.
-          type:
-          - string
-          - 'null'
-        expires_at:
-          description: Date and time when the link will expire.
-          format: date-time
-          type:
-          - string
-          - 'null'
-        language:
-          description: The code for the language when the workflow run is acessed using the link.
-          enum:
-          - en_US
-          - de_DE
-          - es_ES
-          - fr_FR
-          - it_IT
-          - pt_PT
-          - nl_NL
-          type:
-          - string
-          - 'null'
-    task:
+    Complete_Task_Data_Builder:
+      description: The Task completion payload.
+      oneOf:
+      - items:
+          type: object
+        type: array
+      - type: object
+      title: Complete Task Data Builder
+    Error:
       example:
-        output: '{}'
-        task_def_version: task_def_version
-        input: '{}'
-        updated_at: '2000-01-23T04:56:07.000Z'
-        created_at: '2000-01-23T04:56:07.000Z'
-        id: profile_123
-        task_def_id: task_123
-        workflow_run_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
       properties:
-        id:
-          description: The identifier for the Task.
-          example: profile_123
-          pattern: ^[0-9a-z_-]+$
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    workflow_run_error:
+      properties:
+        type:
+          description: The type of error.
           type: string
-        workflow_run_id:
-          description: The workflow run id the task belongs to.
+        message:
+          description: A textual description of the error.
+          type: string
+      type: object
+    workflow_run_status:
+      enum:
+      - processing
+      - awaiting_input
+      - awaiting_client_input
+      - approved
+      - declined
+      - review
+      - abandoned
+      - error
+      type: string
+    complete_task_builder:
+      properties:
+        data:
+          $ref: '#/components/schemas/Complete_Task_Data_Builder'
+      required:
+      - data
+      type: object
+    timeline_file_reference:
+      example:
+        href: href
+        workflow_timeline_file_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        workflow_timeline_file_id:
+          description: The unique identifier for the Timefile File that will be created.
           format: uuid
           type: string
-        task_def_id:
-          description: The identifier for the Task Definition.
-          example: task_123
-          pattern: ^[0-9a-z_-]+$
+        href:
+          description: Link to access the Timefile File that will be created.
           type: string
-        task_def_version:
-          description: The task definition version.
+      required:
+      - href
+      - workflow_timeline_file_id
+      type: object
+    workflow_run_shared:
+      properties:
+        applicant_id:
+          description: The unique identifier for the Applicant.
+          format: uuid
+          type: string
+        workflow_id:
+          description: The unique identifier for the Workflow.
+          format: uuid
+          type: string
+        tags:
+          description: Tags or labels assigned to the workflow run.
+          items:
+            maxLength: 128
+            minLength: 1
+            type: string
+          maxItems: 30
           type:
-          - string
+          - array
           - 'null'
-        input:
-          description: Input object with the fields used by the Task to execute.
+        customer_user_id:
+          description: Customer-provided user identifier.
+          maxLength: 256
+          type: string
+        link:
+          allOf:
+          - $ref: '#/components/schemas/workflow_run_link'
+          description: Object for the configuration of the Workflow Run link.
           type: object
-        output:
-          description: Value field (it can be an Object, List, etc.) with the fields produced by the Task execution.
-          type:
-          - object
-          - 'null'
         created_at:
-          description: The date and time when the Task was created.
+          description: The date and time when the Workflow Run was created.
           format: date-time
           type: string
         updated_at:
-          description: The date and time when the Task was last updated.
+          description: The date and time when the Workflow Run was last updated.
           format: date-time
           type: string
+      required:
+      - applicant_id
+      - workflow_id
       type: object
   securitySchemes:
     Token:

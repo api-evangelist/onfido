@@ -220,21 +220,19 @@ paths:
       - Watchlist
 components:
   schemas:
-    watchlist_monitor_matches_list:
+    Watchlist_monitor_match:
       example:
-        matches:
-        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          enabled: true
-        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          enabled: true
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        enabled: true
       properties:
-        matches:
-          items:
-            $ref: '#/components/schemas/Watchlist_monitor_match'
-          type: array
-      required:
-      - matches
-      title: Watchlist monitor matches list
+        id:
+          description: Monitor ID
+          format: uuid
+          type: string
+        enabled:
+          description: Monitor status
+          type: boolean
+      title: Watchlist monitor match
       type: object
     watchlist_monitor_matches_updater:
       properties:
@@ -251,6 +249,43 @@ components:
             type: string
           type: array
       type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    watchlist_monitor_response:
+      properties:
+        id:
+          description: The unique identifier for the monitor.
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time at which the monitor was created.
+          format: date-time
+          type: string
+        deleted_at:
+          description: The date and time at which the monitor was deleted. If the monitor is still active, this field will be null.
+          format: date-time
+          type: string
+        is_sandbox:
+          default: false
+          description: Indicates whether the object was created in the sandbox or not.
+          type: boolean
+      required:
+      - id
+      type: object
     Error:
       example:
         error:
@@ -266,20 +301,20 @@ components:
     watchlist_monitor_builder:
       allOf:
       - $ref: '#/components/schemas/watchlist_monitor_shared'
-    Watchlist_monitor_match:
+    watchlist_monitor:
+      allOf:
+      - $ref: '#/components/schemas/watchlist_monitor_shared'
+      - $ref: '#/components/schemas/watchlist_monitor_response'
       example:
+        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        created_at: '2000-01-23T04:56:07.000Z'
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        enabled: true
-      properties:
-        id:
-          description: Monitor ID
-          format: uuid
-          type: string
-        enabled:
-          description: Monitor status
-          type: boolean
-      title: Watchlist monitor match
-      type: object
+        report_name: watchlist_standard
+        deleted_at: '2000-01-23T04:56:07.000Z'
+        is_sandbox: false
+        tags:
+        - tags
+        - tags
     watchlist_monitor_shared:
       properties:
         applicant_id:
@@ -301,35 +336,21 @@ components:
       - applicant_id
       - report_name
       type: object
-    watchlist_monitor:
-      allOf:
-      - $ref: '#/components/schemas/watchlist_monitor_shared'
-      - $ref: '#/components/schemas/watchlist_monitor_response'
+    watchlist_monitor_matches_list:
       example:
-        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        created_at: '2000-01-23T04:56:07.000Z'
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        report_name: watchlist_standard
-        deleted_at: '2000-01-23T04:56:07.000Z'
-        is_sandbox: false
-        tags:
-        - tags
-        - tags
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
+        matches:
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          enabled: true
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          enabled: true
       properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
+        matches:
+          items:
+            $ref: '#/components/schemas/Watchlist_monitor_match'
+          type: array
+      required:
+      - matches
+      title: Watchlist monitor matches list
       type: object
     Watchlist_monitors_list:
       example:
@@ -360,27 +381,6 @@ components:
       required:
       - monitors
       title: Watchlist monitors list
-      type: object
-    watchlist_monitor_response:
-      properties:
-        id:
-          description: The unique identifier for the monitor.
-          format: uuid
-          type: string
-        created_at:
-          description: The date and time at which the monitor was created.
-          format: date-time
-          type: string
-        deleted_at:
-          description: The date and time at which the monitor was deleted. If the monitor is still active, this field will be null.
-          format: date-time
-          type: string
-        is_sandbox:
-          default: false
-          description: Indicates whether the object was created in the sandbox or not.
-          type: boolean
-      required:
-      - id
       type: object
   securitySchemes:
     Token:
