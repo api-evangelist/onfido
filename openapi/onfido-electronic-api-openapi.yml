@@ -74,6 +74,18 @@ paths:
       - Electronic
 components:
   schemas:
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
     ErrorProperties:
       example:
         type: type
@@ -89,18 +101,6 @@ components:
           additionalProperties: true
           type: object
       title: ErrorProperties
-      type: object
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
       type: object
   securitySchemes:
     Token:

@@ -56,9 +56,18 @@ paths:
       - Token
 components:
   schemas:
-    sdk_token_builder:
-      allOf:
-      - $ref: '#/components/schemas/sdk_token_request'
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
     sdk_token_response:
       properties:
         token:
@@ -67,11 +76,25 @@ components:
       required:
       - token
       type: object
-    sdk_token:
-      allOf:
-      - $ref: '#/components/schemas/sdk_token_response'
+    ErrorProperties:
       example:
-        token: token
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    sdk_token_builder:
+      allOf:
+      - $ref: '#/components/schemas/sdk_token_request'
     sdk_token_request:
       properties:
         applicant_id:
@@ -90,34 +113,11 @@ components:
       required:
       - applicant_id
       type: object
-    ErrorProperties:
+    sdk_token:
+      allOf:
+      - $ref: '#/components/schemas/sdk_token_response'
       example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
-      type: object
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
+        token: token
   securitySchemes:
     Token:
       in: header

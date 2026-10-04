@@ -56,22 +56,6 @@ paths:
       - Results
 components:
   schemas:
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
-      type: object
     Error:
       example:
         error:
@@ -108,6 +92,22 @@ components:
         feedback_notes:
           description: Any additional information or feedback.
           type: string
+      type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
       type: object
   securitySchemes:
     Token:

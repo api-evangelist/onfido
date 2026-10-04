@@ -56,6 +56,70 @@ paths:
       - Addresses
 components:
   schemas:
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    Addresses_list:
+      example:
+        addresses:
+        - building_name: building_name
+          country: country
+          town: town
+          flat_number: flat_number
+          street: street
+          postcode: postcode
+          state: state
+          line3: line3
+          line2: line2
+          building_number: building_number
+          line1: line1
+          sub_street: sub_street
+        - building_name: building_name
+          country: country
+          town: town
+          flat_number: flat_number
+          street: street
+          postcode: postcode
+          state: state
+          line3: line3
+          line2: line2
+          building_number: building_number
+          line1: line1
+          sub_street: sub_street
+      properties:
+        addresses:
+          items:
+            $ref: '#/components/schemas/address'
+          type: array
+      required:
+      - address
+      title: Addresses list
+      type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
     address_shared:
       properties:
         flat_number:
@@ -125,70 +189,6 @@ components:
         building_number: building_number
         line1: line1
         sub_street: sub_street
-    Addresses_list:
-      example:
-        addresses:
-        - building_name: building_name
-          country: country
-          town: town
-          flat_number: flat_number
-          street: street
-          postcode: postcode
-          state: state
-          line3: line3
-          line2: line2
-          building_number: building_number
-          line1: line1
-          sub_street: sub_street
-        - building_name: building_name
-          country: country
-          town: town
-          flat_number: flat_number
-          street: street
-          postcode: postcode
-          state: state
-          line3: line3
-          line2: line2
-          building_number: building_number
-          line1: line1
-          sub_street: sub_street
-      properties:
-        addresses:
-          items:
-            $ref: '#/components/schemas/address'
-          type: array
-      required:
-      - address
-      title: Addresses list
-      type: object
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
-      type: object
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
     country_codes:
       enum:
       - ABW

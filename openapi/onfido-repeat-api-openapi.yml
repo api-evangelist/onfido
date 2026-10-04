@@ -57,6 +57,66 @@ paths:
       - Repeat
 components:
   schemas:
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    repeat_attempts_list:
+      example:
+        attempts_clear_rate: 0.6027456
+        report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        repeat_attempts:
+        - result: clear
+          completed_at: '2000-01-23T04:56:07.000Z'
+          names: match
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          date_of_birth: match
+          created_at: '2000-01-23T04:56:07.000Z'
+        - result: clear
+          completed_at: '2000-01-23T04:56:07.000Z'
+          names: match
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          date_of_birth: match
+          created_at: '2000-01-23T04:56:07.000Z'
+        attempts_count: 0
+        unique_mismatches_count: 1
+      properties:
+        report_id:
+          description: The unique identifier of the completed Document report.
+          format: uuid
+          type: string
+        repeat_attempts:
+          description: 'An array of repeat attempt objects. If no repeat attempts were found, the array will be empty. The number of objects returned can increase over time if more matches are received.
+
+            '
+          items:
+            $ref: '#/components/schemas/repeat_attempts_list_repeat_attempts_inner'
+          type: array
+        attempts_count:
+          description: The total number of attempts using the same document, including the current report under assessment.
+          type: integer
+        attempts_clear_rate:
+          description: A number between 0 and 1 which indicates the proportion of attempts that have been cleared, including the current report under assessment.
+          format: float
+          maximum: 1
+          minimum: 0
+          type: number
+        unique_mismatches_count:
+          description: The number of unique entries in the repeat_attempts field for which at least one of the fields is a mismatch.
+          type: integer
+      required:
+      - repeat_attempts
+      type: object
     ErrorProperties:
       example:
         type: type
@@ -117,66 +177,6 @@ components:
           description: When the matching report was completed.
           format: date-time
           type: string
-      type: object
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
-    repeat_attempts_list:
-      example:
-        attempts_clear_rate: 0.6027456
-        report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        repeat_attempts:
-        - result: clear
-          completed_at: '2000-01-23T04:56:07.000Z'
-          names: match
-          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          date_of_birth: match
-          created_at: '2000-01-23T04:56:07.000Z'
-        - result: clear
-          completed_at: '2000-01-23T04:56:07.000Z'
-          names: match
-          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          report_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          date_of_birth: match
-          created_at: '2000-01-23T04:56:07.000Z'
-        attempts_count: 0
-        unique_mismatches_count: 1
-      properties:
-        report_id:
-          description: The unique identifier of the completed Document report.
-          format: uuid
-          type: string
-        repeat_attempts:
-          description: 'An array of repeat attempt objects. If no repeat attempts were found, the array will be empty. The number of objects returned can increase over time if more matches are received.
-
-            '
-          items:
-            $ref: '#/components/schemas/repeat_attempts_list_repeat_attempts_inner'
-          type: array
-        attempts_count:
-          description: The total number of attempts using the same document, including the current report under assessment.
-          type: integer
-        attempts_clear_rate:
-          description: A number between 0 and 1 which indicates the proportion of attempts that have been cleared, including the current report under assessment.
-          format: float
-          maximum: 1
-          minimum: 0
-          type: number
-        unique_mismatches_count:
-          description: The number of unique entries in the repeat_attempts field for which at least one of the fields is a mismatch.
-          type: integer
-      required:
-      - repeat_attempts
       type: object
   securitySchemes:
     Token:

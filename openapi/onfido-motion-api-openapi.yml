@@ -144,34 +144,6 @@ paths:
       - Motion
 components:
   schemas:
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
-      type: object
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
     motion_capture:
       example:
         download_href: download_href
@@ -206,6 +178,22 @@ components:
           description: The file type of the uploaded file.
           type: string
       type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
     Motion_Captures_list:
       example:
         motion_captures:
@@ -231,6 +219,18 @@ components:
       required:
       - motion_captures
       title: Motion Captures list
+      type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
       type: object
   securitySchemes:
     Token:

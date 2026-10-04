@@ -140,34 +140,24 @@ paths:
       - Photos
 components:
   schemas:
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
     id_photo_uploader:
       allOf:
       - $ref: '#/components/schemas/id_photo_request'
       required:
       - applicant_id
       - file
-    id_photo:
-      allOf:
-      - $ref: '#/components/schemas/id_photo_response'
-      example:
-        download_href: download_href
-        file_name: file_name
-        file_type: file_type
-        created_at: '2000-01-23T04:56:07.000Z'
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        href: href
-        file_size: 0
-    id_photo_request:
-      properties:
-        applicant_id:
-          description: The ID of the applicant whose ID photo is being uploaded.
-          format: uuid
-          type: string
-        file:
-          description: The file to be uploaded.
-          format: binary
-          type: string
-      type: object
     ErrorProperties:
       example:
         type: type
@@ -183,44 +173,6 @@ components:
           additionalProperties: true
           type: object
       title: ErrorProperties
-      type: object
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
-    Id_Photos_list:
-      example:
-        id_photos:
-        - download_href: download_href
-          file_name: file_name
-          file_type: file_type
-          created_at: '2000-01-23T04:56:07.000Z'
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          href: href
-          file_size: 0
-        - download_href: download_href
-          file_name: file_name
-          file_type: file_type
-          created_at: '2000-01-23T04:56:07.000Z'
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          href: href
-          file_size: 0
-      properties:
-        id_photos:
-          items:
-            $ref: '#/components/schemas/id_photo'
-          type: array
-      required:
-      - id_photos
-      title: Id Photos list
       type: object
     id_photo_response:
       properties:
@@ -249,6 +201,54 @@ components:
           type: integer
       required:
       - id
+      type: object
+    id_photo:
+      allOf:
+      - $ref: '#/components/schemas/id_photo_response'
+      example:
+        download_href: download_href
+        file_name: file_name
+        file_type: file_type
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        file_size: 0
+    id_photo_request:
+      properties:
+        applicant_id:
+          description: The ID of the applicant whose ID photo is being uploaded.
+          format: uuid
+          type: string
+        file:
+          description: The file to be uploaded.
+          format: binary
+          type: string
+      type: object
+    Id_Photos_list:
+      example:
+        id_photos:
+        - download_href: download_href
+          file_name: file_name
+          file_type: file_type
+          created_at: '2000-01-23T04:56:07.000Z'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          file_size: 0
+        - download_href: download_href
+          file_name: file_name
+          file_type: file_type
+          created_at: '2000-01-23T04:56:07.000Z'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          file_size: 0
+      properties:
+        id_photos:
+          items:
+            $ref: '#/components/schemas/id_photo'
+          type: array
+      required:
+      - id_photos
+      title: Id Photos list
       type: object
   securitySchemes:
     Token:

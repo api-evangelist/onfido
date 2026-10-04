@@ -200,172 +200,9 @@ paths:
       - Applicants
 components:
   schemas:
-    address_shared:
-      properties:
-        flat_number:
-          description: The flat number of this address
-          type: string
-        building_number:
-          description: The building number of this address
-          type: string
-        building_name:
-          description: The building name of this address
-          type: string
-        street:
-          description: The street of the applicant's address
-          type: string
-        sub_street:
-          description: The sub-street of the applicant's address
-          type: string
-        town:
-          description: The town of the applicant's address
-          type: string
-        postcode:
-          description: The postcode or ZIP of the applicant's address
-          type: string
-        country:
-          allOf:
-          - $ref: '#/components/schemas/country_codes'
-          description: The 3 character ISO country code of this address. For example, GBR is the country code for the United Kingdom
-          type: string
-        state:
-          description: The address state. US states must use the USPS abbreviation (see also ISO 3166-2:US), for example AK, CA, or TX.
-          type: string
-        line1:
-          description: Line 1 of the applicant's address
-          pattern: ^[^!$%^*=<>]*$
-          type:
-          - string
-          - 'null'
-        line2:
-          description: Line 2 of the applicant's address
-          pattern: ^[^!$%^*=<>]*$
-          type:
-          - string
-          - 'null'
-        line3:
-          description: Line 3 of the applicant's address
-          pattern: ^[^!$%^*=<>]*$
-          type:
-          - string
-          - 'null'
-      required:
-      - country
-      - postcode
-      type: object
-    applicant_builder:
-      allOf:
-      - $ref: '#/components/schemas/applicant_shared'
-      - $ref: '#/components/schemas/applicant_request'
-      - $ref: '#/components/schemas/applicant_create'
-    location_shared:
-      properties:
-        ip_address:
-          description: The applicant's ip address.
-          type: string
-        country_of_residence:
-          allOf:
-          - $ref: '#/components/schemas/country_codes'
-          description: The applicant's country of residence in 3-letter ISO code.
-          example: GBR
-      type: object
-    applicant_consent_name:
-      enum:
-      - privacy_notices_read
-      - ssn_verification
-      - phone_number_verification
-      type: string
-    location:
-      allOf:
-      - $ref: '#/components/schemas/location_shared'
-      example:
-        country_of_residence: GBR
-        ip_address: ip_address
-    address:
-      allOf:
-      - $ref: '#/components/schemas/address_shared'
-      example:
-        building_name: building_name
-        country: country
-        town: town
-        flat_number: flat_number
-        street: street
-        postcode: postcode
-        state: state
-        line3: line3
-        line2: line2
-        building_number: building_number
-        line1: line1
-        sub_street: sub_street
-    address_builder:
-      allOf:
-      - $ref: '#/components/schemas/address_shared'
     location_builder:
       allOf:
       - $ref: '#/components/schemas/location_shared'
-    applicant:
-      allOf:
-      - $ref: '#/components/schemas/applicant_shared'
-      - $ref: '#/components/schemas/applicant_response'
-      example:
-        address:
-          building_name: building_name
-          country: country
-          town: town
-          flat_number: flat_number
-          street: street
-          postcode: postcode
-          state: state
-          line3: line3
-          line2: line2
-          building_number: building_number
-          line1: line1
-          sub_street: sub_street
-        sandbox: true
-        last_name: last_name
-        created_at: '2000-01-23T04:56:07.000Z'
-        id_numbers:
-        - type: ssn
-          state_code: state_code
-          value: value
-        - type: ssn
-          state_code: state_code
-          value: value
-        dob: '2000-01-23T00:00:00.000Z'
-        delete_at: '2000-01-23T04:56:07.000Z'
-        phone_number: phone_number
-        location:
-          country_of_residence: GBR
-          ip_address: ip_address
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        href: href
-        first_name: first_name
-        email: email
-    applicant_create:
-      properties:
-        first_name:
-          description: The applicant's first name
-          pattern: ^[^!#$%*=<>;{}"]*$
-          type: string
-        last_name:
-          description: The applicant's surname
-          pattern: ^[^!#$%*=<>;{}"]*$
-          type: string
-      required:
-      - first_name
-      - last_name
-    applicant_request:
-      properties:
-        consents:
-          description: The applicant's consents
-          items:
-            $ref: '#/components/schemas/applicant_consent_builder'
-          type: array
-        address:
-          $ref: '#/components/schemas/address_builder'
-        location:
-          $ref: '#/components/schemas/location_builder'
-      type: object
     applicant_consent_builder:
       properties:
         name:
@@ -376,21 +213,22 @@ components:
       - granted
       - name
       type: object
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
+    applicant_shared:
       properties:
-        type:
+        email:
+          description: The applicant's email address. Required if doing a US check, or a UK check for which `applicant_provides_data` is `true`.
           type: string
-        message:
+        dob:
+          description: The applicant's date of birth
+          format: date
           type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
+        id_numbers:
+          items:
+            $ref: '#/components/schemas/id_number'
+          type: array
+        phone_number:
+          description: The applicant's phone number
+          type: string
       type: object
     Error:
       example:
@@ -437,59 +275,6 @@ components:
           $ref: '#/components/schemas/location'
       required:
       - id
-      type: object
-    applicant_update:
-      properties:
-        first_name:
-          description: The applicant's first name
-          pattern: ^[^!#$%*=<>;{}"]*$
-          type: string
-        last_name:
-          description: The applicant's surname
-          pattern: ^[^!#$%*=<>;{}"]*$
-          type: string
-    applicant_shared:
-      properties:
-        email:
-          description: The applicant's email address. Required if doing a US check, or a UK check for which `applicant_provides_data` is `true`.
-          type: string
-        dob:
-          description: The applicant's date of birth
-          format: date
-          type: string
-        id_numbers:
-          items:
-            $ref: '#/components/schemas/id_number'
-          type: array
-        phone_number:
-          description: The applicant's phone number
-          type: string
-      type: object
-    id_number:
-      example:
-        type: ssn
-        state_code: state_code
-        value: value
-      properties:
-        type:
-          description: Type of ID number.
-          enum:
-          - ssn
-          - social_insurance
-          - tax_id
-          - identity_card
-          - driving_licence
-          - share_code
-          - voter_id
-          - passport
-          - other
-          type: string
-        value:
-          description: Value of ID number
-          type: string
-        state_code:
-          description: Two letter code of issuing state (state-issued driving licenses only)
-          type: string
       type: object
     Applicants_list:
       example:
@@ -569,11 +354,104 @@ components:
       - applicants
       title: Applicants list
       type: object
+    applicant_create:
+      properties:
+        first_name:
+          description: The applicant's first name
+          pattern: ^[^!#$%*=<>;{}"]*$
+          type: string
+        last_name:
+          description: The applicant's surname
+          pattern: ^[^!#$%*=<>;{}"]*$
+          type: string
+      required:
+      - first_name
+      - last_name
+    location:
+      allOf:
+      - $ref: '#/components/schemas/location_shared'
+      example:
+        country_of_residence: GBR
+        ip_address: ip_address
+    applicant_update:
+      properties:
+        first_name:
+          description: The applicant's first name
+          pattern: ^[^!#$%*=<>;{}"]*$
+          type: string
+        last_name:
+          description: The applicant's surname
+          pattern: ^[^!#$%*=<>;{}"]*$
+          type: string
+    address_builder:
+      allOf:
+      - $ref: '#/components/schemas/address_shared'
+    applicant_request:
+      properties:
+        consents:
+          description: The applicant's consents
+          items:
+            $ref: '#/components/schemas/applicant_consent_builder'
+          type: array
+        address:
+          $ref: '#/components/schemas/address_builder'
+        location:
+          $ref: '#/components/schemas/location_builder'
+      type: object
     applicant_updater:
       allOf:
       - $ref: '#/components/schemas/applicant_shared'
       - $ref: '#/components/schemas/applicant_request'
       - $ref: '#/components/schemas/applicant_update'
+    location_shared:
+      properties:
+        ip_address:
+          description: The applicant's ip address.
+          type: string
+        country_of_residence:
+          allOf:
+          - $ref: '#/components/schemas/country_codes'
+          description: The applicant's country of residence in 3-letter ISO code.
+          example: GBR
+      type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    applicant_consent_name:
+      enum:
+      - privacy_notices_read
+      - ssn_verification
+      - phone_number_verification
+      type: string
+    address:
+      allOf:
+      - $ref: '#/components/schemas/address_shared'
+      example:
+        building_name: building_name
+        country: country
+        town: town
+        flat_number: flat_number
+        street: street
+        postcode: postcode
+        state: state
+        line3: line3
+        line2: line2
+        building_number: building_number
+        line1: line1
+        sub_street: sub_street
     country_codes:
       enum:
       - ABW
@@ -827,6 +705,128 @@ components:
       - ZMB
       - ZWE
       type: string
+    applicant:
+      allOf:
+      - $ref: '#/components/schemas/applicant_shared'
+      - $ref: '#/components/schemas/applicant_response'
+      example:
+        address:
+          building_name: building_name
+          country: country
+          town: town
+          flat_number: flat_number
+          street: street
+          postcode: postcode
+          state: state
+          line3: line3
+          line2: line2
+          building_number: building_number
+          line1: line1
+          sub_street: sub_street
+        sandbox: true
+        last_name: last_name
+        created_at: '2000-01-23T04:56:07.000Z'
+        id_numbers:
+        - type: ssn
+          state_code: state_code
+          value: value
+        - type: ssn
+          state_code: state_code
+          value: value
+        dob: '2000-01-23T00:00:00.000Z'
+        delete_at: '2000-01-23T04:56:07.000Z'
+        phone_number: phone_number
+        location:
+          country_of_residence: GBR
+          ip_address: ip_address
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        first_name: first_name
+        email: email
+    id_number:
+      example:
+        type: ssn
+        state_code: state_code
+        value: value
+      properties:
+        type:
+          description: Type of ID number.
+          enum:
+          - ssn
+          - social_insurance
+          - tax_id
+          - identity_card
+          - driving_licence
+          - share_code
+          - voter_id
+          - passport
+          - other
+          type: string
+        value:
+          description: Value of ID number
+          type: string
+        state_code:
+          description: Two letter code of issuing state (state-issued driving licenses only)
+          type: string
+      type: object
+    address_shared:
+      properties:
+        flat_number:
+          description: The flat number of this address
+          type: string
+        building_number:
+          description: The building number of this address
+          type: string
+        building_name:
+          description: The building name of this address
+          type: string
+        street:
+          description: The street of the applicant's address
+          type: string
+        sub_street:
+          description: The sub-street of the applicant's address
+          type: string
+        town:
+          description: The town of the applicant's address
+          type: string
+        postcode:
+          description: The postcode or ZIP of the applicant's address
+          type: string
+        country:
+          allOf:
+          - $ref: '#/components/schemas/country_codes'
+          description: The 3 character ISO country code of this address. For example, GBR is the country code for the United Kingdom
+          type: string
+        state:
+          description: The address state. US states must use the USPS abbreviation (see also ISO 3166-2:US), for example AK, CA, or TX.
+          type: string
+        line1:
+          description: Line 1 of the applicant's address
+          pattern: ^[^!$%^*=<>]*$
+          type:
+          - string
+          - 'null'
+        line2:
+          description: Line 2 of the applicant's address
+          pattern: ^[^!$%^*=<>]*$
+          type:
+          - string
+          - 'null'
+        line3:
+          description: Line 3 of the applicant's address
+          pattern: ^[^!$%^*=<>]*$
+          type:
+          - string
+          - 'null'
+      required:
+      - country
+      - postcode
+      type: object
+    applicant_builder:
+      allOf:
+      - $ref: '#/components/schemas/applicant_shared'
+      - $ref: '#/components/schemas/applicant_request'
+      - $ref: '#/components/schemas/applicant_create'
   securitySchemes:
     Token:
       in: header
