@@ -22,29 +22,29 @@ artifacts:
     method: derived
     evidence: openapi/onfido-asyncapi
   collections/onfido-attempts-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-attempts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-attempts-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-attempts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-cancel-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-cancel-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-cancel-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-cancel-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-capture-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-capture-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-capture-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-capture-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-captures-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-captures-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-captures-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-captures-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-checks-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-checks-api
@@ -52,11 +52,11 @@ artifacts:
     method: derived
     evidence: openapi/onfido-checks-api
   collections/onfido-complete-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-complete-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-complete-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-complete-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-documents-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-documents-api
@@ -64,17 +64,17 @@ artifacts:
     method: derived
     evidence: openapi/onfido-documents-api
   collections/onfido-download-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-download-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-download-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-download-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-downloads-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-downloads-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-downloads-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-downloads-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-electronic-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-electronic-api
@@ -82,11 +82,11 @@ artifacts:
     method: derived
     evidence: openapi/onfido-electronic-api
   collections/onfido-evidence-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-evidence-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-evidence-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-evidence-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-extractions-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-extractions-api
@@ -94,23 +94,23 @@ artifacts:
     method: derived
     evidence: openapi/onfido-extractions-api
   collections/onfido-feedback-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-feedback-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-feedback-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-feedback-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-files-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-files-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-files-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-files-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-frame-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-frame-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-frame-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-frame-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-live-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-live-api
@@ -118,17 +118,17 @@ artifacts:
     method: derived
     evidence: openapi/onfido-live-api
   collections/onfido-matches-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-matches-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-matches-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-matches-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-monitors-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-monitors-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-monitors-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-monitors-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-motion-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-motion-api
@@ -136,11 +136,11 @@ artifacts:
     method: derived
     evidence: openapi/onfido-motion-api
   collections/onfido-photo-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-photo-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-photo-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-photo-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-photos-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-photos-api
@@ -148,11 +148,11 @@ artifacts:
     method: derived
     evidence: openapi/onfido-photos-api
   collections/onfido-pick-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-pick-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-pick-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-pick-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-pings-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-pings-api
@@ -166,11 +166,11 @@ artifacts:
     method: derived
     evidence: openapi/onfido-repeat-api
   collections/onfido-report-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-report-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-report-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-report-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-reports-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-reports-api
@@ -178,17 +178,17 @@ artifacts:
     method: derived
     evidence: openapi/onfido-reports-api
   collections/onfido-resend-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-resend-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-resend-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-resend-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-restore-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-restore-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-restore-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-restore-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-results-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-results-api
@@ -196,53 +196,53 @@ artifacts:
     method: derived
     evidence: openapi/onfido-results-api
   collections/onfido-resume-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-resume-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-resume-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-resume-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-run-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-run-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-run-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-run-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-runs-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-runs-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-runs-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-runs-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-signatures-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-signatures-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-signatures-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-signatures-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-signed-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-signed-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-signed-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-signed-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-task-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-task-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-task-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-task-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-tasks-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-tasks-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-tasks-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-tasks-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-timeline-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-timeline-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-timeline-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-timeline-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-token-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-token-api
@@ -250,17 +250,17 @@ artifacts:
     method: derived
     evidence: openapi/onfido-token-api
   collections/onfido-video-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-video-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-video-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-video-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-videos-api.opencollection.json:
-    method: derived
-    evidence: openapi/onfido-videos-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-videos-api.postman_collection.json:
-    method: derived
-    evidence: openapi/onfido-videos-api
+    method: unknown
+    evidence: no authorship recorded
   collections/onfido-watchlist-api.opencollection.json:
     method: derived
     evidence: openapi/onfido-watchlist-api
@@ -282,55 +282,10 @@ artifacts:
   finops/onfido-finops.yml:
     method: generated
     evidence: declared in the artifact
-  kin/checks-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-06T210741.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-07T135032.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T093022.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T111628.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-11T211707.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-12T193225.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-17T064519.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T080027.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T082702.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T114122.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T165047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T191845.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T205517.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-21T110057.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-24T064859.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-24T171257.yml:
+  front-door-ai/2026-09-17.yml:
+    method: unknown
+    evidence: no authorship recorded
+  kin/checks-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-08-25T125852.yml:
@@ -417,9 +372,127 @@ artifacts:
   kin/score-2026-09-05T072335.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T144739.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T195450.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T211839.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T011047.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T211804.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T224210.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T200636.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T213054.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T214843.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T232836.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T204815.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T222408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T062655.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T080032.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T204651.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T221936.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-13T214537.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T064754.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T210656.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T225847.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T211329.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T230249.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T210549.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T225339.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T211151.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T233623.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-18T205255.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-18T231945.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-19T165737.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-19T193153.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-20T205903.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-20T232958.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-21T211425.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-21T233935.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-22T213221.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-23T000603.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T064009.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T090406.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T161608.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   openapi/_original/onfido-openapi.yml:
     method: harvested
-    evidence: fetched from the provider as-is; byte-identical to the source
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/onfido-addresses-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
@@ -429,70 +502,25 @@ artifacts:
   openapi/onfido-asyncapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/onfido-attempts-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-cancel-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-capture-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-captures-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/onfido-checks-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-complete-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/onfido-documents-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/onfido-download-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-downloads-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/onfido-electronic-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-evidence-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/onfido-extractions-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/onfido-feedback-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-files-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-frame-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/onfido-live-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-matches-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-monitors-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/onfido-motion-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/onfido-photo-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/onfido-photos-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-pick-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/onfido-pings-api-openapi.yml:
@@ -501,52 +529,13 @@ artifacts:
   openapi/onfido-repeat-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/onfido-report-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/onfido-reports-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-resend-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-restore-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/onfido-results-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/onfido-resume-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-run-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-runs-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-signatures-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-signed-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-task-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-tasks-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-timeline-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/onfido-token-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-video-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/onfido-videos-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/onfido-watchlist-api-openapi.yml:
