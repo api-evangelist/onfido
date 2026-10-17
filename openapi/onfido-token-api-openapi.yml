@@ -56,18 +56,11 @@ paths:
       - Token
 components:
   schemas:
-    Error:
+    sdk_token:
+      allOf:
+      - $ref: '#/components/schemas/sdk_token_response'
       example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
+        token: token
     sdk_token_response:
       properties:
         token:
@@ -75,22 +68,6 @@ components:
           type: string
       required:
       - token
-      type: object
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
       type: object
     sdk_token_builder:
       allOf:
@@ -113,11 +90,34 @@ components:
       required:
       - applicant_id
       type: object
-    sdk_token:
-      allOf:
-      - $ref: '#/components/schemas/sdk_token_response'
+    Error:
       example:
-        token: token
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
   securitySchemes:
     Token:
       in: header

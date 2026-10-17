@@ -69,6 +69,22 @@ components:
           $ref: '#/components/schemas/ErrorProperties'
       title: Error
       type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
     repeat_attempts_list:
       example:
         attempts_clear_rate: 0.6027456
@@ -116,22 +132,6 @@ components:
           type: integer
       required:
       - repeat_attempts
-      type: object
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
       type: object
     repeat_attempts_list_repeat_attempts_inner:
       example:

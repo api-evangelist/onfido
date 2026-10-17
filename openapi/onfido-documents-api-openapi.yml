@@ -164,26 +164,63 @@ paths:
       - Documents
 components:
   schemas:
-    Error:
+    Documents_list:
       example:
-        error:
+        documents:
+        - side: front
+          download_href: download_href
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          issuing_country: issuing_country
+          file_type: jpg
+          file_name: file_name
+          created_at: '2000-01-23T04:56:07.000Z'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
           type: type
-          message: message
-          fields:
-            key: ''
+          file_size: 0
+        - side: front
+          download_href: download_href
+          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          issuing_country: issuing_country
+          file_type: jpg
+          file_name: file_name
+          created_at: '2000-01-23T04:56:07.000Z'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          href: href
+          type: type
+          file_size: 0
       properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
-    document_uploader:
-      allOf:
-      - $ref: '#/components/schemas/document_shared'
-      - $ref: '#/components/schemas/document_request'
+        documents:
+          items:
+            $ref: '#/components/schemas/document'
+          type: array
       required:
-      - applicant_id
-      - file
-      - type
+      - documents
+      title: Documents list
+      type: object
+    document_request:
+      properties:
+        file:
+          description: The file to be uploaded.
+          format: binary
+          type: string
+        validate_image_quality:
+          description: Defaults to false. When true the submitted image will undergo an image quality validation which may take up to 5 seconds.
+          type: boolean
+        location:
+          $ref: '#/components/schemas/location_builder'
+      type: object
+    location_shared:
+      properties:
+        ip_address:
+          description: The applicant's ip address.
+          type: string
+        country_of_residence:
+          allOf:
+          - $ref: '#/components/schemas/country_codes'
+          description: The applicant's country of residence in 3-letter ISO code.
+          example: GBR
+      type: object
     document_types:
       enum:
       - passport
@@ -263,79 +300,6 @@ components:
       - exchange_house_statement
       - accommodation_tenancy_certificate
       type: string
-    document_request:
-      properties:
-        file:
-          description: The file to be uploaded.
-          format: binary
-          type: string
-        validate_image_quality:
-          description: Defaults to false. When true the submitted image will undergo an image quality validation which may take up to 5 seconds.
-          type: boolean
-        location:
-          $ref: '#/components/schemas/location_builder'
-      type: object
-    location_shared:
-      properties:
-        ip_address:
-          description: The applicant's ip address.
-          type: string
-        country_of_residence:
-          allOf:
-          - $ref: '#/components/schemas/country_codes'
-          description: The applicant's country of residence in 3-letter ISO code.
-          example: GBR
-      type: object
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
-      type: object
-    location_builder:
-      allOf:
-      - $ref: '#/components/schemas/location_shared'
-    document_shared:
-      properties:
-        file_type:
-          description: The file type of the uploaded file
-          enum:
-          - jpg
-          - jpeg
-          - png
-          - pdf
-          type: string
-        type:
-          allOf:
-          - $ref: '#/components/schemas/document_types'
-          description: The type of document
-          type: string
-        side:
-          description: The side of the document, if applicable. The possible values are front and back
-          enum:
-          - front
-          - back
-          type: string
-        issuing_country:
-          allOf:
-          - $ref: '#/components/schemas/country_codes'
-          description: The issuing country of the document, a 3-letter ISO code.
-          type: string
-        applicant_id:
-          description: The ID of the applicant whose document is being uploaded.
-          format: uuid
-          type: string
-      type: object
     document_response:
       properties:
         id:
@@ -361,6 +325,30 @@ components:
       required:
       - id
       type: object
+    document:
+      allOf:
+      - $ref: '#/components/schemas/document_shared'
+      - $ref: '#/components/schemas/document_response'
+      example:
+        side: front
+        download_href: download_href
+        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        issuing_country: issuing_country
+        file_type: jpg
+        file_name: file_name
+        created_at: '2000-01-23T04:56:07.000Z'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        href: href
+        type: type
+        file_size: 0
+    document_uploader:
+      allOf:
+      - $ref: '#/components/schemas/document_shared'
+      - $ref: '#/components/schemas/document_request'
+      required:
+      - applicant_id
+      - file
+      - type
     country_codes:
       enum:
       - ABW
@@ -614,56 +602,68 @@ components:
       - ZMB
       - ZWE
       type: string
-    Documents_list:
+    Error:
       example:
-        documents:
-        - side: front
-          download_href: download_href
-          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          issuing_country: issuing_country
-          file_type: jpg
-          file_name: file_name
-          created_at: '2000-01-23T04:56:07.000Z'
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          href: href
+        error:
           type: type
-          file_size: 0
-        - side: front
-          download_href: download_href
-          applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          issuing_country: issuing_country
-          file_type: jpg
-          file_name: file_name
-          created_at: '2000-01-23T04:56:07.000Z'
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          href: href
-          type: type
-          file_size: 0
+          message: message
+          fields:
+            key: ''
       properties:
-        documents:
-          items:
-            $ref: '#/components/schemas/document'
-          type: array
-      required:
-      - documents
-      title: Documents list
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
       type: object
-    document:
-      allOf:
-      - $ref: '#/components/schemas/document_shared'
-      - $ref: '#/components/schemas/document_response'
+    ErrorProperties:
       example:
-        side: front
-        download_href: download_href
-        applicant_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        issuing_country: issuing_country
-        file_type: jpg
-        file_name: file_name
-        created_at: '2000-01-23T04:56:07.000Z'
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        href: href
         type: type
-        file_size: 0
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    location_builder:
+      allOf:
+      - $ref: '#/components/schemas/location_shared'
+    document_shared:
+      properties:
+        file_type:
+          description: The file type of the uploaded file
+          enum:
+          - jpg
+          - jpeg
+          - png
+          - pdf
+          type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/document_types'
+          description: The type of document
+          type: string
+        side:
+          description: The side of the document, if applicable. The possible values are front and back
+          enum:
+          - front
+          - back
+          type: string
+        issuing_country:
+          allOf:
+          - $ref: '#/components/schemas/country_codes'
+          description: The issuing country of the document, a 3-letter ISO code.
+          type: string
+        applicant_id:
+          description: The ID of the applicant whose document is being uploaded.
+          format: uuid
+          type: string
+      type: object
   securitySchemes:
     Token:
       in: header

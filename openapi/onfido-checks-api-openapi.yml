@@ -160,51 +160,6 @@ paths:
       - Checks
 components:
   schemas:
-    Error:
-      example:
-        error:
-          type: type
-          message: message
-          fields:
-            key: ''
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorProperties'
-      title: Error
-      type: object
-    us_driving_licence_builder:
-      allOf:
-      - $ref: '#/components/schemas/us_driving_licence_shared'
-    check_status:
-      description: The current state of the check in the checking process.
-      enum:
-      - in_progress
-      - awaiting_applicant
-      - complete
-      - withdrawn
-      - paused
-      - reopened
-      type: string
-    ErrorProperties:
-      example:
-        type: type
-        message: message
-        fields:
-          key: ''
-      properties:
-        type:
-          type: string
-        message:
-          type: string
-        fields:
-          additionalProperties: true
-          type: object
-      title: ErrorProperties
-      type: object
-    check_builder:
-      allOf:
-      - $ref: '#/components/schemas/check_shared'
-      - $ref: '#/components/schemas/check_request'
     check:
       allOf:
       - $ref: '#/components/schemas/check_shared'
@@ -233,30 +188,57 @@ components:
         href: href
         applicant_provides_data: true
         status: status
-    report_name:
+    check_status:
+      description: The current state of the check in the checking process.
       enum:
-      - document
-      - document_video
-      - document_video_with_address_information
-      - document_with_address_information
-      - document_with_driving_licence_information
-      - document_with_driver_verification
-      - facial_similarity_photo
-      - facial_similarity_photo_fully_auto
-      - facial_similarity_video
-      - facial_similarity_motion
-      - known_faces
-      - identity_enhanced
-      - watchlist_aml
-      - watchlist_enhanced
-      - watchlist_standard
-      - watchlist_peps_only
-      - watchlist_sanctions_only
-      - proof_of_address
-      - us_driving_licence
-      - device_intelligence
-      - india_pan
+      - in_progress
+      - awaiting_applicant
+      - complete
+      - withdrawn
+      - paused
+      - reopened
       type: string
+    check_request:
+      properties:
+        report_names:
+          description: An array of report names (strings).
+          items:
+            $ref: '#/components/schemas/report_name'
+          type: array
+        document_ids:
+          description: Optional. An array of document ids, for use with Document reports only. If omitted, the Document report will use the most recently uploaded document by default.
+          items:
+            format: uuid
+            type: string
+          type: array
+        applicant_provides_data:
+          default: false
+          description: Send an applicant form to applicant to complete to proceed with check. Defaults to false.
+          type: boolean
+        asynchronous:
+          default: true
+          description: 'Defaults to `true`. If set to `false`, you will only receive a response when all reports in your check have completed.
+
+            '
+          type: boolean
+        suppress_form_emails:
+          description: 'For checks where `applicant_provides_data` is `true`, applicant form will not be automatically sent if `suppress_form_emails` is set to `true`. You can manually send the form at any time after the check has been created, using the link found in the form_uri attribute of the check object. Write-only. Defaults to false.
+
+            '
+          type: boolean
+        sub_result:
+          description: Triggers responses for particular sub-results for sandbox Document reports.
+          type: string
+        consider:
+          description: Array of names of particular reports to return consider as their results. This is a feature available in sandbox testing
+          items:
+            $ref: '#/components/schemas/report_name'
+          type: array
+        us_driving_licence:
+          $ref: '#/components/schemas/us_driving_licence_builder'
+      required:
+      - report_names
+      type: object
     Checks_list:
       example:
         checks:
@@ -315,50 +297,9 @@ components:
       - checks
       title: Checks list
       type: object
-    check_response:
-      properties:
-        id:
-          description: The unique identifier for the check.
-          format: uuid
-          type: string
-        created_at:
-          description: The date and time when this check was created.
-          format: date-time
-          type: string
-        href:
-          description: The uri of this resource.
-          type: string
-        status:
-          $ref: '#/components/schemas/check_status'
-        result:
-          description: The overall result of the check, based on the results of the constituent reports.
-          enum:
-          - clear
-          - consider
-          type: string
-        form_uri:
-          description: A link to the applicant form, if `applicant_provides_data` is `true`.
-          type: string
-        results_uri:
-          description: A link to the corresponding results page on the Onfido dashboard.
-          type: string
-        report_ids:
-          description: An array of report ids.
-          items:
-            format: uuid
-            type: string
-          type: array
-        sandbox:
-          description: Indicates whether the object was created in the sandbox or not.
-          type: boolean
-        paused:
-          type: boolean
-        version:
-          example: '3.6'
-          type: string
-      required:
-      - id
-      type: object
+    us_driving_licence_builder:
+      allOf:
+      - $ref: '#/components/schemas/us_driving_licence_shared'
     us_driving_licence_shared:
       description: An object that contains all accepted fields for the Driver's License Data Verification report.
       properties:
@@ -443,6 +384,78 @@ components:
       - id_number
       - issue_state
       type: object
+    Error:
+      example:
+        error:
+          type: type
+          message: message
+          fields:
+            key: ''
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorProperties'
+      title: Error
+      type: object
+    ErrorProperties:
+      example:
+        type: type
+        message: message
+        fields:
+          key: ''
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        fields:
+          additionalProperties: true
+          type: object
+      title: ErrorProperties
+      type: object
+    check_response:
+      properties:
+        id:
+          description: The unique identifier for the check.
+          format: uuid
+          type: string
+        created_at:
+          description: The date and time when this check was created.
+          format: date-time
+          type: string
+        href:
+          description: The uri of this resource.
+          type: string
+        status:
+          $ref: '#/components/schemas/check_status'
+        result:
+          description: The overall result of the check, based on the results of the constituent reports.
+          enum:
+          - clear
+          - consider
+          type: string
+        form_uri:
+          description: A link to the applicant form, if `applicant_provides_data` is `true`.
+          type: string
+        results_uri:
+          description: A link to the corresponding results page on the Onfido dashboard.
+          type: string
+        report_ids:
+          description: An array of report ids.
+          items:
+            format: uuid
+            type: string
+          type: array
+        sandbox:
+          description: Indicates whether the object was created in the sandbox or not.
+          type: boolean
+        paused:
+          type: boolean
+        version:
+          example: '3.6'
+          type: string
+      required:
+      - id
+      type: object
     check_shared:
       properties:
         webhook_ids:
@@ -472,47 +485,34 @@ components:
       required:
       - applicant_id
       type: object
-    check_request:
-      properties:
-        report_names:
-          description: An array of report names (strings).
-          items:
-            $ref: '#/components/schemas/report_name'
-          type: array
-        document_ids:
-          description: Optional. An array of document ids, for use with Document reports only. If omitted, the Document report will use the most recently uploaded document by default.
-          items:
-            format: uuid
-            type: string
-          type: array
-        applicant_provides_data:
-          default: false
-          description: Send an applicant form to applicant to complete to proceed with check. Defaults to false.
-          type: boolean
-        asynchronous:
-          default: true
-          description: 'Defaults to `true`. If set to `false`, you will only receive a response when all reports in your check have completed.
-
-            '
-          type: boolean
-        suppress_form_emails:
-          description: 'For checks where `applicant_provides_data` is `true`, applicant form will not be automatically sent if `suppress_form_emails` is set to `true`. You can manually send the form at any time after the check has been created, using the link found in the form_uri attribute of the check object. Write-only. Defaults to false.
-
-            '
-          type: boolean
-        sub_result:
-          description: Triggers responses for particular sub-results for sandbox Document reports.
-          type: string
-        consider:
-          description: Array of names of particular reports to return consider as their results. This is a feature available in sandbox testing
-          items:
-            $ref: '#/components/schemas/report_name'
-          type: array
-        us_driving_licence:
-          $ref: '#/components/schemas/us_driving_licence_builder'
-      required:
-      - report_names
-      type: object
+    check_builder:
+      allOf:
+      - $ref: '#/components/schemas/check_shared'
+      - $ref: '#/components/schemas/check_request'
+    report_name:
+      enum:
+      - document
+      - document_video
+      - document_video_with_address_information
+      - document_with_address_information
+      - document_with_driving_licence_information
+      - document_with_driver_verification
+      - facial_similarity_photo
+      - facial_similarity_photo_fully_auto
+      - facial_similarity_video
+      - facial_similarity_motion
+      - known_faces
+      - identity_enhanced
+      - watchlist_aml
+      - watchlist_enhanced
+      - watchlist_standard
+      - watchlist_peps_only
+      - watchlist_sanctions_only
+      - proof_of_address
+      - us_driving_licence
+      - device_intelligence
+      - india_pan
+      type: string
   securitySchemes:
     Token:
       in: header
