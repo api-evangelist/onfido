@@ -3,6 +3,7 @@ provider: Onfido
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
+- Public Sector & Government
 - Software & Technology
 min_confidence: 0.7
 capability_model:
@@ -11,8 +12,19 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 3
+edge_count: 4
 edges:
+- tag: Checks
+  spec_file: onfido-checks-api-openapi.yml
+  capability_id: BC-3220.20
+  capability_id_l1: BC-3220
+  capability_name: Citizen Identity & Authentication
+  confidence: 0.75
+  evidence: '''Create a check'', ''Resume a Check'', schemas ''check_status'', ''report_name'', ''us_driving_licence_builder'''
+  reason: Checks are the core identity verification runs (document and driving-licence reports) that establish
+    and verify a person's identity and assurance level — the Citizen Identity & Authentication capability
+    when consumed by a government service. Some residual ambiguity as the verification could also serve
+    KYC/AML onboarding outside the public-sector frame.
 - tag: Monitors
   spec_file: onfido-monitors-api-openapi.yml
   capability_id: BC-130.10
