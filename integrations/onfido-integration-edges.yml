@@ -142,6 +142,25 @@ edges:
     identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
   detected_by: sweep-cloud-security-star.py
   first_seen: '2026-10-20'
+- partner_name: Google Play Developer (Google Play SDK Index)
+  partner: google-play
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: Google Play SDK Index
+  evidence: https://play.google.com/sdks/details/com-onfido-sdk-capture-onfido-capture-sdk
+  mirror_of: google-play/integrations/google-play-integration-edges.yml
+  apps:
+  - Onfido Smart Capture SDK
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: mobile SDK (user-authentication)
+  publisher_verified:
+  - Registered in Google Play SDK Console
 generated: '2026-10-15'
 method: searched
 source:
@@ -160,3 +179,4 @@ checked:
 - https://cloudsecurityalliance.org/membership/current
 - https://fidoalliance.org/certification/fido-certified-products/
 - https://www.cisa.gov/securebydesign/pledge/secure-design-pledge-signers
+- google-play/integrations/google-play-integration-edges.yml
